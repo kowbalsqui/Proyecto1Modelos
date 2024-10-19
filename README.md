@@ -143,3 +143,6 @@ PARAMETROS:
 - decimal_places : Define un numero de caracteres maximos para los decimales despues del punto o coma
 - choices : Define un conjunto de opciones predefinidas para un campo el cual podremos elejir
 - related_name : Especifica erl nombre de un campo inverso para acceder a una relacion desde el otro lado.
+- required : Especifica el campo que si o si es requerido.
+- blank : Especifica si el campo se puede dejar en blanco o no. 
+- null : Especifica si el campo puede llegar a ser null o no.

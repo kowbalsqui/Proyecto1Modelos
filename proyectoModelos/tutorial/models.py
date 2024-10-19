@@ -1,7 +1,7 @@
 from django.db import models
 
 class Usuario(models.Model):
-    nombre = models.CharField(max_length=30)
+    nombre = models.CharField(max_length=30, required = True)
     email = models.EmailField(max_length=50)
     fecha_Registro = models.DateField(auto_now=True)
     es_activo = models.BooleanField(default=False)
@@ -60,7 +60,7 @@ class Favorito(models.Model):
 class Curso(models.Model):
     nombre = models.CharField(max_length=50)
     descripcion = models.TextField(max_length=300)
-    horas = models.IntegerField()
+    horas = models.IntegerField(null = False, blank= False)
     precio = models.DecimalField(max_digits=5, decimal_places=2)
     usuario = models.ManyToManyField(Usuario, related_name="usuarios_del_curso")
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="Tutoriales_cursos")
@@ -68,7 +68,7 @@ class Curso(models.Model):
 class Certificado(models.Model):
     fecha_emision = models.DateField(auto_now=True)
     codigo_verificacion = models.CharField(max_length=50)
-    nivel = models.IntegerField()
+    nivel = models.IntegerField(null= False, blank= False)
     url_descarga = models.CharField(max_length=50)
     curso = models.OneToOneField(Curso, on_delete=models.CASCADE, related_name="certificado_Curso")
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="Certificado_Usuarios")

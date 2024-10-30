@@ -1,4 +1,9 @@
 # Proyecto1Modelos
+Resumen del proyecto:
+
+El proyecto consiste en una página web la cual sube tutoriales sobre informática y ayuda a los usuarios a ampliar sus conocimientos de bakend, fronted y fullStack con muchas herramientas de aprendizajes y cursos llenos de tutoriales.
+
+------------------------------
 1 MODELOS: 
 
 En total tenemos 10 modelos: 

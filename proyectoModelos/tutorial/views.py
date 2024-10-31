@@ -16,7 +16,7 @@ def listar_tutoriales (request):
     ).order_by('fecha_Creacion').all()
     return render(request, 'Tutorial/listaTutorial.html', {"tutoriales_mostrar": tutorial})
 
-#URL que muestra todos los Usuarios
+#URL que muestra todos los Usuarios y sus datos relacionados
 def listar_usuarios (request):
     usuario = Usuario.objects.select_related(
         "perfiles_Usuarios",
@@ -28,4 +28,18 @@ def listar_usuarios (request):
     ).all()
     return render(request, 'Usuario/listaUsuario.html', {"usuaios_mostrar": usuario})
 
-#URL que muestra todos los usuarios con certificados de los cursos
+#URL que muetra los certificados de un usuario el cual es un id que le entra a la query
+
+def muestra_certificado_usuario_igual_id (request, id_usuario):
+    certificado = Certificado.objects.select_related(
+        "usuario",
+        "curso"
+    ).filter(usuario__id=id_usuario).first()
+    #EL METODO FIRST ES UN METODO EL CUAL TE DEVUELVE EL PRIMER OBJETO QUE OBTENGA DE LA QUERY Y LAS PROPIEDADES QUE TENGAS EN EL HTML
+    return render(request, 'Certificado/muestra_certificado_igual_idUser.html', {"certificado": certificado})
+
+#URL que dando una palaba te muestre los comentarios de todos los cursos que contienen esa palabra
+
+def muestra_comentario_equals_palabra (request, palabra):
+    comentario = Comentario.objects.select_related("usuario").filter(contenido__contains = palabra).all()
+    return render(request, 'Comentarios/comentarios_equals_palabra.html', {'comentario_mostrar': comentario})

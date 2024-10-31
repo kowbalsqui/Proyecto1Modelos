@@ -1,0 +1,820 @@
+
+    [
+        {
+            "model": "tutorial.usuario",
+            "pk": 1,
+            "fields": {
+                "nombre": "Juan Pérez",
+                "email": "juan.perez@example.com",
+                "fecha_Registro": "2023-01-15",
+                "es_activo": true,
+                "puntuacion": "4.5"
+            }
+        },
+        {
+            "model": "tutorial.usuario",
+            "pk": 2,
+            "fields": {
+                "nombre": "Ana García",
+                "email": "ana.garcia@example.com",
+                "fecha_Registro": "2023-02-20",
+                "es_activo": true,
+                "puntuacion": "4.7"
+            }
+        },
+        {
+            "model": "tutorial.usuario",
+            "pk": 3,
+            "fields": {
+                "nombre": "Luis Fernández",
+                "email": "luis.fernandez@example.com",
+                "fecha_Registro": "2023-03-10",
+                "es_activo": true,
+                "puntuacion": "4.3"
+            }
+        },
+        {
+            "model": "tutorial.usuario",
+            "pk": 4,
+            "fields": {
+                "nombre": "Maria Lopez",
+                "email": "maria.lopez@example.com",
+                "fecha_Registro": "2023-04-12",
+                "es_activo": true,
+                "puntuacion": "4.8"
+            }
+        },
+        {
+            "model": "tutorial.usuario",
+            "pk": 5,
+            "fields": {
+                "nombre": "Pedro Martínez",
+                "email": "pedro.martinez@example.com",
+                "fecha_Registro": "2023-05-05",
+                "es_activo": true,
+                "puntuacion": "4.6"
+            }
+        },
+        {
+            "model": "tutorial.usuario",
+            "pk": 6,
+            "fields": {
+                "nombre": "Lucía Romero",
+                "email": "lucia.romero@example.com",
+                "fecha_Registro": "2023-06-18",
+                "es_activo": true,
+                "puntuacion": "4.2"
+            }
+        },
+        {
+            "model": "tutorial.usuario",
+            "pk": 7,
+            "fields": {
+                "nombre": "Carlos Torres",
+                "email": "carlos.torres@example.com",
+                "fecha_Registro": "2023-07-22",
+                "es_activo": true,
+                "puntuacion": "4.9"
+            }
+        },
+        {
+            "model": "tutorial.perfil",
+            "pk": 1,
+            "fields": {
+                "bio": "Desarrollador web apasionado por la tecnología.",
+                "fecha_Nacimiento": "1990-06-15",
+                "redes": "IG",
+                "estudios": "Ingeniería de Sistemas",
+                "usuario": 1
+            }
+        },
+        {
+            "model": "tutorial.perfil",
+            "pk": 2,
+            "fields": {
+                "bio": "Diseñadora gráfica con amor por la creatividad.",
+                "fecha_Nacimiento": "1995-04-20",
+                "redes": "FB",
+                "estudios": "Diseño Gráfico",
+                "usuario": 2
+            }
+        },
+        {
+            "model": "tutorial.perfil",
+            "pk": 3,
+            "fields": {
+                "bio": "Estudiante de IA y Machine Learning.",
+                "fecha_Nacimiento": "1993-12-12",
+                "redes": "TW",
+                "estudios": "Ciencias de la Computación",
+                "usuario": 3
+            }
+        },
+        {
+            "model": "tutorial.perfil",
+            "pk": 4,
+            "fields": {
+                "bio": "Marketing digital y SEO.",
+                "fecha_Nacimiento": "1988-09-03",
+                "redes": "LI",
+                "estudios": "Marketing",
+                "usuario": 4
+            }
+        },
+        {
+            "model": "tutorial.perfil",
+            "pk": 5,
+            "fields": {
+                "bio": "Apasionado del desarrollo frontend.",
+                "fecha_Nacimiento": "1992-01-11",
+                "redes": "IG",
+                "estudios": "Ingeniería Informática",
+                "usuario": 5
+            }
+        },
+        {
+            "model": "tutorial.perfil",
+            "pk": 6,
+            "fields": {
+                "bio": "Me encanta el diseño de experiencia de usuario.",
+                "fecha_Nacimiento": "1996-03-25",
+                "redes": "FB",
+                "estudios": "Diseño UX/UI",
+                "usuario": 6
+            }
+        },
+        {
+            "model": "tutorial.perfil",
+            "pk": 7,
+            "fields": {
+                "bio": "Estudiante de desarrollo de software.",
+                "fecha_Nacimiento": "1994-08-15",
+                "redes": "TW",
+                "estudios": "Ingeniería de Software",
+                "usuario": 7
+            }
+        },
+        {
+            "model": "tutorial.tutorial",
+            "pk": 1,
+            "fields": {
+                "titulo": "Introducción a Python",
+                "contenido": "Aprende los fundamentos de Python.",
+                "fecha_Creacion": "2023-01-10T10:00:00",
+                "visitas": 150,
+                "valoracion": "4.5",
+                "usuario": 1
+            }
+        },
+        {
+            "model": "tutorial.tutorial",
+            "pk": 2,
+            "fields": {
+                "titulo": "Desarrollo Web con Django",
+                "contenido": "Construye aplicaciones web usando Django.",
+                "fecha_Creacion": "2023-02-15T11:00:00",
+                "visitas": 200,
+                "valoracion": "4.7",
+                "usuario": 2
+            }
+        },
+        {
+            "model": "tutorial.tutorial",
+            "pk": 3,
+            "fields": {
+                "titulo": "JavaScript para Principiantes",
+                "contenido": "Aprende JavaScript desde cero.",
+                "fecha_Creacion": "2023-03-01T09:00:00",
+                "visitas": 180,
+                "valoracion": "4.6",
+                "usuario": 3
+            }
+        },
+        {
+            "model": "tutorial.tutorial",
+            "pk": 4,
+            "fields": {
+                "titulo": "Diseño Gráfico con Figma",
+                "contenido": "Crea diseños increíbles con Figma.",
+                "fecha_Creacion": "2023-03-15T14:30:00",
+                "visitas": 220,
+                "valoracion": "4.8",
+                "usuario": 4
+            }
+        },
+        {
+            "model": "tutorial.tutorial",
+            "pk": 5,
+            "fields": {
+                "titulo": "Marketing Digital 101",
+                "contenido": "Estrategias básicas de marketing online.",
+                "fecha_Creacion": "2023-04-10T15:45:00",
+                "visitas": 170,
+                "valoracion": "4.9",
+                "usuario": 5
+            }
+        },
+        {
+            "model": "tutorial.tutorial",
+            "pk": 6,
+            "fields": {
+                "titulo": "Introducción a la Inteligencia Artificial",
+                "contenido": "Conceptos básicos de IA y sus aplicaciones.",
+                "fecha_Creacion": "2023-04-20T13:00:00",
+                "visitas": 90,
+                "valoracion": "4.6",
+                "usuario": 6
+            }
+        },
+        {
+            "model": "tutorial.tutorial",
+            "pk": 7,
+            "fields": {
+                "titulo": "Curso de React",
+                "contenido": "Desarrolla aplicaciones con React.",
+                "fecha_Creacion": "2023-05-05T12:00:00",
+                "visitas": 230,
+                "valoracion": "4.8",
+                "usuario": 7
+            }
+        },
+        {
+            "model": "tutorial.categoria",
+            "pk": 1,
+            "fields": {
+                "nombre": "Desarrollo Web",
+                "es_activa": true,
+                "popularidad": "4.8",
+                "descripcion": "Cursos de desarrollo web."
+            }
+        },
+        {
+            "model": "tutorial.categoria",
+            "pk": 2,
+            "fields": {
+                "nombre": "Diseño",
+                "es_activa": true,
+                "popularidad": "4.5",
+                "descripcion": "Cursos sobre diseño gráfico."
+            }
+        },
+        {
+            "model": "tutorial.categoria",
+            "pk": 3,
+            "fields": {
+                "nombre": "Marketing",
+                "es_activa": true,
+                "popularidad": "4.7",
+                "descripcion": "Cursos sobre marketing digital."
+            }
+        },
+        {
+            "model": "tutorial.categoria",
+            "pk": 4,
+            "fields": {
+                "nombre": "Inteligencia Artificial",
+                "es_activa": true,
+                "popularidad": "4.9",
+                "descripcion": "Cursos sobre IA y Machine Learning."
+            }
+        },
+        {
+            "model": "tutorial.categoria",
+            "pk": 5,
+            "fields": {
+                "nombre": "Programación",
+                "es_activa": true,
+                "popularidad": "4.6",
+                "descripcion": "Cursos de programación en varios lenguajes."
+            }
+        },
+        {
+            "model": "tutorial.categoria",
+            "pk": 6,
+            "fields": {
+                "nombre": "Creatividad",
+                "es_activa": true,
+                "popularidad": "4.7",
+                "descripcion": "Cursos de creatividad y pensamiento crítico."
+            }
+        },
+        {
+            "model": "tutorial.categoria",
+            "pk": 7,
+            "fields": {
+                "nombre": "Desarrollo Móvil",
+                "es_activa": true,
+                "popularidad": "4.8",
+                "descripcion": "Cursos sobre desarrollo de aplicaciones móviles."
+            }
+        },
+        {
+            "model": "tutorial.subcategoria",
+            "pk": 1,
+            "fields": {
+                "nombre": "Frontend",
+                "descripcion": "Cursos de desarrollo frontend.",
+                "fecha_Creacion": "2023-01-10T10:00:00",
+                "activa": true,
+                "categoria": 1
+            }
+        },
+        {
+            "model": "tutorial.subcategoria",
+            "pk": 2,
+            "fields": {
+                "nombre": "Backend",
+                "descripcion": "Cursos de desarrollo backend.",
+                "fecha_Creacion": "2023-01-15T10:00:00",
+                "activa": true,
+                "categoria": 1
+            }
+        },
+        {
+            "model": "tutorial.subcategoria",
+            "pk": 3,
+            "fields": {
+                "nombre": "UI/UX",
+                "descripcion": "Cursos de diseño de interfaces y experiencia de usuario.",
+                "fecha_Creacion": "2023-01-20T10:00:00",
+                "activa": true,
+                "categoria": 2
+            }
+        },
+        {
+            "model": "tutorial.subcategoria",
+            "pk": 4,
+            "fields": {
+                "nombre": "SEO",
+                "descripcion": "Cursos sobre optimización en buscadores.",
+                "fecha_Creacion": "2023-01-25T10:00:00",
+                "activa": true,
+                "categoria": 3
+            }
+        },
+        {
+            "model": "tutorial.subcategoria",
+            "pk": 5,
+            "fields": {
+                "nombre": "Machine Learning",
+                "descripcion": "Cursos sobre aprendizaje automático.",
+                "fecha_Creacion": "2023-02-01T10:00:00",
+                "activa": true,
+                "categoria": 4
+            }
+        },
+        {
+            "model": "tutorial.subcategoria",
+            "pk": 6,
+            "fields": {
+                "nombre": "Creatividad Digital",
+                "descripcion": "Cursos para potenciar la creatividad en el entorno digital.",
+                "fecha_Creacion": "2023-02-05T10:00:00",
+                "activa": true,
+                "categoria": 6
+            }
+        },
+        {
+            "model": "tutorial.subcategoria",
+            "pk": 7,
+            "fields": {
+                "nombre": "Desarrollo Móvil",
+                "descripcion": "Cursos sobre desarrollo de aplicaciones móviles.",
+                "fecha_Creacion": "2023-02-10T10:00:00",
+                "activa": true,
+                "categoria": 7
+            }
+        },
+        {
+            "model": "tutorial.etiqueta",
+            "pk": 1,
+            "fields": {
+                "nombre": "Python",
+                "color": "blue",
+                "publica": true,
+                "descripcion": "Etiquetas relacionadas con Python."
+            }
+        },
+        {
+            "model": "tutorial.etiqueta",
+            "pk": 2,
+            "fields": {
+                "nombre": "Django",
+                "color": "green",
+                "publica": true,
+                "descripcion": "Etiquetas relacionadas con Django."
+            }
+        },
+        {
+            "model": "tutorial.etiqueta",
+            "pk": 3,
+            "fields": {
+                "nombre": "JavaScript",
+                "color": "yellow",
+                "publica": true,
+                "descripcion": "Etiquetas relacionadas con JavaScript."
+            }
+        },
+        {
+            "model": "tutorial.etiqueta",
+            "pk": 4,
+            "fields": {
+                "nombre": "Diseño Gráfico",
+                "color": "red",
+                "publica": true,
+                "descripcion": "Etiquetas relacionadas con diseño gráfico."
+            }
+        },
+        {
+            "model": "tutorial.etiqueta",
+            "pk": 5,
+            "fields": {
+                "nombre": "Marketing Digital",
+                "color": "purple",
+                "publica": true,
+                "descripcion": "Etiquetas relacionadas con marketing digital."
+            }
+        },
+        {
+            "model": "tutorial.etiqueta",
+            "pk": 6,
+            "fields": {
+                "nombre": "Inteligencia Artificial",
+                "color": "orange",
+                "publica": true,
+                "descripcion": "Etiquetas relacionadas con IA."
+            }
+        },
+        {
+            "model": "tutorial.etiqueta",
+            "pk": 7,
+            "fields": {
+                "nombre": "Creatividad",
+                "color": "pink",
+                "publica": true,
+                "descripcion": "Etiquetas relacionadas con creatividad."
+            }
+        },
+        {
+            "model": "tutorial.certificado",
+            "pk": 1,
+            "fields": {
+                "fecha_emision": "2023-06-01",
+                "codigo_verificacion": "CERT123456",
+                "nivel": 1,
+                "url_descarga": "http://example.com/certificado1.pdf",
+                "curso": 1,
+                "usuario": 1
+            }
+        },
+        {
+            "model": "tutorial.certificado",
+            "pk": 2,
+            "fields": {
+                "fecha_emision": "2023-06-02",
+                "codigo_verificacion": "CERT123457",
+                "nivel": 2,
+                "url_descarga": "http://example.com/certificado2.pdf",
+                "curso": 2,
+                "usuario": 2
+            }
+        },
+        {
+            "model": "tutorial.certificado",
+            "pk": 3,
+            "fields": {
+                "fecha_emision": "2023-06-03",
+                "codigo_verificacion": "CERT123458",
+                "nivel": 1,
+                "url_descarga": "http://example.com/certificado3.pdf",
+                "curso": 3,
+                "usuario": 3
+            }
+        },
+        {
+            "model": "tutorial.certificado",
+            "pk": 4,
+            "fields": {
+                "fecha_emision": "2023-06-04",
+                "codigo_verificacion": "CERT123459",
+                "nivel": 2,
+                "url_descarga": "http://example.com/certificado4.pdf",
+                "curso": 4,
+                "usuario": 4
+            }
+        },
+        {
+            "model": "tutorial.certificado",
+            "pk": 5,
+            "fields": {
+                "fecha_emision": "2023-06-05",
+                "codigo_verificacion": "CERT123460",
+                "nivel": 1,
+                "url_descarga": "http://example.com/certificado5.pdf",
+                "curso": 5,
+                "usuario": 5
+            }
+        },
+        {
+            "model": "tutorial.certificado",
+            "pk": 6,
+            "fields": {
+                "fecha_emision": "2023-06-06",
+                "codigo_verificacion": "CERT123461",
+                "nivel": 2,
+                "url_descarga": "http://example.com/certificado6.pdf",
+                "curso": 6,
+                "usuario": 6
+            }
+        },
+        {
+            "model": "tutorial.certificado",
+            "pk": 7,
+            "fields": {
+                "fecha_emision": "2023-06-07",
+                "codigo_verificacion": "CERT123462",
+                "nivel": 3,
+                "url_descarga": "http://example.com/certificado7.pdf",
+                "curso": 7,
+                "usuario": 7
+            }
+        },
+        {
+            "model": "tutorial.comentario",
+            "pk": 1,
+            "fields": {
+                "contenido": "Excelente curso, aprendí mucho!",
+                "fecha": "2023-01-16T10:00:00",
+                "visible": true,
+                "puntuacion": "5.0",
+                "usuario": 1
+            }
+        },
+        {
+            "model": "tutorial.comentario",
+            "pk": 2,
+            "fields": {
+                "contenido": "Muy útil y bien explicado.",
+                "fecha": "2023-02-18T12:00:00",
+                "visible": true,
+                "puntuacion": "4.0",
+                "usuario": 2
+            }
+        },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 1,
+    "fields": {
+        "id_etiqueta": 1,
+        "id_tutorial": 5
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 2,
+    "fields": {
+        "id_etiqueta": 2,
+        "id_tutorial": 6
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 3,
+    "fields": {
+        "id_etiqueta": 3,
+        "id_tutorial": 4
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 4,
+    "fields": {
+        "id_etiqueta": 4,
+        "id_tutorial": 4
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 5,
+    "fields": {
+        "id_etiqueta": 4,
+        "id_tutorial": 2
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 6,
+    "fields": {
+        "id_etiqueta": 5,
+        "id_tutorial": 5
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 7,
+    "fields": {
+        "id_etiqueta": 5,
+        "id_tutorial": 7
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 8,
+    "fields": {
+        "id_etiqueta": 6,
+        "id_tutorial": 2
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 9,
+    "fields": {
+        "id_etiqueta": 7,
+        "id_tutorial": 1
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 10,
+    "fields": {
+        "id_etiqueta": 4,
+        "id_tutorial": 6
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 11,
+    "fields": {
+        "id_etiqueta": 5,
+        "id_tutorial": 4
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 12,
+    "fields": {
+        "id_etiqueta": 3,
+        "id_tutorial": 7
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 13,
+    "fields": {
+        "id_etiqueta": 6,
+        "id_tutorial": 4
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 14,
+    "fields": {
+        "id_etiqueta": 2,
+        "id_tutorial": 4
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 15,
+    "fields": {
+        "id_etiqueta": 2,
+        "id_tutorial": 7
+    }
+    },
+    {
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 16,
+    "fields": {
+        "id_etiqueta": 2,
+        "id_tutorial": 1
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 1,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 1
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 2,
+    "fields": {
+        "id_usuario": 3,
+        "id_favorito": 1
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 3,
+    "fields": {
+        "id_usuario": 1,
+        "id_favorito": 2
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 4,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 3
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 5,
+    "fields": {
+        "id_usuario": 2,
+        "id_favorito": 4
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 6,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 4
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 7,
+    "fields": {
+        "id_usuario": 2,
+        "id_favorito": 5
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 8,
+    "fields": {
+        "id_usuario": 7,
+        "id_favorito": 6
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 9,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 7
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 10,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 5
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 11,
+    "fields": {
+        "id_usuario": 3,
+        "id_favorito": 6
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 12,
+    "fields": {
+        "id_usuario": 5,
+        "id_favorito": 1
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 13,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 5
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 14,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 7
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 15,
+    "fields": {
+        "id_usuario": 2,
+        "id_favorito": 7
+    }
+    },
+    {
+    "model": "tutorial.favorito_usuario",
+    "pk": 16,
+    "fields": {
+        "id_usuario": 2,
+        "id_favorito": 6
+    }
+    }
+]

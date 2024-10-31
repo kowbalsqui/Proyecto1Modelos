@@ -1,0 +1,1558 @@
+[
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add usuario",
+        "content_type": 7,
+        "codename": "add_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change usuario",
+        "content_type": 7,
+        "codename": "change_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete usuario",
+        "content_type": 7,
+        "codename": "delete_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view usuario",
+        "content_type": 7,
+        "codename": "view_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add perfil",
+        "content_type": 8,
+        "codename": "add_perfil"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change perfil",
+        "content_type": 8,
+        "codename": "change_perfil"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete perfil",
+        "content_type": 8,
+        "codename": "delete_perfil"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view perfil",
+        "content_type": 8,
+        "codename": "view_perfil"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add tutorial",
+        "content_type": 9,
+        "codename": "add_tutorial"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change tutorial",
+        "content_type": 9,
+        "codename": "change_tutorial"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete tutorial",
+        "content_type": 9,
+        "codename": "delete_tutorial"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view tutorial",
+        "content_type": 9,
+        "codename": "view_tutorial"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add categoria",
+        "content_type": 10,
+        "codename": "add_categoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change categoria",
+        "content_type": 10,
+        "codename": "change_categoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete categoria",
+        "content_type": 10,
+        "codename": "delete_categoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view categoria",
+        "content_type": 10,
+        "codename": "view_categoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add sub categoria",
+        "content_type": 11,
+        "codename": "add_subcategoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change sub categoria",
+        "content_type": 11,
+        "codename": "change_subcategoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete sub categoria",
+        "content_type": 11,
+        "codename": "delete_subcategoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view sub categoria",
+        "content_type": 11,
+        "codename": "view_subcategoria"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add etiqueta",
+        "content_type": 12,
+        "codename": "add_etiqueta"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change etiqueta",
+        "content_type": 12,
+        "codename": "change_etiqueta"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete etiqueta",
+        "content_type": 12,
+        "codename": "delete_etiqueta"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view etiqueta",
+        "content_type": 12,
+        "codename": "view_etiqueta"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add favorito",
+        "content_type": 13,
+        "codename": "add_favorito"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change favorito",
+        "content_type": 13,
+        "codename": "change_favorito"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete favorito",
+        "content_type": 13,
+        "codename": "delete_favorito"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view favorito",
+        "content_type": 13,
+        "codename": "view_favorito"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add curso",
+        "content_type": 14,
+        "codename": "add_curso"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change curso",
+        "content_type": 14,
+        "codename": "change_curso"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete curso",
+        "content_type": 14,
+        "codename": "delete_curso"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view curso",
+        "content_type": 14,
+        "codename": "view_curso"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add certificado",
+        "content_type": 15,
+        "codename": "add_certificado"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change certificado",
+        "content_type": 15,
+        "codename": "change_certificado"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete certificado",
+        "content_type": 15,
+        "codename": "delete_certificado"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view certificado",
+        "content_type": 15,
+        "codename": "view_certificado"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add comentario",
+        "content_type": 16,
+        "codename": "add_comentario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change comentario",
+        "content_type": 16,
+        "codename": "change_comentario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete comentario",
+        "content_type": 16,
+        "codename": "delete_comentario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view comentario",
+        "content_type": 16,
+        "codename": "view_comentario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add etiqueta_tutorial",
+        "content_type": 17,
+        "codename": "add_etiqueta_tutorial"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change etiqueta_tutorial",
+        "content_type": 17,
+        "codename": "change_etiqueta_tutorial"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete etiqueta_tutorial",
+        "content_type": 17,
+        "codename": "delete_etiqueta_tutorial"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view etiqueta_tutorial",
+        "content_type": 17,
+        "codename": "view_etiqueta_tutorial"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add favorito_usuario",
+        "content_type": 18,
+        "codename": "add_favorito_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change favorito_usuario",
+        "content_type": 18,
+        "codename": "change_favorito_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete favorito_usuario",
+        "content_type": 18,
+        "codename": "delete_favorito_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view favorito_usuario",
+        "content_type": 18,
+        "codename": "view_favorito_usuario"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "usuario"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "perfil"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "tutorial"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "categoria"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "subcategoria"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "etiqueta"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "favorito"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "curso"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "certificado"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "comentario"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 17,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "etiqueta_tutorial"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": {
+        "app_label": "tutorial",
+        "model": "favorito_usuario"
+    }
+},
+{
+    "model": "tutorial.usuario",
+    "pk": 1,
+    "fields": {
+        "nombre": "Fall interview cover.",
+        "email": "juan67@example.net",
+        "fecha_Registro": "2016-01-28",
+        "es_activo": false,
+        "puntuacion": "0.8"
+    }
+},
+{
+    "model": "tutorial.usuario",
+    "pk": 2,
+    "fields": {
+        "nombre": "Above despite down item.",
+        "email": "lshort@example.com",
+        "fecha_Registro": "1985-03-15",
+        "es_activo": true,
+        "puntuacion": "0.0"
+    }
+},
+{
+    "model": "tutorial.usuario",
+    "pk": 3,
+    "fields": {
+        "nombre": "Front let age perform.",
+        "email": "eweeks@example.com",
+        "fecha_Registro": "2003-04-17",
+        "es_activo": false,
+        "puntuacion": "0.1"
+    }
+},
+{
+    "model": "tutorial.usuario",
+    "pk": 4,
+    "fields": {
+        "nombre": "Country claim these manager.",
+        "email": "wardkathryn@example.com",
+        "fecha_Registro": "1975-07-31",
+        "es_activo": true,
+        "puntuacion": "0.1"
+    }
+},
+{
+    "model": "tutorial.usuario",
+    "pk": 5,
+    "fields": {
+        "nombre": "Response put ability.",
+        "email": "aguilardanny@example.com",
+        "fecha_Registro": "1977-04-19",
+        "es_activo": false,
+        "puntuacion": "0.1"
+    }
+},
+{
+    "model": "tutorial.perfil",
+    "pk": 1,
+    "fields": {
+        "bio": "Agree break sure south Mr daughter. Pass practice key mouth. Turn force way help.\nPoint season item crime these raise.",
+        "fecha_Nacimiento": "2006-11-20",
+        "redes": "TW",
+        "estudios": "Act democratic per current every drug. Wife arrive evidence guy for teach.\nCoach group deep image me",
+        "usuario": 3
+    }
+},
+{
+    "model": "tutorial.perfil",
+    "pk": 2,
+    "fields": {
+        "bio": "Through buy interview son interesting institution whom. Item individual argue green. Direction everybody carry pull. Local big wait newspaper wear rock magazine.",
+        "fecha_Nacimiento": "2010-08-27",
+        "redes": "FB",
+        "estudios": "Computer next note value father song. Thus close space from.\nSpecial as seat learn people environmen",
+        "usuario": 5
+    }
+},
+{
+    "model": "tutorial.perfil",
+    "pk": 3,
+    "fields": {
+        "bio": "True theory pass necessary owner. Mr west keep summer action.\nFeeling else long fund. Data hundred include nearly allow floor. Use order sense guess.",
+        "fecha_Nacimiento": "1980-11-05",
+        "redes": "FB",
+        "estudios": "Be with knowledge visit. Large but thank according.\nAble treat question then individual purpose diff",
+        "usuario": 2
+    }
+},
+{
+    "model": "tutorial.perfil",
+    "pk": 4,
+    "fields": {
+        "bio": "Player black for international body writer skin benefit. Treat my nor key. Class information check ten. Land artist region charge agency yet woman.",
+        "fecha_Nacimiento": "2011-03-13",
+        "redes": "IG",
+        "estudios": "Try she wish future generation high. Turn collection must ready leg general.\nMust strong each phone ",
+        "usuario": 1
+    }
+},
+{
+    "model": "tutorial.perfil",
+    "pk": 5,
+    "fields": {
+        "bio": "Return easy cost.\nTen cup close participant summer upon. Group front carry.\nProve law wide nearly cost meet student team. Happy wide meet wish.",
+        "fecha_Nacimiento": "1995-07-10",
+        "redes": "FB",
+        "estudios": "I window group number. Fly just Democrat president detail.\nStructure indicate necessary opportunity ",
+        "usuario": 4
+    }
+},
+{
+    "model": "tutorial.tutorial",
+    "pk": 1,
+    "fields": {
+        "titulo": "Catch add particular apply election.",
+        "contenido": "Vote stand property case machine let forward term. Walk consider produce. Writer particularly open second.\nAcross concern human way. Management hear shoulder phone.",
+        "fecha_Creacion": "1973-01-22T18:40:52.308",
+        "visitas": 31305,
+        "valoracion": "0.5",
+        "usuario": 3
+    }
+},
+{
+    "model": "tutorial.tutorial",
+    "pk": 2,
+    "fields": {
+        "titulo": "Trade artist without trial.",
+        "contenido": "Product single follow again.\nThus compare around figure. Exist prepare in see street.\nLive perform what their drug nor. Able drop three back behind discover actually.",
+        "fecha_Creacion": "1998-08-12T08:43:23.939",
+        "visitas": 2830,
+        "valoracion": "0.6",
+        "usuario": 5
+    }
+},
+{
+    "model": "tutorial.tutorial",
+    "pk": 3,
+    "fields": {
+        "titulo": "Include bag send.",
+        "contenido": "Worker more sport air manage road contain. Thousand since Republican trip.\nSubject too hard realize so office. Agreement situation voice lead. Player loss official also question.",
+        "fecha_Creacion": "1998-07-22T19:44:23.758",
+        "visitas": 17407,
+        "valoracion": "0.5",
+        "usuario": 2
+    }
+},
+{
+    "model": "tutorial.tutorial",
+    "pk": 4,
+    "fields": {
+        "titulo": "Hear far name natural.",
+        "contenido": "Pattern bit hospital news through how treatment process. Who much from thought choice.\nFront identify control speak half. Place likely strategy. Soldier minute security ten war hair reduce agree.",
+        "fecha_Creacion": "1993-07-05T00:45:11.837",
+        "visitas": -17391,
+        "valoracion": "0.8",
+        "usuario": 1
+    }
+},
+{
+    "model": "tutorial.tutorial",
+    "pk": 5,
+    "fields": {
+        "titulo": "Condition rest American you sign thus.",
+        "contenido": "Day form stuff food order. Before check picture ask approach as treatment.\nFood television role enjoy never.\nMatter whole value data character well.",
+        "fecha_Creacion": "1982-02-15T06:44:14.940",
+        "visitas": 6683,
+        "valoracion": "0.9",
+        "usuario": 4
+    }
+},
+{
+    "model": "tutorial.categoria",
+    "pk": 1,
+    "fields": {
+        "nombre": "Expert even west sell baby interesting.",
+        "es_activa": true,
+        "popularidad": "1.0",
+        "descripcion": "A agreement place argue ok message. Allow out capital we tell statement list.",
+        "tutorial": 2
+    }
+},
+{
+    "model": "tutorial.categoria",
+    "pk": 2,
+    "fields": {
+        "nombre": "Capital while walk.",
+        "es_activa": false,
+        "popularidad": "0.6",
+        "descripcion": "Project mother allow care happy former performance. Yard thus process yourself population worker.\nParticular serve before arm leader. Interesting run moment question tax.",
+        "tutorial": 5
+    }
+},
+{
+    "model": "tutorial.categoria",
+    "pk": 3,
+    "fields": {
+        "nombre": "Worry perhaps protect large arrive ahead should.",
+        "es_activa": false,
+        "popularidad": "0.7",
+        "descripcion": "Thing suddenly industry. Argue hotel join last simply. Culture campaign south rock true evidence.",
+        "tutorial": 3
+    }
+},
+{
+    "model": "tutorial.categoria",
+    "pk": 4,
+    "fields": {
+        "nombre": "Stop much then season arrive direction reveal.",
+        "es_activa": false,
+        "popularidad": "0.4",
+        "descripcion": "Relate cause stage describe. Give trouble sometimes if. Will forward level else street show.",
+        "tutorial": 5
+    }
+},
+{
+    "model": "tutorial.categoria",
+    "pk": 5,
+    "fields": {
+        "nombre": "Mother attack big stock talk off necessary.",
+        "es_activa": false,
+        "popularidad": "0.0",
+        "descripcion": "Receive modern show bank everyone social. Person though give think walk.\nMyself sometimes star factor game threat. Happy majority especially central.",
+        "tutorial": 2
+    }
+},
+{
+    "model": "tutorial.subcategoria",
+    "pk": 1,
+    "fields": {
+        "nombre": "Human best leader that hour eye month.",
+        "descripcion": "Already away think power both evening. Always investment save effort beyond ability provide.\nNorth meet role suddenly bar deep. Stay race some section. Audience join war.",
+        "fecha_Creacion": "2018-08-26T17:22:34.740",
+        "activa": false,
+        "categoria": 2
+    }
+},
+{
+    "model": "tutorial.subcategoria",
+    "pk": 2,
+    "fields": {
+        "nombre": "Foot charge fly argue.",
+        "descripcion": "We pick off. Enough general good debate subject.\nHow write citizen even case community present seek. Across fact population set ten population address.\nRest company nation through property.",
+        "fecha_Creacion": "1998-12-19T01:45:10.168",
+        "activa": false,
+        "categoria": 4
+    }
+},
+{
+    "model": "tutorial.subcategoria",
+    "pk": 3,
+    "fields": {
+        "nombre": "Month do degree.",
+        "descripcion": "Off nothing civil perform character total on. Strategy fast figure campaign raise attack. Institution professor word skill. Few part simply which brother reflect.",
+        "fecha_Creacion": "2023-08-17T05:05:17.045",
+        "activa": true,
+        "categoria": 2
+    }
+},
+{
+    "model": "tutorial.subcategoria",
+    "pk": 4,
+    "fields": {
+        "nombre": "To effect off agent. Finish special player.",
+        "descripcion": "Listen consider laugh finally old. Industry in two occur. Third eight such eye position development. Fly believe approach ready.",
+        "fecha_Creacion": "2023-10-26T09:48:19.714",
+        "activa": false,
+        "categoria": 4
+    }
+},
+{
+    "model": "tutorial.subcategoria",
+    "pk": 5,
+    "fields": {
+        "nombre": "Least listen music explain she.",
+        "descripcion": "Thank situation accept court. None hard impact occur region theory.\nModern send itself put. Church feel first reveal despite. Improve education language involve.\nBuy identify customer seat picture.",
+        "fecha_Creacion": "1987-01-28T21:18:11.172",
+        "activa": false,
+        "categoria": 4
+    }
+},
+{
+    "model": "tutorial.etiqueta",
+    "pk": 1,
+    "fields": {
+        "nombre": "Government price any floor bed.",
+        "color": "Happy doctor thousand recently.",
+        "publica": true,
+        "descripcion": "Song finish start down. Themselves management everybody. Country ahead bring.\nManage least find treatment team. Economic important establish wind key guy sound his."
+    }
+},
+{
+    "model": "tutorial.etiqueta",
+    "pk": 2,
+    "fields": {
+        "nombre": "Father arm provide box its step.",
+        "color": "Reach public form house act.",
+        "publica": true,
+        "descripcion": "With outside situation one someone again director. Strong suddenly or dog knowledge number."
+    }
+},
+{
+    "model": "tutorial.etiqueta",
+    "pk": 3,
+    "fields": {
+        "nombre": "Suffer reveal world magazine involve collection.",
+        "color": "Make TV away as within weight skin.",
+        "publica": true,
+        "descripcion": "Film organization great peace issue start word PM. Wish option want three perhaps cell significant and."
+    }
+},
+{
+    "model": "tutorial.etiqueta",
+    "pk": 4,
+    "fields": {
+        "nombre": "Rest act development animal group debate.",
+        "color": "Born tree material suffer fund.",
+        "publica": true,
+        "descripcion": "Whose including collection yeah be. Significant size successful full away capital. Foot change student international."
+    }
+},
+{
+    "model": "tutorial.etiqueta",
+    "pk": 5,
+    "fields": {
+        "nombre": "Glass including run represent.",
+        "color": "Ready often although play.",
+        "publica": false,
+        "descripcion": "Guess success benefit. Simply side partner thus. Leg head star capital. Give break including two ahead tough care hundred.\nAdult state right enough six well artist. Rule color TV news foot."
+    }
+},
+{
+    "model": "tutorial.favorito",
+    "pk": 1,
+    "fields": {
+        "fecha_Guardado": "1997-08-24T06:31:18.718",
+        "comentario_Destacado": "Good character win church radio decide industry. Memory treatment music prevent old.",
+        "importancia": "0.6",
+        "notificacion": false,
+        "tutorial": 4
+    }
+},
+{
+    "model": "tutorial.favorito",
+    "pk": 2,
+    "fields": {
+        "fecha_Guardado": "1978-07-05T09:53:33.733",
+        "comentario_Destacado": "Wind worry kid executive probably ever. Interview quickly else later. Identify white recently seem as why.",
+        "importancia": "0.8",
+        "notificacion": false,
+        "tutorial": 5
+    }
+},
+{
+    "model": "tutorial.favorito",
+    "pk": 3,
+    "fields": {
+        "fecha_Guardado": "1991-01-04T05:08:27.210",
+        "comentario_Destacado": "Real notice science. Statement fish find although cell by yet. Fund sit on person general send course.",
+        "importancia": "0.8",
+        "notificacion": false,
+        "tutorial": 3
+    }
+},
+{
+    "model": "tutorial.favorito",
+    "pk": 4,
+    "fields": {
+        "fecha_Guardado": "2016-06-04T02:10:20.041",
+        "comentario_Destacado": "Leg early pressure study miss. Keep team phone indeed partner action.\nPick peace book pull win marriage. War ever deal that full large land activity.",
+        "importancia": "0.1",
+        "notificacion": false,
+        "tutorial": 2
+    }
+},
+{
+    "model": "tutorial.favorito",
+    "pk": 5,
+    "fields": {
+        "fecha_Guardado": "2005-08-07T09:00:31.429",
+        "comentario_Destacado": "Face morning north let four almost subject. Get threat set. Get outside daughter instead occur American not.",
+        "importancia": "0.5",
+        "notificacion": false,
+        "tutorial": 4
+    }
+},
+{
+    "model": "tutorial.curso",
+    "pk": 1,
+    "fields": {
+        "nombre": "Skill read opportunity.",
+        "descripcion": "Girl sea fight that wall particularly. Enter floor art health how finally.\nNotice ok month without serve. Knowledge what product night if drop role. Open pattern impact.",
+        "horas": -12566,
+        "precio": "0.09",
+        "tutorial": 1,
+        "usuario": [
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "tutorial.curso",
+    "pk": 2,
+    "fields": {
+        "nombre": "Choice own picture development decision respond.",
+        "descripcion": "Actually way son too.",
+        "horas": -28437,
+        "precio": "0.11",
+        "tutorial": 1,
+        "usuario": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "tutorial.curso",
+    "pk": 3,
+    "fields": {
+        "nombre": "Nearly true myself meet.",
+        "descripcion": "Pm chance expert always drop risk. Mr player anyone your movement. Agency something politics tree yard century century.",
+        "horas": 12711,
+        "precio": "0.84",
+        "tutorial": 2,
+        "usuario": [
+            4
+        ]
+    }
+},
+{
+    "model": "tutorial.curso",
+    "pk": 4,
+    "fields": {
+        "nombre": "Arrive play common yet analysis want.",
+        "descripcion": "Health peace keep set than. Break least of image would. Professional exist house visit peace wind between carry. Fast Congress help.",
+        "horas": 27324,
+        "precio": "0.48",
+        "tutorial": 1,
+        "usuario": [
+            2
+        ]
+    }
+},
+{
+    "model": "tutorial.curso",
+    "pk": 5,
+    "fields": {
+        "nombre": "Husband rather quickly far place.",
+        "descripcion": "Official wonder sing teacher. Ground policy partner pull without.\nRather another her which national. Benefit decide particular through attack they. Share deal subject their word century.",
+        "horas": -5044,
+        "precio": "0.62",
+        "tutorial": 3,
+        "usuario": [
+            2
+        ]
+    }
+},
+{
+    "model": "tutorial.certificado",
+    "pk": 1,
+    "fields": {
+        "fecha_emision": "1985-06-08",
+        "codigo_verificacion": "Environmental officer first decision major raise.",
+        "nivel": -13293,
+        "url_descarga": "Ok as time hotel.",
+        "curso": 1,
+        "usuario": 4
+    }
+},
+{
+    "model": "tutorial.certificado",
+    "pk": 2,
+    "fields": {
+        "fecha_emision": "1989-03-19",
+        "codigo_verificacion": "Knowledge machine really truth against over bit.",
+        "nivel": -17546,
+        "url_descarga": "Pretty career ok watch religious hand raise ball.",
+        "curso": 3,
+        "usuario": 3
+    }
+},
+{
+    "model": "tutorial.certificado",
+    "pk": 3,
+    "fields": {
+        "fecha_emision": "2001-04-15",
+        "codigo_verificacion": "Ok discussion natural manager performance.",
+        "nivel": -30050,
+        "url_descarga": "Up defense yet design group notice.",
+        "curso": 4,
+        "usuario": 2
+    }
+},
+{
+    "model": "tutorial.certificado",
+    "pk": 4,
+    "fields": {
+        "fecha_emision": "1986-10-15",
+        "codigo_verificacion": "Member usually wait difference by party.",
+        "nivel": -25644,
+        "url_descarga": "Theory expert assume few.",
+        "curso": 5,
+        "usuario": 5
+    }
+},
+{
+    "model": "tutorial.certificado",
+    "pk": 5,
+    "fields": {
+        "fecha_emision": "1987-04-22",
+        "codigo_verificacion": "Court get wind street.",
+        "nivel": 3739,
+        "url_descarga": "Produce alone hot voice along.",
+        "curso": 2,
+        "usuario": 1
+    }
+},
+{
+    "model": "tutorial.comentario",
+    "pk": 1,
+    "fields": {
+        "contenido": "Bank national race specific response. Magazine off serve. Generation use fight.\nSend institution Mr. Under song change challenge.\nLot his green kind share establish.",
+        "fecha": "1976-01-10T07:31:55.029",
+        "visible": true,
+        "puntuacion": "0.5",
+        "usuario": 5
+    }
+},
+{
+    "model": "tutorial.comentario",
+    "pk": 2,
+    "fields": {
+        "contenido": "Perhaps lot professor far film successful. Road leader else north black you.\nYard yeah character base imagine stand page region. Street country people sense important name.",
+        "fecha": "1981-07-24T03:17:26.398",
+        "visible": false,
+        "puntuacion": "0.4",
+        "usuario": 4
+    }
+},
+{
+    "model": "tutorial.comentario",
+    "pk": 3,
+    "fields": {
+        "contenido": "Million approach near artist treatment. Design open better people who house those. Key real run others so travel but. Idea method north.",
+        "fecha": "2003-03-31T16:51:10.085",
+        "visible": true,
+        "puntuacion": "0.3",
+        "usuario": 4
+    }
+},
+{
+    "model": "tutorial.comentario",
+    "pk": 4,
+    "fields": {
+        "contenido": "Past short appear reflect. Authority section much gas film. Network including himself state animal financial capital.",
+        "fecha": "1990-11-07T19:38:56.381",
+        "visible": true,
+        "puntuacion": "0.0",
+        "usuario": 4
+    }
+},
+{
+    "model": "tutorial.comentario",
+    "pk": 5,
+    "fields": {
+        "contenido": "Up page thing item. Economy close add defense every first start. Design piece such chair dinner.\nNewspaper imagine business think. Impact parent you. Present cost nor.",
+        "fecha": "2004-05-30T15:03:33.547",
+        "visible": false,
+        "puntuacion": "1.0",
+        "usuario": 5
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 1,
+    "fields": {
+        "id_etiqueta": 1,
+        "id_tutorial": 1
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 2,
+    "fields": {
+        "id_etiqueta": 2,
+        "id_tutorial": 2
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 3,
+    "fields": {
+        "id_etiqueta": 3,
+        "id_tutorial": 1
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 4,
+    "fields": {
+        "id_etiqueta": 3,
+        "id_tutorial": 2
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 5,
+    "fields": {
+        "id_etiqueta": 4,
+        "id_tutorial": 1
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 6,
+    "fields": {
+        "id_etiqueta": 5,
+        "id_tutorial": 2
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 7,
+    "fields": {
+        "id_etiqueta": 1,
+        "id_tutorial": 4
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 8,
+    "fields": {
+        "id_etiqueta": 4,
+        "id_tutorial": 4
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 9,
+    "fields": {
+        "id_etiqueta": 3,
+        "id_tutorial": 4
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 10,
+    "fields": {
+        "id_etiqueta": 1,
+        "id_tutorial": 3
+    }
+},
+{
+    "model": "tutorial.etiqueta_tutorial",
+    "pk": 11,
+    "fields": {
+        "id_etiqueta": 1,
+        "id_tutorial": 2
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 1,
+    "fields": {
+        "id_usuario": 5,
+        "id_favorito": 1
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 2,
+    "fields": {
+        "id_usuario": 2,
+        "id_favorito": 1
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 3,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 2
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 4,
+    "fields": {
+        "id_usuario": 5,
+        "id_favorito": 3
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 5,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 3
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 6,
+    "fields": {
+        "id_usuario": 2,
+        "id_favorito": 4
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 7,
+    "fields": {
+        "id_usuario": 3,
+        "id_favorito": 5
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 8,
+    "fields": {
+        "id_usuario": 2,
+        "id_favorito": 5
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 9,
+    "fields": {
+        "id_usuario": 3,
+        "id_favorito": 3
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 10,
+    "fields": {
+        "id_usuario": 1,
+        "id_favorito": 3
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 11,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 3
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 12,
+    "fields": {
+        "id_usuario": 2,
+        "id_favorito": 3
+    }
+},
+{
+    "model": "tutorial.favorito_usuario",
+    "pk": 13,
+    "fields": {
+        "id_usuario": 4,
+        "id_favorito": 3
+    }
+}
+]

@@ -1,0 +1,19 @@
+<html>
+    <head></head>
+    <body>
+        <h1>XCOMENTARIOS CON UNA PALABA EN CONCRETO:</h1>
+        <p>---------------------------------------------------------------------------------</p>
+        {% for comentario in comentario_mostrar %}
+        <div>
+            <h2>Codigo del certificado: {{ certificado.codigo_verificacion }}</h2>
+            <h2>Fecha de emision: {{ certificado.fecha_emision }}</h2>
+            <h2>Nivel del certificado: {{ certificado.nivel }}</h2>
+            <h2>URL de la descarga: {{ certificado.url_descarga }}</h2>
+            <br>
+            <h2>Cursos: {{ certificado.curso.nombre }}</h2> 
+            <br>
+            <h2>Usuario: {{ certificado.usuario.nombre }}<h2>   
+        </div>
+        <p>---------------------------------------------------------------------------------</p>    
+    </body>
+</html>

@@ -16,6 +16,8 @@
             <ul>
                 {% for tutorial in usuario.usuario_del_tutorial.all %}
                     <li><h3>Titulo: {{ tutorial.titulo }}</h3></li>
+                    {% empty%}
+                    <h3>NO ESTA EN NINGUN TUTORIAL</h3>
                 {%endfor%}
             </ul>
             <h2>Tutoriales favoritos: </h2>
@@ -42,7 +44,14 @@
                         <h3>NO ESTA EN NINGUN CURSO</h3>
                     </li>
                 {%endfor%}
-            </ul>           
+            </ul>   
+            <br>
+            <h2>Certificados que posee: </h2>
+            <ul>
+                <li>
+                    <h3>Certificado: {{ usuario.Certificado_Usuarios.codigo_verificacion }}</h3>
+                </li>
+            </ul>         
         </div>
         <p>---------------------------------------------------------------------------------</p>
         <br>

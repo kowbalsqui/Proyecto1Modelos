@@ -151,3 +151,28 @@ PARAMETROS:
 - required : Especifica el campo que si o si es requerido.
 - blank : Especifica si el campo se puede dejar en blanco o no. 
 - null : Especifica si el campo puede llegar a ser null o no.
+
+----------------------------------------------------------
+
+VISTAS:
+
+- listar_tutoriales: URL que muestra todos los tutoriales y sus datos relacionados
+Requisitos: filtro Limit.
+- listar_usuarios: URL que muestra todos los usuarios y sus datos relacionados
+Requisitos: Relacion reversa atraves de los related_name
+- muestra_certificado_usuario_igual_id: URL que muetra los certificados de un usuario el cual es un id que le entra a la query
+Requisitos: Parametro entero
+- muestra_comentario_equals_palabra: URL que dando una palaba te muestre los comentarios de todos los cursos que contienen esa palabra
+Requisitos: Parametro String
+- muestra_tutorial_por_etiqueta: URL que dado una palabra que sea una etiqueta con unos requisitos (expresion regular) nos devuelva el tutorial que tiene esa etiqueta
+Requisistos: re_path
+- lista_usuarios_entre_años: URL que muestra a los usuarios y la informafion de ellos nacidos entre dos años comprendidos
+Requisitos: 2 paramteros, filtro AND
+- lista_tutorial_por_categoria: URL que dada una categoria, te muestre todos los tutoriales que tienen esa categoria.
+Requisitos: filtro OR.
+- total_visitas: URL que muestra el total de todas las visitas de los tutoriales
+Requisitos: filtro agregate
+- tutorial_no_tenga_categoria: URL que muestra los tutoriales que no tengan visitas
+Requisitos: filtro None
+- lista_subcategoria: URL que muestra las subcategorias
+

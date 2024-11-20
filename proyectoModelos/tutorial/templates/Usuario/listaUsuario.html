@@ -1,60 +1,11 @@
-<html>
-    <head></head>
-    <body>
-        <h1>TOODS LOS USUARIOS:</h1>
-        <p>---------------------------------------------------------------------------------</p>
-        {% for usuario in usuaios_mostrar %}
-        <div>
-            <h2>Nombre: {{ usuario.nombre }}</h2>
-            <h2>Email: {{ usuario.email }}</h2>
-            <h2>Fecha de registro: {{ usuario.fecha_Registro }}</h2>
-            <h2>Activo: {{ usuario.es_activo }}</h2>
-            <h2>Puntuacion: {{ usuario.puntuacion }}</h2>
-            <h2>Biografia: {{ usuario.perfiles_Usuarios.bio}}</h2>
-            <br>
-            <h2>Tutorial en los que esta: </h2>
-            <ul>
-                {% for tutorial in usuario.usuario_del_tutorial.all %}
-                    <li><h3>Titulo: {{ tutorial.titulo }}</h3></li>
-                    {% empty%}
-                    <h3>NO ESTA EN NINGUN TUTORIAL</h3>
-                {%endfor%}
-            </ul>
-            <h2>Tutoriales favoritos: </h2>
-            <ul>
-                {% for favorito in usuario.Favoritos_del_usuario.all %}
-                    <li>
-                        <h3>Título: {{ favorito.tutorial.titulo }}</h3>
-                    </li>
-                {% empty %}
-                    <li>
-                        <h3>NO TIENE NINGUN CURSO FAVORITO</h3>
-                    </li>
-                {% endfor %}
-            </ul>
-            <br>
-            <h2>Cursos en los que esta: </h2>
-            <ul>
-                {% for curso in usuario.usuarios_del_curso.all %}
-                <li>
-                    <h3>Curso: {{ curso.nombre }}</h3>
-                </li>
-                {% empty %}
-                    <li>
-                        <h3>NO ESTA EN NINGUN CURSO</h3>
-                    </li>
-                {%endfor%}
-            </ul>   
-            <br>
-            <h2>Certificados que posee: </h2>
-            <ul>
-                <li>
-                    <h3>Certificado: {{ usuario.Certificado_Usuarios.codigo_verificacion }}</h3>
-                </li>
-            </ul>         
-        </div>
-        <p>---------------------------------------------------------------------------------</p>
-        <br>
-        {% endfor %}
-    </body>
-</html>
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+<h1>TOODS LOS USUARIOS: </h1>
+{% endblock %}
+
+{% block contenido %}
+    {% for usuario in usuaios_mostrar %}
+        {% include "Usuario/usuarios.html" %}
+    {% endfor %}
+{% endblock %}

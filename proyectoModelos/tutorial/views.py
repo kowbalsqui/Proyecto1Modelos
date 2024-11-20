@@ -6,7 +6,7 @@ from django.views.defaults import page_not_found
 # Create your views here.
 # URL de la pagina de inicio (esta no cuenta).
 def inicio (request):
-    return render(request, 'inicio.html')
+    return render(request, 'Padre.html')
 
 #URL que muestra todos los Tutoriales
 #Requisitos: filtro Limit.
@@ -40,7 +40,7 @@ def muestra_certificado_usuario_igual_id (request, id_usuario):
         "curso"
     ).filter(usuario__id=id_usuario).first()
     #EL METODO FIRST ES UN METODO EL CUAL TE DEVUELVE EL PRIMER OBJETO QUE OBTENGA DE LA QUERY Y LAS PROPIEDADES QUE TENGAS EN EL HTML
-    return render(request, 'Certificado/muestra_certificado_igual_idUser.html', {"certificado": certificado})
+    return render(request, 'Certificado/muestra_certificado_igual_idUser.html', {"certificado_mostrar": certificado})
 
 #URL que dando una palaba te muestre los comentarios de todos los cursos que contienen esa palabra
 #Requisitos: Parametro String

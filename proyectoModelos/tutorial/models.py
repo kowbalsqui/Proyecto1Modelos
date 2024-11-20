@@ -34,7 +34,6 @@ class Categoria(models.Model):
     popularidad = models.DecimalField(max_digits=3, decimal_places=1)
     descripcion = models.TextField(max_length=300)
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="categoria_del_tutorial")
-
 class SubCategoria(models.Model):
     nombre = models.CharField(max_length=50)
     descripcion = models.TextField(max_length=300)

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <title>Título de la página</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/EstiloTemplate.css' %}">
+    <script src="{% static 'javaScript/alert.js' %}"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+    <div class="logo-container">
+        <img src="{% static 'imagenes/django.png' %}" alt="Logo de Django" class="logo">
+    </div>
+    {% include "MenuNavegacion.html" %}
+    </nav>
+    <!-- Contenido de la página -->
+    {% block cabecera %}
+    {% endblock %}
+
+    {% block contenido %}
+    {% endblock %}
+    <!-- Puedes agregar más elementos como imágenes, enlaces, formularios, etc. -->
+     {% include "Footer.html" %}
+  </body>
+</html>

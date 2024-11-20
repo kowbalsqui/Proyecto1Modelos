@@ -1,21 +1,14 @@
-<html>
-    <head></head>
-    <body>
-        <h1>TUTORIALES CON LA SUMA DE LAS VISITAS</h1>
-        <p>---------------------------------------------------------------------------------</p>
-        <h2>Total de visitas: {{ total_visitas }}</h2>
-        <p>---------------------------------------------------------------------------------</p>
-        <div>
-            {% for tutorial in tutoriales_mostrar %}
-                <h2>Titulo: {{ tutorial.titulo }}</h2>
-                <h2>Contenido: {{ tutorial.contenido }}</h2>
-                <h2>Fecha de creacion: {{ tutorial.fecha_Creacion }}</h2>
-                <h2>Visitas: {{ tutorial.visitas }}</h2>
-                <h2>Valoracion: {{ tutorial.valoracion }}</h2>
-                <h2>Usuarios: {{ tutorial.usuario.nombre }}</h2>
-                <p>---------------------------------------------------------------------------------</p>
-            {% endfor %}
-        </div>
-        <br>
-    </body>
-</html>
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+<h1>TUTORIALES CON LA SUMA DE LAS VISITAS</h1>
+<p>---------------------------------------------------------------------------------</p>
+<h2>Total de visitas: {{ total_visitas }}</h2>
+<p>---------------------------------------------------------------------------------</p>
+{% endblock %}
+
+{% block contenido %}
+    {% for tutorial in tutoriales_mostrar %}
+        {% include "Tutorial/tutorialVisitas.html" %}
+    {% endfor %}
+{% endblock %}

@@ -1,18 +1,13 @@
-<html>
-    <head></head>
-    <body>
-        <h1>COMENTARIOS CON UNA PALABA EN CONCRETO:</h1>
-        <p>---------------------------------------------------------------------------------</p>
-        {% for comentario in comentario_mostrar %}
-        <div>
-            <h2>Contenido: {{ comentario.contenido }}</h2>
-            <h2>Fecha del comentario: {{ comentario.fecha }}</h2>
-            <h2>Visible?: {{ comentario.visible }}</h2>
-            <h2>Puntuación: {{ comentario.puntuacion }}</h2>
-            <br>
-            <h2>Usuario creador: {{ comentario.usuario.nombre }}</h2>  
-        </div>
-        <p>---------------------------------------------------------------------------------</p>    
-        {% endfor %}
-    </body>
-</html>
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+<h1>COMENTARIOS CON UNA PALABA EN CONCRETO:</h1>
+{% endblock %}
+
+{% block contenido %}
+    {% for comentario in comentario_mostrar %}
+        {% include "Comentario/comentario.html" %}
+    {% endfor %}
+{% endblock %}
+
+

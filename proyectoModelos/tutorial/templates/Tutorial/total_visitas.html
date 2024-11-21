@@ -4,6 +4,21 @@
 <h1>TUTORIALES CON LA SUMA DE LAS VISITAS</h1>
 <p>---------------------------------------------------------------------------------</p>
 <h2>Total de visitas: {{ total_visitas }}</h2>
+
+{% if total_visitas != 0 %}
+{% if total_visitas >= 100 %}
+    <h2>Total de visitas (suma 10): {{ total_visitas|add:10 }}</h2> <!-- Suma -->
+{% elif total_visitas <= 99 and total_visitas > 50 %}
+    <h2>Total de visitas (resta 5): {{ total_visitas|add:"-5" }}</h2> <!-- Resta -->
+{% elif total_visitas < 9 %}
+    <h2>Total de visitas (es menor que 9): {{ total_visitas }}</h2> <!-- Condición simple -->
+{% elif total_visitas|divisibleby:2 %}
+    <h2>Total de visitas (es par): {{ total_visitas }}</h2> <!-- Número par -->
+{% else %}
+    <h2>Total de visitas (no es divisible por 2 ni menor que 9): {{ total_visitas }}</h2>
+{% endif %}
+{% endif %}
+
 <p>---------------------------------------------------------------------------------</p>
 {% endblock %}
 

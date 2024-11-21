@@ -176,3 +176,22 @@ Requisitos: filtro agregate
 Requisitos: filtro None
 - lista_subcategoria: URL que muestra las subcategorias
 
+--------------------------------------------------------------------------------------------------------------------------
+
+TEMPLATE TAGS: 
+
+1.- if en total visitas.html
+2.- if-else en total visitas.html
+3.- for en usuario.html
+4.- empty en usuario.html
+5.- include en lista de usuario.html
+
+---------------------------------------------------------------------------------------------------------------------------
+
+OPERADORES DIFERENTES:
+
+1.-(!=) en total visitas.html
+2.-(>=) en total visitas.html
+3.-(<=) en total visitas.html
+4.-(<) en total visitas.html
+5.-(:) en total visitas.html

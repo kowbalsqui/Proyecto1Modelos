@@ -1,15 +1,15 @@
 <div>
-    <h2>Nombre: {{ usuario.nombre }}</h2>
-    <h2>Email: {{ usuario.email }}</h2>
-    <h2>Fecha de registro: {{ usuario.fecha_Registro }}</h2>
+    <h2>Nombre: {{ usuario.nombre  | center:"15"}}</h2>
+    <h2>Email: {{ usuario.email  | capfirst}}</h2>
+    <h2>Fecha de registro: {{ usuario.fecha_Registro | date:"d/m/Y"}}</h2>
     <h2>Activo: {{ usuario.es_activo }}</h2>
     <h2>Puntuacion: {{ usuario.puntuacion }}</h2>
-    <h2>Biografia: {{ usuario.perfiles_Usuarios.bio}}</h2>
+    <h2>Biografia: {{ usuario.perfiles_Usuarios.bio | wordcount}}</h2>
     <br>
     <h2>Tutorial en los que esta: </h2>
     <ul>
         {% for tutorial in usuario.usuario_del_tutorial.all %}
-            <li><h3>Titulo: {{ tutorial.titulo }}</h3></li>
+            <li><h3>Titulo: {{ tutorial.titulo | lower }}</h3></li>
             {% empty%}
             <h3>NO ESTA EN NINGUN TUTORIAL</h3>
         {%endfor%}

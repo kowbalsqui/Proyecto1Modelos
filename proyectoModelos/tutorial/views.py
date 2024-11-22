@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import *
 from django.db.models import Q,Prefetch,Sum
 from django.views.defaults import page_not_found
+from .forms import *
+
 
 # Create your views here.
 # URL de la pagina de inicio (esta no cuenta).
@@ -135,3 +137,11 @@ def mi_error_404(request,exception=None):
 def mi_error_500(request,exception=None):
     return render(request, 'errores/500.html',None,None,500)
 
+###################################################################################################
+
+#TEMPLATES DE LOS FORMUALRIOS
+
+def usuario_Form (request):
+    formulario = UsuarioForm()
+    return render(request, 'formulario/usuarioFormulario.html', {'formulario': formulario})
+    

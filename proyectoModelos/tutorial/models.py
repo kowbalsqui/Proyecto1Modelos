@@ -3,7 +3,7 @@ from django.db import models
 class Usuario(models.Model):
     nombre = models.CharField(max_length=30,)
     email = models.EmailField(max_length=50)
-    fecha_Registro = models.DateField(auto_now=True)
+    fecha_Registro = models.DateField()
     es_activo = models.BooleanField(default=False)
     puntuacion = models.DecimalField(max_digits=3, decimal_places=1)
 

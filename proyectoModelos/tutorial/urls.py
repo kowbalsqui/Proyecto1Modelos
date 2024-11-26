@@ -13,4 +13,5 @@ urlpatterns = [
     path('Tutorial/Total_visitas', views.total_visitas, name = 'total_visitas'),
     path('Tutorial/tutorial_no_tenga_categoria', views.tutorial_no_tenga_categoria, name = 'tutorial_no_tenga_categoria'),
     path('Subcategoria/Lista_subcategoria', views.lista_subcategoria, name = 'lista_subcategoria'),
+    path('formulario/usuarioFormulario', views.usuario_Form, name = 'usuarioFormulario'),
 ]

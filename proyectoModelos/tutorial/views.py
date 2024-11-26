@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.db.models import Q,Prefetch
+from django.forms import modelform_factory
 from .models import *
-from django.db.models import Q,Prefetch,Sum
-from django.views.defaults import page_not_found
+from django.db.models import Sum
+
 from .forms import *
+from django.contrib import messages
 
 
 # Create your views here.
@@ -142,6 +145,16 @@ def mi_error_500(request,exception=None):
 #TEMPLATES DE LOS FORMUALRIOS
 
 def usuario_Form (request):
-    formulario = UsuarioForm()
-    return render(request, 'formulario/usuarioFormulario.html', {'formulario': formulario})
-    
+    if request.method == 'POST':
+        formulario = UsuarioForm(request.POST)
+        if formulario.is_valid():
+            try:
+                # Guarda el usuario en la base de datos
+                formulario.save()
+                return redirect('listar_ususario')
+            except Exception as error:
+                print(error) 
+    else:
+        formulario = UsuarioForm()
+        
+    return render(request, 'formulario/usuarioFormulario.html', {"formulario": formulario}) 

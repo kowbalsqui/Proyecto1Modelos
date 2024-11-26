@@ -1,44 +1,59 @@
 from django import forms
+from datetime import datetime
+from django.forms import ModelForm
+from .models import *
 
-class UsuarioForm(forms.Form):
-    #Definimos el campo nombre del usuario para el formulario
-    nombre = forms.CharField(
-        label='Nombre de usuario',
-        required= True,
-        max_length=100,
-        help_text='Nombre de usuario'
-    )
+
+class UsuarioForm(ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['nombre', 'email', 'fecha_Registro', 'es_activo', 'puntuacion']
+        labels = {
+            "Nombre": ("Nombre del usuario"),
+            "Email": ("Correo electrónico"),
+            "fecha_Registro": ("Fecha de registro"),
+            "es_activo": ("¿Está activo?"),
+            "puntuacion": ("Puntuación"),
+        }
+        widgets = {
+            "fecha_Registro":forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+        }
     
-    #Definimos el campo email del usuario para el fomulario
-    
-    email = forms.EmailField(
-        label='Correo de usuario',
-        required = True,
-        max_length=100,
-        help_text='Correo de usuario'
-    )
-    
-    #Definimos el campo Fecha de registro del usuario para el formulario
-    
-    fecha_Registro = forms.DateField(
-        label='Fecha de registro',
-        required= True,
-        help_text='Fecha de registro'
-    )
-    
-    #Definimos el campo es_activo del usuario para el formulario
-    
-    es_activo = forms.BooleanField(
-        label='¿Está activo?',
-        required= False,
-        help_text='Indica si el usuario está activo'
-    )
-    
-    #Definimos el campo puntuación del usuario para el formulario
-    
-    puntuacion = forms.IntegerField(
-        label='Puntuación',
-        required= False,
-        help_text='Puntuación del usuario'
-    )
-    
+    def clean (self):
+        
+        super().clean()
+        
+        #Primero obtenemos los campos necesarios
+        
+        nombre = self.cleaned_data.get('nombre')
+        email = self.cleaned_data.get('email')
+        fecha_Registro = self.cleaned_data.get('fecha_Registro')
+        es_activo = self.cleaned_data.get('es_activo')
+        puntuacion = self.cleaned_data.get('puntuacion')
+        
+        #Validamos el campo nombre
+
+        if len(nombre) < 3:
+            self.add_error('nombre', 'El nombre debe tener al menos 3 o más caracteres')
+        
+        #Validamos el campo email
+        
+        if not email.endswith('@gmail.com'):
+            self.add_error('email', 'El email debe terminar con @gmail.com')
+        
+        #Validamos el campo fecha de registro
+        
+        if fecha_Registro > datetime.now().date():
+            self.add_error('fecha_Registro', 'La fecha de registro no puede ser en el futuro')
+        
+        #Validamos el campo es_activo
+        
+        if es_activo is not None and es_activo not in [True, False]:
+            self.add_error('es_activo', 'El valor para es_activo debe ser True o False')
+        
+        #Validamos el campo puntuación
+        
+        if puntuacion is not None and (puntuacion < 0 or puntuacion > 100):
+            self.add_error('puntuacion', 'La puntuación debe estar entre 0 y 100')
+        
+        return self.cleaned_data

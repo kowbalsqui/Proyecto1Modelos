@@ -1,0 +1,69 @@
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+  <h1>Resultados de la Búsqueda</h1>
+{% endblock %}
+
+{% block contenido %}
+  <!-- Formulario de búsqueda con selección del tipo de búsqueda -->
+  <form class="form-inline mb-4" method="get" action="{% url 'buscar' %}">
+    <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" name="query">
+
+    <!-- Tipo de búsqueda -->
+    <select name="tipo_busqueda" class="form-control">
+      <option value="usuario">Usuario</option>
+      <option value="curso">Curso</option>
+      <!-- Agrega más tipos de búsqueda según sea necesario -->
+    </select>
+
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+  </form>
+
+  <div class="row">
+    <!-- Mostrar los resultados de usuarios -->
+    {% if usuarios %}
+      {% for usuario in usuarios %}
+        <div class="col-md-4 mb-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ usuario.nombre }}</h5>
+              <p class="card-text">Correo electrónico: {{ usuario.email }}</p>
+              <p class="card-text">Puntuación: {{ usuario.puntuacion }}</p>
+              <p class="card-text">Fecha de Registro: {{ usuario.fecha_Registro }}</p>
+              <p class="card-text">Estado: {% if usuario.es_activo %}Activo{% else %}Inactivo{% endif %}</p>
+
+           
+              <a class="btn btn-primary">Modificar</a>
+              <a class="btn btn-danger">Eliminar</a>
+             
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+    
+    <!-- Mostrar los resultados de cursos -->
+    {% if cursos %}
+      {% for curso in cursos %}
+        <div class="col-md-4 mb-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ curso.nombre }}</h5>
+              <p class="card-text">{{ curso.descripcion }}</p>
+
+              
+              <a class="btn btn-primary">Modificar</a>
+              <a class="btn btn-danger">Eliminar</a>
+              
+            </div> 
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+    
+    <!-- Si no hay resultados -->
+    {% if not usuarios and not cursos %}
+      <p>No se encontraron resultados.</p>
+    {% endif %}
+  </div>
+{% endblock %}

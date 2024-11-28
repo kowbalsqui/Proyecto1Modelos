@@ -57,3 +57,300 @@ class UsuarioForm(ModelForm):
             self.add_error('puntuacion', 'La puntuación debe estar entre 0 y 100')
         
         return self.cleaned_data
+    
+class PerfilForm (ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ['bio', 'fecha_Nacimiento', 'redes', 'estudios', 'usuario']
+        labels = {
+            "Bio": ("Bio"),
+            "Fecha de nacimiento": ("Fecha de nacimiento"),
+            "Redes": ("Redes sociales"),
+            "Estudios": ("Estudios"),
+            "Usuario" : ("Usuario")
+        }
+        widgets = {
+        "fecha_Nacimiento":forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+        }
+        
+    def clean (self):
+        
+        super().clean()
+        
+        #Primero obtenemos los campos necesarios
+        
+        bio = self.cleaned_data.get('bio')
+        redes = self.cleaned_data.get('redes')
+        fecha_Nacimiento = self.cleaned_data.get('fecha_Nacimiento')
+        estudios = self.cleaned_data.get('estudios')
+        
+        #Validamos el campo bio
+
+        if len(bio) < 2:
+            self.add_error('La biografia debe tener como maximo 100 caracteres')
+        
+        #Validamos el campo redes
+        
+        if redes not in ["IG", "FB", "TW", "LI"]:
+            self.add_error('redes', 'Ninguna red coincide con las disponibles, repita')
+            
+        #Validamos el campo fecha de nacimiento
+        
+        if fecha_Nacimiento > datetime.now().date():
+            self.add_error('fecha_Nacimiento', 'La fecha de nacimiento no puede ser en un futuro')
+            
+        #Validamos el campo estudios
+        
+        if len(estudios) < 2:
+            self.add_error('estudios', 'El campo de estudios no puede esta vacio, requiere de minino un titulo')
+
+        return self.cleaned_data
+
+class TutorialForm(ModelForm):
+    class Meta:
+        model = Tutorial
+        fields = ['titulo', 'contenido', 'fecha_Creacion', 'visitas', 'valoracion', 'usuario']
+        labels = {
+            "titulo": "Título",
+            "contenido": "Contenido",
+            "fecha_Creacion": "Fecha de creación",
+            "visitas": "Número de visitas",
+            "valoracion": "Valoración (0-5)",
+            "usuario": "Usuario asociado"
+        }
+        widgets = {
+            "titulo": forms.TextInput(attrs={"class": "form-control", "placeholder": "Introduce el título"}),
+            "contenido": forms.Textarea(attrs={"class": "form-control", "placeholder": "Escribe el contenido", "rows": 5}),
+            "fecha_Creacion": forms.DateInput(
+                format="%Y-%m-%d", 
+                attrs={"type": "date", "class": "form-control"}
+            ),
+            "visitas": forms.NumberInput(attrs={"class": "form-control", "min": 0}),
+            "valoracion": forms.NumberInput(attrs={"class": "form-control", "min": 0, "max": 5, "step": 0.1}),
+            "usuario": forms.Select(attrs={"class": "form-control"}),
+        }
+        
+    def clean (self):
+        
+        super().clean()
+        
+        #Primero obtenemos los campos necesarios
+        
+        titulo = self.cleaned_data.get('titulo')
+        contenido = self.cleaned_data.get('contenido')
+        fecha_Creacion = self.cleaned_data.get('fecha_Creacion')
+        visitas = self.cleaned_data.get('visitas')
+        valoracion = self.cleaned_data.get('valoracion')
+        
+        #Validamos el campo titulo
+        
+        if len(titulo) < 5:
+            self.add_error('titulo', 'El título debe tener como minimo 5 caracteres')
+        
+        #Validamos el campo contenido
+        
+        if len(contenido) < 10:
+            self.add_error('contenido', 'El contenido debe tener como minimo 10 caracteres')
+        
+        #Validamos el campo fecha de creacion
+        
+        if fecha_Creacion > datetime.now().date():
+            self.add_error('fecha_Creacion', 'La fecha de creación no puede ser en un futuro')
+        
+        #Validamos el campo visitas
+        
+        if visitas < 0:
+            self.add_error('visitas', 'El número de visitas no puede ser negativo')
+        
+        #Validamos el campo valoracion
+        
+        if valoracion < 0 or valoracion > 5:
+            self.add_error('valoracion', 'La valoración debe estar entre 0 y 5')
+            
+        return self.cleaned_da
+
+class SubcategoriaForm(forms.ModelForm):
+    class Meta:
+        model = SubCategoria
+        fields = ['nombre', 'descripcion', 'fecha_Creacion', 'categoria', 'activa']
+        labels = {
+            "nombre": "Nombre",
+            "descripcion": "Descripción",
+            "fecha_Creacion": "Fecha de creación",
+            "categoria": "Categoría",
+            "activa": "Está activa?"
+        }
+        widgets = {
+            "descripcion": forms.Textarea(attrs={"class": "form-control", "placeholder": "Escribe la descripción", "rows": 5}),
+            "fecha_Creacion": forms.DateInput(
+                format="%Y-%m-%d", 
+                attrs={"type": "date", "class": "form-control"}
+            ),
+            "categoria": forms.Select(attrs={"class": "form-control"}),
+            "activa": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
+        
+        def clean (self):
+            
+            super().clean()
+            
+            #Primero obtenemos los campos necesarios
+            
+            nombre = self.cleaned_data.get('nombre')
+            descripcion = self.cleaned_data.get('descripcion')
+            fecha_Creacion = self.cleaned_data.get('fecha_Creacion')
+            categoria = self.cleaned_data.get('categoria')
+            activa = self.cleaned_data.get('activa')
+            
+            #Validamos el campo nombre
+            
+            if len(nombre) < 3:
+                self.add_error('nombre', 'El nombre no puede tener menos de 3 caracteres')
+            
+            #Validamos el campo descripcion
+            
+            if len(descripcion) < 10:
+                self.add_error('descripcion', 'La descripción debe tener como minimo 10 caracteres')
+            
+            #Validamos el campo fecha_creacion
+            
+            if fecha_Creacion > datetime.now().date():
+                self.add_error('fecha_Creacion', 'La fecha de creación no puede ser en un futuro')
+            
+            #Validamos el campo categoria
+            
+            if categoria is None:
+                self.add_error('categoria', 'Debe seleccionar una categoría')
+            
+            #Validamos el campo es_activa
+            
+            if activa is None:
+                self.add_error('activa', 'Debe seleccionar si está activa')
+                
+            return self.cleaned_data
+        
+class ComentarioForm(ModelForm):
+    class Meta: 
+        model = Comentario
+        fields = ['contenido', 'fecha', 'visible', 'puntuacion', 'usuario']
+        labels = {
+            "contenido": "Contenido",
+            "fecha": "Fecha",
+            "visible": "Visible?",
+            "puntuacion": "Puntuación (0-5)",
+            "usuario": "Usuario asociado"
+        }
+        widgets = {
+            "contenido": forms.Textarea(attrs={"class": "form-control", "placeholder": "Escribe el contenido", "rows": 5}),
+            "fecha": forms.DateInput(
+                format="%Y-%m-%d", 
+                attrs={"type": "date", "class": "form-control"}
+            ),
+            "visible": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "puntuacion": forms.NumberInput(attrs={"class": "form-control", "min": 0, "max": 5, "step": 0.1}),
+            "usuario": forms.Select(attrs={"class": "form-control"}),
+        }
+        
+    def clean (self):
+        
+        super().clean()
+        
+        #Primero obtenemos los campos necesarios
+        
+        contenido = self.cleaned_data.get('contenido')
+        fecha =self.cleaned_data.get('fecha')
+        visible = self.cleaned_data.get('viisble')
+        puntuacion = self.cleaned_data.get('puntuacion')
+        
+        #Validamos el campo contenido
+        
+        if len(contenido) < 10:
+            self.add_error('contenido', 'El contenido debe tener como minimo 10 caracteres')
+        
+        #Validamos el campo fecha
+        
+        if fecha > datetime.now().date():
+            self.add_error('fecha', 'La fecha no puede ser en un futuro')
+        
+        #Validamos el campo visible
+        
+        if visible is None:
+            self.add_error('visible', 'Debe seleccionar si está visible')
+        
+        #Validamos el campo puntuacion
+        
+        if puntuacion < 0 or puntuacion > 5:
+            self.add_error('puntuacion', 'La puntuación debe estar entre 0 y 5')
+            
+        return self.cleaned_data
+    
+class CertificadoForm(ModelForm):
+    class Meta:
+        model= Certificado
+        fields = ['fecha_emision', 'codigo_verificacion', 'nivel', 'url_descarga', 'curso', 'usuario']
+        labels = {
+            "fecha_emision": "Fecha de emisión",
+            "codigo_verificacion": "Código de verificación",
+            "nivel": "Nivel",
+            "url_descarga": "URL de descarga",
+            "curso": "Curso asociado",
+            "usuario": "Usuario asociado"
+        }
+        widgets = {
+            "fecha_emision": forms.DateInput(
+                format="%Y-%m-%d", 
+                attrs={"type": "date", "class": "form-control"}
+            ),
+            "codigo_verificacion": forms.TextInput(attrs={"class": "form-control", "placeholder": "Introduce el código de verificación"}),
+            "nivel": forms.TextInput(attrs={"class": "form-control", "placeholder": "Introduce el nivel"}),
+            "url_descarga": forms.URLInput(attrs={"class": "form-control", "placeholder": "Introduce la URL de descarga"}),
+            "curso": forms.Select(attrs={"class": "form-control"}),
+            "usuario": forms.Select(attrs={"class": "form-control"}),
+        }
+        
+        def clean (self):
+            
+            super().clean()
+            
+            #Primero obtenemos los campos necesarios
+            
+            fecha_emision = self.cleaned_data.get('fecha_emision')
+            codigo_verificacion = self.cleaned_data.get('codigo_verificacion')
+            nivel = self.cleaned_data.get('nivel')
+            url_descarga = self.cleaned_data.get('url_descarga')
+            
+            #Validamos el campo fecha_emision
+            
+            if fecha_emision > datetime.now().date():
+                self.add_error('fecha_emision', 'La fecha no puede ser a futuros de hoy')
+            
+            #Validamos el campo codigo_verificacion
+            
+            if len(codigo_verificacion) != 6:
+                self.add_error('codigo_verificacion', 'El código de verificación debe tener 6 caracteres')
+            
+            #Validamos el campo nivel
+            
+            if len(nivel) < 3:
+                self.add_error('nivel', 'El nivel debe tener como minimo 3 caracteres')
+            
+            #Validamos el campo url_descarga
+            
+            if not url_descarga.startswith("http"):
+                self.add_error('url_descarga', 'La URL de descarga debe comenzar con http:// o https://')
+                
+            return self.cleaned_data
+        
+        
+class BusquedaAvanzadaForm(forms.Form):
+    # Campos de búsqueda para Usuario
+    nombre = forms.CharField(max_length=100, required=False, label="Nombre")
+    email = forms.EmailField(required=False, label="Email")
+    fecha_inicio = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}), label="Fecha de Registro (Desde)")
+    fecha_fin = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}), label="Fecha de Registro (Hasta)")
+    
+    # Campos de búsqueda para otro modelo, por ejemplo, Curso
+    curso_nombre = forms.CharField(max_length=100, required=False, label="Nombre del Curso")
+    
+    # Selección del tipo de búsqueda
+    tipo_busqueda = forms.ChoiceField(choices=[('usuario', 'Usuario'), ('curso', 'Curso')], required=True, label="Tipo de Búsqueda")

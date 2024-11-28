@@ -142,9 +142,9 @@ def mi_error_500(request,exception=None):
 
 ###################################################################################################
 
-#TEMPLATES DE LOS FORMUALRIOS
+#VISTAS DE LOS FORMUALRIOS
 
-def usuario_Form (request):
+def usuario_Form(request):
     if request.method == 'POST':
         formulario = UsuarioForm(request.POST)
         if formulario.is_valid():
@@ -153,8 +153,111 @@ def usuario_Form (request):
                 formulario.save()
                 return redirect('listar_ususario')
             except Exception as error:
-                print(error) 
+                print(error)
     else:
         formulario = UsuarioForm()
         
-    return render(request, 'formulario/usuarioFormulario.html', {"formulario": formulario}) 
+    return render(request, 'formulario/usuarioFormulario.html', {"formulario": formulario})
+
+
+def perfil_Form(request):
+    if request.method == 'POST':
+        formulario = PerfilForm(request.POST)
+        if formulario.is_valid():
+            try:
+                # Guarda el perfil del usuario en la base de datos
+                formulario.save()
+                return redirect('listar_ususario')
+            except Exception as error:
+                print(error)
+    else:
+        formulario = PerfilForm()
+        
+    # Devuelve el formulario con los datos ingresados o el formulario vacío en caso de GET
+    return render(request, 'formulario/perfilFormulario.html', {"formulario": formulario})
+
+def tutorial_Form(request):
+    if request.method == 'POST':
+        formulario = TutorialForm(request.POST)
+        if formulario.is_valid():
+            try:
+                #Guarda el tutorial en la base de datos
+                formulario.save()
+                return redirect('listar_tutoriales')
+            except Exception as error: 
+                print(error)
+    else: 
+        formulario = TutorialForm()
+        
+    #Devuele el formulario con los datos ingresados o el formulario vacio en caso de GET
+    return render(request, 'formulario/tutorialFormulario.html', {"formulario":formulario})
+
+def subcategoria_Form(request):
+    if request.method == 'POST':
+        formulario = SubcategoriaForm(request.POST)
+        if formulario.is_valid():
+            try:
+                #Guarda el formulario en la basde de datos
+                formulario.save()
+                return redirect('lista_subcategoria')
+            except Exception as error: 
+                print(error)
+    else:
+        formulario = SubcategoriaForm()
+        
+        #Devuelve el formulario con los datos ingresados o el formulario vacío en caso de GET
+        return render (request, 'formulario/subcategoriaFormulario.html', {"formulario": formulario})
+        
+def comentario_Form(request):
+    if request.method == 'POST':
+        formulario = ComentarioForm(request.POST)
+        if formulario.is_valid():
+            try:
+                #Guarda el comentario en la base de datos
+                formulario.save()
+                return redirect('muestra_comentario_equals_palabra')
+            except Exception as error: 
+                print(error)
+    else:
+        formulario = ComentarioForm()
+        
+        #Devuelve el formulario con los datos ingresados o el formulario vacio en caso de GET
+        return render(request, 'formulario/comentarioFomulario.html', {"formulario":formulario})   
+    
+def certificado_Form(request):
+    if request.method == 'POST':
+        formulario = CertificadoForm(request.POST)
+        if formulario.is_valid():
+            try:
+                # Guarda el certificado en la base de datos
+                formulario.save()
+                return redirect('muestra_certificado_usuario_mismo_id')  # Reemplaza con la URL correcta
+            except Exception as error:
+                print(error)
+                # Aquí puedes manejar el error de una manera más adecuada
+    else:
+        formulario = CertificadoForm()  # Formulario vacío para GET
+
+    # Devuelve el formulario con los datos ingresados o el formulario vacío
+    return render(request, 'formulario/certificadoFormulario.html', {'formulario': formulario}) 
+
+from django import forms
+
+def busqueda_avanzada(request):
+    query = request.GET.get('query', '')  # Recupera el término de búsqueda
+    tipo_busqueda = request.GET.get('tipo_busqueda', 'usuario')  # Recupera el tipo de búsqueda (usuario o curso)
+
+    usuarios = []
+    cursos = []
+
+    if query:
+        if tipo_busqueda == 'usuario':
+            usuarios = Usuario.objects.filter(nombre__icontains=query)
+        elif tipo_busqueda == 'curso':
+            cursos = Curso.objects.filter(nombre__icontains=query)
+    
+    # Devuelve los resultados a un template dentro de la carpeta 'formulario'
+    return render(request, 'formulario/busqueda_resultado.html', {
+        'usuarios': usuarios,
+        'cursos': cursos,
+    })

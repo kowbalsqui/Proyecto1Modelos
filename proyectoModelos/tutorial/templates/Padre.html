@@ -7,25 +7,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/EstiloTemplate.css' %}">
     <script src="{% static 'javaScript/alert.js' %}"></script>
-  </head>
-  <body>
-    <nav class="navbar">
-    <div class="logo-container">
-        <img src="{% static 'imagenes/django.png' %}" alt="Logo de Django" class="logo">
-    </div>
-    {% include "MenuNavegacion.html" %}
-    </nav>
-
-    {% load static %}
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
-    <!-- Contenido de la página -->
-    {% block cabecera %}
-    {% endblock %}
+  </head>
+  <body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="{% static 'imagenes/django.png' %}" alt="Logo de Django" class="logo">
+      </div>
 
-    {% block contenido %}
-    {% endblock %}
-    <!-- Puedes agregar más elementos como imágenes, enlaces, formularios, etc. -->
-     {% include "Footer.html" %}
+       <!-- Barra de navegación con búsqueda -->
+  <div class="navbar-menu">
+    <form class="form-inline" method="get" action="{% url 'buscar' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" name="query">
+
+      <!-- Tipo de búsqueda -->
+      <select name="tipo_busqueda" class="form-control">
+        <option value="usuario">Usuario</option>
+        <option value="curso">Curso</option>
+        <!-- Agrega más tipos de búsqueda según sea necesario -->
+      </select>
+
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+  </div>
+
+      <!-- Incluir el menú de navegación -->
+      {% include "MenuNavegacion.html" %}
+    </nav>
+
+    <!-- Contenido de la página -->
+    <div class="container mt-4">
+      {% block cabecera %}
+      <!-- Aquí se puede incluir el encabezado específico de la página -->
+      {% endblock %}
+
+      {% block contenido %}
+      <!-- Aquí se incluirá el contenido principal de la página -->
+      {% endblock %}
+    </div>
+
+    <!-- Incluir pie de página -->
+    {% include "Footer.html" %}
   </body>
 </html>

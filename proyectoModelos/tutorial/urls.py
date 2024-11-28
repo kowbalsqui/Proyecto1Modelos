@@ -14,4 +14,10 @@ urlpatterns = [
     path('Tutorial/tutorial_no_tenga_categoria', views.tutorial_no_tenga_categoria, name = 'tutorial_no_tenga_categoria'),
     path('Subcategoria/Lista_subcategoria', views.lista_subcategoria, name = 'lista_subcategoria'),
     path('formulario/usuarioFormulario', views.usuario_Form, name = 'usuarioFormulario'),
+    path('formulario/perfilFormulario', views.perfil_Form, name = 'perfilFormulario'),
+    path('formulario/tutorialFormulario', views.tutorial_Form, name = "tutorialFormulario"),
+    path('formulario/subcategoriaFormulario', views.subcategoria_Form, name = "subcategoriaFormulario"),
+    path('formulario/comentarioFomulario', views.comentario_Form, name = "comentarioFomulario"),
+    path('formulario/certificadoFormulario', views.certificado_Form, name = "certificadoFomulario"),
+    path('buscar/', views.busqueda_avanzada, name='buscar'),
 ]

@@ -1,0 +1,21 @@
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+  <h1>Buscar</h1>
+{% endblock %}
+
+{% block contenido %}
+  <!-- Formulario de búsqueda con selección del tipo de búsqueda -->
+  <form class="form-inline" method="get" action="{% url 'buscar' %}">
+    <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" name="query">
+
+    <!-- Tipo de búsqueda -->
+    <select name="tipo_busqueda" class="form-control">
+      <option value="usuario">Usuario</option>
+      <option value="curso">Curso</option>
+      <!-- Agrega más tipos de búsqueda según sea necesario -->
+    </select>
+
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+  </form>
+{% endblock %}

@@ -351,6 +351,14 @@ class BusquedaAvanzadaForm(forms.Form):
     
     # Campos de búsqueda para otro modelo, por ejemplo, Curso
     curso_nombre = forms.CharField(max_length=100, required=False, label="Nombre del Curso")
+
+    #Camnpos de busqueda para tutoriales
+
+    tutorial_titulos = forms.CharField(max_length=100, required=False, label="Nombre del Tutorial")
+
+    #Campos de busqueda para comentarios
+
+    comentario_contenido = forms.CharField(max_length=100, required=False, label="Palabra de comentario")
     
     # Selección del tipo de búsqueda
-    tipo_busqueda = forms.ChoiceField(choices=[('usuario', 'Usuario'), ('curso', 'Curso')], required=True, label="Tipo de Búsqueda")
+    tipo_busqueda = forms.ChoiceField(choices=[('usuario', 'Usuario'), ('curso', 'Curso'), ('tutorial', 'Tutorial'), ('comentario', 'Comentario')], required=True, label="Tipo de Búsqueda")

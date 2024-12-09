@@ -13,6 +13,8 @@
     <select name="tipo_busqueda" class="form-control">
       <option value="usuario">Usuario</option>
       <option value="curso">Curso</option>
+      <option value="tutorial">Tutorial</option>
+      <option value="comentario">Comentario</option>
       <!-- Agrega más tipos de búsqueda según sea necesario -->
     </select>
 
@@ -55,6 +57,44 @@
               <a class="btn btn-primary">Modificar</a>
               <a class="btn btn-danger">Eliminar</a>
               
+            </div> 
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if tutorial %}
+        {% for tutorial in tutorial %}
+        <div class="col-md-4 mb-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ tutorial.titulo }}</h5>
+              <p class="card-text">{{ tutorial.contenido }}</p>
+
+              
+              <a class="btn btn-primary">Modificar</a>
+              <a class="btn btn-danger">Eliminar</a>
+
+            </div> 
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if comentario %}
+        {% for comentario in comentario %}
+        <div class="col-md-4 mb-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ comentario.fecha }}</h5>
+              <p class="card-text">{{ comentario.contenido }}</p>
+              <p class="card-text">{{ comentario.visible }}</p>
+              <p class="card-text">{{ comentario.puntuacion }}</p>
+
+              
+              <a class="btn btn-primary">Modificar</a>
+              <a class="btn btn-danger">Eliminar</a>
+
             </div> 
           </div>
         </div>

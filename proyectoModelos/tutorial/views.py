@@ -241,23 +241,29 @@ def certificado_Form(request):
     # Devuelve el formulario con los datos ingresados o el formulario vacío
     return render(request, 'formulario/certificadoFormulario.html', {'formulario': formulario}) 
 
-from django import forms
-
 def busqueda_avanzada(request):
     query = request.GET.get('query', '')  # Recupera el término de búsqueda
     tipo_busqueda = request.GET.get('tipo_busqueda', 'usuario')  # Recupera el tipo de búsqueda (usuario o curso)
 
     usuarios = []
     cursos = []
+    tutorial = []
+    comentario = []
 
     if query:
         if tipo_busqueda == 'usuario':
             usuarios = Usuario.objects.filter(nombre__icontains=query)
         elif tipo_busqueda == 'curso':
             cursos = Curso.objects.filter(nombre__icontains=query)
+        elif tipo_busqueda == 'tutorial':
+            tutorial = Tutorial.objects.filter(titulo__icontains=query)
+        elif tipo_busqueda == 'comentario':
+            comentario = Comentario.objects.filter(contenido__icontains=query)
     
     # Devuelve los resultados a un template dentro de la carpeta 'formulario'
     return render(request, 'formulario/busqueda_resultado.html', {
         'usuarios': usuarios,
         'cursos': cursos,
+        'tutorial': tutorial,
+        'comentario':comentario,
     })

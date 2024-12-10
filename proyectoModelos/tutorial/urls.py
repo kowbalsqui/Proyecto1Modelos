@@ -19,5 +19,10 @@ urlpatterns = [
     path('formulario/subcategoriaFormulario', views.subcategoria_Form, name = "subcategoriaFormulario"),
     path('formulario/comentarioFomulario', views.comentario_Form, name = "comentarioFomulario"),
     path('formulario/certificadoFormulario', views.certificado_Form, name = "certificadoFomulario"),
+    path('enlaces/', views.pagina_de_enlaces, name='pagina_de_enlaces'),
     path('buscar/', views.busqueda_avanzada, name='buscar'),
+    path('formulario/filtros-avanzados/', views.filtros_avanzados, name='filtros_avanzados'),
+    path('formulario/filtros-avanzados-tutoriales/', views.filtros_avanzados_tutoriales, name='filtros_avanzados_tutoriales'),
+    path('formulario/filtros-avanzados-perfil/', views.filtros_avanzados_perfil, name = 'filtros_avanzados_perfil'),
+
 ]

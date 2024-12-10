@@ -1,0 +1,90 @@
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+<h1 class="text-center text-primary my-4">Búsqueda Avanzada de Perfiles</h1>
+<p class="text-center text-secondary">Filtros de búsqueda</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="card shadow p-4">
+    <h2 class="text-secondary mb-4">Filtros de búsqueda</h2>
+    <form method="GET"  class="mb-4">
+        <!-- Filtro de fecha de nacimiento -->
+        <div class="form-group mb-3">
+            <label for="fecha_Nacimiento" class="form-label">Fecha de nacimiento (desde):</label>
+            <input 
+                type="date" 
+                id="fecha_Nacimiento" 
+                name="fecha_Nacimiento" 
+                class="form-control">
+        </div>
+
+        <!-- Filtro de redes sociales -->
+        <div class="form-group mb-3">
+            <label class="form-label">Redes sociales:</label>
+            <div>
+                <input type="radio" id="instagram" name="redes" value="IG">
+                <label for="instagram">Instagram</label>
+            </div>
+            <div>
+                <input type="radio" id="facebook" name="redes" value="FB">
+                <label for="facebook">Facebook</label>
+            </div>
+            <div>
+                <input type="radio" id="twitter" name="redes" value="TW">
+                <label for="twitter">Twitter</label>
+            </div>
+            <div>
+                <input type="radio" id="linkedin" name="redes" value="LI">
+                <label for="linkedin">LinkedIn</label>
+            </div>
+        </div>
+
+        <!-- Filtro de estudios -->
+        <div class="form-group mb-3">
+            <label for="estudios" class="form-label">Estudios:</label>
+            <input 
+                type="text" 
+                id="estudios" 
+                name="estudios" 
+                class="form-control" 
+                placeholder="Ingrese término relacionado con estudios">
+        </div>
+
+        <!-- Botón de búsqueda -->
+        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+    </form>
+</div>
+
+<hr>
+
+<h2 class="text-center text-secondary my-4">Resultados de búsqueda</h2>
+
+<div class="row">
+    {% if perfiles %}
+        {% for perfil in perfiles %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ perfil.usuario.nombre }}</h5>
+                    <p class="card-text">
+                        <strong>Biografía:</strong> {{ perfil.bio|truncatewords:10 }}<br>
+                        <strong>Fecha de nacimiento:</strong> {{ perfil.fecha_Nacimiento|date:"d \d\e F \d\e Y" }}<br>
+                        <strong>Redes sociales:</strong> {{ perfil.get_redes_display }}<br>
+                        <strong>Estudios:</strong> {{ perfil.estudios }}
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-sm btn-primary disabled">Modificar</a>
+                    <a href="#" class="btn btn-sm btn-danger disabled">Eliminar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <p class="text-center text-danger">No se encontraron resultados.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

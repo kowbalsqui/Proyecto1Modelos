@@ -1,18 +1,25 @@
-<html>
-    <head></head>
-    <body>
-        <h1>LINKS DE LAS URLS:</h1>
-        <ul>
-            <li><a href="{% url 'listar_tutoriales' %}">Tutoriales</a></li>
-            <li><a href="{% url 'listar_ususario' %}">Usuarios</a></li>
-            <li><a href="{% url 'muestra_certificado_usuario_mismo_id' 1 %}">Certificados de un usuario por id</a></li>
-            <li><a href="{% url 'muestra_comentario_equals_palabra' 'item' %}">Comentarios por una palabra en concreto</a></li>
-            <li><a href="{% url 'muestra_tutorial_por_etiqueta' 'Glass' %}">Tutoriales con etiqueta en concreto</a></li>
-            <li><a href="{% url 'lista_usuarios_entre_años' 1970 2000 %}">Usuarios nacidos entre dos años en especifico</a></li>
-            <li><a href="{% url 'lista_tutorial_por_categoria' 'hola' 'walk' %}">Tutoriales con x categoria</a></li>
-            <li><a href="{% url 'total_visitas' %}">Tutoriales con la suma de visitas</a></li>
-            <li><a href="{% url 'tutorial_no_tenga_categoria' %}">Tutoriales que no tengan categoria</a></li>
-            <li><a href="{% url 'lista_subcategoria' %}">Subcategorias</a></li>
-        </ul>
-    </body>
-</html>
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+<h1 class="text-center text-primary my-4">Links de las URLs</h1>
+<p class="text-center text-secondary">Accede a las diferentes secciones y funcionalidades de tu proyecto.</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <ul class="list-group">
+      <li class="list-group-item"><a href="{% url 'listar_tutoriales' %}" class="text-decoration-none">Tutoriales</a></li>
+      <li class="list-group-item"><a href="{% url 'listar_ususario' %}" class="text-decoration-none">Usuarios</a></li>
+      <li class="list-group-item"><a href="{% url 'muestra_certificado_usuario_mismo_id' 1 %}" class="text-decoration-none">Certificados de un usuario por ID</a></li>
+      <li class="list-group-item"><a href="{% url 'muestra_comentario_equals_palabra' 'item' %}" class="text-decoration-none">Comentarios por una palabra en concreto</a></li>
+      <li class="list-group-item"><a href="{% url 'muestra_tutorial_por_etiqueta' 'Glass' %}" class="text-decoration-none">Tutoriales con etiqueta en concreto</a></li>
+      <li class="list-group-item"><a href="{% url 'lista_usuarios_entre_años' 1970 2000 %}" class="text-decoration-none">Usuarios nacidos entre dos años en específico</a></li>
+      <li class="list-group-item"><a href="{% url 'lista_tutorial_por_categoria' 'hola' 'walk' %}" class="text-decoration-none">Tutoriales con una categoría específica</a></li>
+      <li class="list-group-item"><a href="{% url 'total_visitas' %}" class="text-decoration-none">Tutoriales con la suma de visitas</a></li>
+      <li class="list-group-item"><a href="{% url 'tutorial_no_tenga_categoria' %}" class="text-decoration-none">Tutoriales que no tengan categoría</a></li>
+      <li class="list-group-item"><a href="{% url 'lista_subcategoria' %}" class="text-decoration-none">Subcategorías</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

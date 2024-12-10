@@ -3,7 +3,6 @@ from django.db.models import Q,Prefetch
 from django.forms import modelform_factory
 from .models import *
 from django.db.models import Sum
-
 from .forms import *
 from django.contrib import messages
 
@@ -267,3 +266,74 @@ def busqueda_avanzada(request):
         'tutorial': tutorial,
         'comentario':comentario,
     })
+
+def filtros_avanzados(request):
+    formulario = BusquedaAvanzadaUsuario(request.GET or None)
+    usuarios = Usuario.objects.all()
+
+    if request.GET:  # Si hay datos enviados por GET
+        if formulario.is_valid():
+            puntuacion = formulario.cleaned_data.get('puntuacion')
+            activo = formulario.cleaned_data.get('es_activo')
+            fecha_Registro = formulario.cleaned_data.get('fecha_Registro')
+
+            # Aplicamos los filtros
+            if puntuacion is not None:
+                usuarios = usuarios.filter(puntuacion=puntuacion)
+            if activo:
+                usuarios = usuarios.filter(es_activo = True)
+            if fecha_Registro:
+                usuarios = usuarios.filter(fecha_Registro__gte=fecha_Registro)
+        else:
+            # Si el formulario no es válido, mostramos los errores
+            return render(request, 'MenuNavegacion.html', {
+                'formulario': formulario,
+                'usuarios': [],
+            })
+
+    # Siempre renderiza un HttpResponse
+    return render(request, 'formulario/busqueda_avanzada_user.html', {
+        'formulario': formulario,
+        'usuarios': usuarios,
+    })
+
+
+
+def filtros_avanzados_tutoriales(request):
+    # Inicializamos el queryset
+    tutoriales = Tutorial.objects.all()
+
+    # Capturamos los valores de los filtros
+    titulo = request.GET.get('titulo')
+    fecha_creacion = request.GET.get('fecha_Creacion')
+    valoracion = request.GET.get('valoracion')
+
+    # Filtros avanzados
+    if titulo:
+        tutoriales = tutoriales.filter(titulo__icontains=titulo)  # Título contiene la palabra clave
+    if fecha_creacion:
+        tutoriales = tutoriales.filter(fecha_Creacion__gte=fecha_creacion)  # Fecha de creación mayor o igual
+    if valoracion:
+        tutoriales = tutoriales.filter(valoracion__gte=valoracion)  # Valoración mínima
+
+    # Renderizamos la plantilla
+    return render(request, 'formulario/filtros_avanzados_tutoriales.html', {'tutoriales': tutoriales})
+
+def filtros_avanzados_perfil(request):
+    perfiles = Perfil.objects.all()
+    
+    fecha_nacimiento = request.GET.get('fecha_Nacimiento')
+    redes = request.GET.get('redes')
+    estudios = request.GET.get('estudios')
+    
+    if fecha_nacimiento:
+        perfiles = perfiles.filter(fecha_Nacimiento__gte=fecha_nacimiento)  # Fecha de nacimiento mayor o igual
+    if redes:
+        perfiles = perfiles.filter(redes = redes)
+    if estudios:
+        perfiles = perfiles.filter(estudios__icontains = estudios)
+        
+    return render(request, 'formulario/filtros_avanzados_perfiles.html', {'perfiles': perfiles})
+
+def pagina_de_enlaces(request):
+    return render(request, 'enlaces.html')

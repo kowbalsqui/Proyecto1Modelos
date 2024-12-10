@@ -1,0 +1,78 @@
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+<h1 class="text-center text-primary my-4">Búsqueda Avanzada de Usuarios</h1>
+<p class="text-center text-secondary">Filtros de búsqueda</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="card shadow p-4">
+    <h2 class="text-secondary mb-4">Filtros de búsqueda</h2>
+    <form method="GET" action="{% url 'filtros_avanzados' %}" class="mb-4">
+        <!-- Filtro de puntuación -->
+        <div class="form-group mb-3">
+            <label for="puntuacion" class="form-label">Puntuación mínima:</label>
+            <input 
+                type="number" 
+                id="puntuacion" 
+                name="puntuacion" 
+                class="form-control" 
+                min="1" 
+                max="10" 
+                step="0.1" 
+                placeholder="Ej: 5.0">
+        </div>
+
+        <!-- Filtro de usuario activo -->
+        <div class="form-group form-check mb-3">
+            <input type="checkbox" id="es_activo" name="es_activo" class="form-check-input">
+            <label for="es_activo" class="form-check-label">¿Usuario activo?</label>
+        </div>
+
+        <!-- Filtro de fecha de registro -->
+        <div class="form-group mb-3">
+            <label for="fecha_Registro" class="form-label">Fecha de registro (desde):</label>
+            <input 
+                type="date" 
+                id="fecha_Registro" 
+                name="fecha_Registro" 
+                class="form-control">
+        </div>
+
+        <!-- Botón de búsqueda -->
+        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+    </form>
+</div>
+
+<hr>
+
+<h2 class="text-center text-secondary my-4">Resultados de búsqueda</h2>
+
+<div class="row">
+    {% if usuarios %}
+        {% for usuario in usuarios %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ usuario.nombre }}</h5>
+                    <p class="card-text">
+                        <strong>Correo electrónico:</strong> {{ usuario.email }}<br>
+                        <strong>Puntuación:</strong> {{ usuario.puntuacion }}<br>
+                        <strong>Fecha de Registro:</strong> {{ usuario.fecha_Registro|date:"d \d\e F \d\e Y" }}<br>
+                        <strong>Estado:</strong> {{ usuario.es_activo|yesno:"Activo,Inactivo" }}
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-sm btn-primary disabled">Modificar</a>
+                    <a href="#" class="btn btn-sm btn-danger disabled">Eliminar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <p class="text-center text-danger">No se encontraron resultados.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

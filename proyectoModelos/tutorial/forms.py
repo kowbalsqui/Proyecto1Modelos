@@ -362,3 +362,53 @@ class BusquedaAvanzadaForm(forms.Form):
     
     # Selección del tipo de búsqueda
     tipo_busqueda = forms.ChoiceField(choices=[('usuario', 'Usuario'), ('curso', 'Curso'), ('tutorial', 'Tutorial'), ('comentario', 'Comentario')], required=True, label="Tipo de Búsqueda")
+    
+from django import forms
+from django.utils.timezone import now
+
+class BusquedaAvanzadaUsuario(forms.Form):
+    puntuacion = forms.DecimalField(
+        max_digits=3, 
+        decimal_places=1, 
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ej: 5.0'
+        })
+    )
+    es_activo = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input',
+        })
+    )
+    fecha_Registro = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={
+            'class': 'form-control',
+            'type': 'date',
+        })
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        puntuacion = cleaned_data.get('puntuacion')
+        activo = cleaned_data.get('es_activo')
+        fecha_Registro = cleaned_data.get('fecha_Registro')
+
+        # Validación de puntuación (verifica si no es None)
+        if puntuacion is not None:
+            if puntuacion < 1 or puntuacion > 5:
+                self.add_error('puntuacion', 'La puntuación debe estar entre 1 y 5.')
+
+        # Validación de activo (puede ser None)
+        if activo is None:
+            self.add_error('activo', 'Debe especificar si el usuario está activo o no.')
+
+        # Validación de fecha de registro
+        if fecha_Registro:
+            if fecha_Registro > now().date():
+                self.add_error('fecha_Registro', 'La fecha no puede estar en el futuro.')
+
+        return cleaned_data

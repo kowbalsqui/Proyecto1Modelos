@@ -1,0 +1,54 @@
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+<h1 class="text-center text-primary my-4">Menú Principal</h1>
+<p class="text-center text-secondary">Aquí puedes acceder a todos los enlaces disponibles en el proyecto.</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+
+    <!-- Sección de Búsquedas -->
+    <h2 class="text-center text-info mt-4 mb-3">Búsquedas</h2>
+    <ul class="list-group">
+      <li class="list-group-item"><a href="{% url 'listar_tutoriales' %}" class="text-decoration-none">Tutoriales</a></li>
+      <li class="list-group-item"><a href="{% url 'listar_ususario' %}" class="text-decoration-none">Usuarios</a></li>
+      <li class="list-group-item"><a href="{% url 'muestra_certificado_usuario_mismo_id' 1 %}" class="text-decoration-none">Certificados por ID</a></li>
+      <li class="list-group-item"><a href="{% url 'muestra_comentario_equals_palabra' 'item' %}" class="text-decoration-none">Comentarios por palabra</a></li>
+      <li class="list-group-item"><a href="{% url 'muestra_tutorial_por_etiqueta' 'Glass' %}" class="text-decoration-none">Tutoriales por etiqueta</a></li>
+      <li class="list-group-item"><a href="{% url 'lista_usuarios_entre_años' 1970 2000 %}" class="text-decoration-none">Usuarios entre años</a></li>
+      <li class="list-group-item"><a href="{% url 'lista_tutorial_por_categoria' 'hola' 'walk' %}" class="text-decoration-none">Tutoriales por categoría</a></li>
+      <li class="list-group-item"><a href="{% url 'total_visitas' %}" class="text-decoration-none">Suma de visitas</a></li>
+      <li class="list-group-item"><a href="{% url 'tutorial_no_tenga_categoria' %}" class="text-decoration-none">Tutoriales sin categoría</a></li>
+      <li class="list-group-item"><a href="{% url 'lista_subcategoria' %}" class="text-decoration-none">Subcategorías</a></li>
+    </ul>
+
+    <!-- Separador -->
+    <hr class="my-4">
+
+    <!-- Sección de Formularios -->
+    <h2 class="text-center text-success mt-4 mb-3">Formularios</h2>
+    <ul class="list-group">
+      <li class="list-group-item"><a href="{% url 'usuarioFormulario' %}" class="text-decoration-none">Formulario de usuarios</a></li>
+      <li class="list-group-item"><a href="{% url 'perfilFormulario' %}" class="text-decoration-none">Formulario de perfiles</a></li>
+      <li class="list-group-item"><a href="{% url 'tutorialFormulario' %}" class="text-decoration-none">Formulario de tutoriales</a></li>
+      <li class="list-group-item"><a href="{% url 'subcategoriaFormulario' %}" class="text-decoration-none">Formulario de subcategorías</a></li>
+      <li class="list-group-item"><a href="{% url 'comentarioFomulario' %}" class="text-decoration-none">Formulario de comentarios</a></li>
+      <li class="list-group-item"><a href="{% url 'certificadoFomulario' %}" class="text-decoration-none">Formulario de certificados</a></li>
+    </ul>
+
+    <!-- Separador -->
+    <hr class="my-4">
+
+    <!-- Sección de Formularios -->
+    <h2 class="text-center text-success mt-4 mb-3">Busqueda Avanzadas</h2>
+    <ul class="list-group">
+      <li class="list-group-item"><a href="{% url 'filtros_avanzados' %}" class="text-decoration-none">Busqueda de Usuaios con filtros avanazdos</a></li>
+      <li class="list-group-item"><a href="{% url 'filtros_avanzados_tutoriales' %}" class="text-decoration-none">Busqueda de Tutoriales con filtros avanazdos</a></li>
+      <li class="list-group-item"><a href="{% url 'filtros_avanzados_perfil' %}" class="text-decoration-none">Busqueda de Perfiles con filtros avanazdos</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+

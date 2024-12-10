@@ -8,50 +8,25 @@
 {% block contenido %}
 <div class="card shadow p-4">
     <h2 class="text-secondary mb-4">Filtros de búsqueda</h2>
-    <form method="GET"  class="mb-4">
-        <!-- Filtro de fecha de nacimiento -->
-        <div class="form-group mb-3">
-            <label for="fecha_Nacimiento" class="form-label">Fecha de nacimiento (desde):</label>
-            <input 
-                type="date" 
-                id="fecha_Nacimiento" 
-                name="fecha_Nacimiento" 
-                class="form-control">
-        </div>
+    <form method="GET" class="mb-4">
+        {{ formulario.fecha_Nacimiento.label_tag }}
+        {{ formulario.fecha_Nacimiento }}
+        {% for error in formulario.fecha_Nacimiento.errors %}
+            <div class="text-danger"><small>{{ error }}</small></div>
+        {% endfor %}
 
-        <!-- Filtro de redes sociales -->
-        <div class="form-group mb-3">
-            <label class="form-label">Redes sociales:</label>
-            <div>
-                <input type="radio" id="instagram" name="redes" value="IG">
-                <label for="instagram">Instagram</label>
-            </div>
-            <div>
-                <input type="radio" id="facebook" name="redes" value="FB">
-                <label for="facebook">Facebook</label>
-            </div>
-            <div>
-                <input type="radio" id="twitter" name="redes" value="TW">
-                <label for="twitter">Twitter</label>
-            </div>
-            <div>
-                <input type="radio" id="linkedin" name="redes" value="LI">
-                <label for="linkedin">LinkedIn</label>
-            </div>
-        </div>
+        {{ formulario.redes.label_tag }}
+        {{ formulario.redes }}
+        {% for error in formulario.redes.errors %}
+            <div class="text-danger"><small>{{ error }}</small></div>
+        {% endfor %}
 
-        <!-- Filtro de estudios -->
-        <div class="form-group mb-3">
-            <label for="estudios" class="form-label">Estudios:</label>
-            <input 
-                type="text" 
-                id="estudios" 
-                name="estudios" 
-                class="form-control" 
-                placeholder="Ingrese término relacionado con estudios">
-        </div>
+        {{ formulario.estudios.label_tag }}
+        {{ formulario.estudios }}
+        {% for error in formulario.estudios.errors %}
+            <div class="text-danger"><small>{{ error }}</small></div>
+        {% endfor %}
 
-        <!-- Botón de búsqueda -->
         <button type="submit" class="btn btn-primary w-100">Buscar</button>
     </form>
 </div>

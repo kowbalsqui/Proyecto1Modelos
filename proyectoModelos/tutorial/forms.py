@@ -2,6 +2,8 @@ from django import forms
 from datetime import datetime
 from django.forms import ModelForm
 from .models import *
+from django.utils.timezone import now
+from datetime import date, timedelta
 
 
 class UsuarioForm(ModelForm):
@@ -362,9 +364,6 @@ class BusquedaAvanzadaForm(forms.Form):
     
     # Selección del tipo de búsqueda
     tipo_busqueda = forms.ChoiceField(choices=[('usuario', 'Usuario'), ('curso', 'Curso'), ('tutorial', 'Tutorial'), ('comentario', 'Comentario')], required=True, label="Tipo de Búsqueda")
-    
-from django import forms
-from django.utils.timezone import now
 
 class BusquedaAvanzadaUsuario(forms.Form):
     puntuacion = forms.DecimalField(
@@ -391,11 +390,15 @@ class BusquedaAvanzadaUsuario(forms.Form):
     )
 
     def clean(self):
-        cleaned_data = super().clean()
+        super().clean()
 
-        puntuacion = cleaned_data.get('puntuacion')
-        activo = cleaned_data.get('es_activo')
-        fecha_Registro = cleaned_data.get('fecha_Registro')
+        puntuacion = self.cleaned_data.get('puntuacion')
+        activo = self.cleaned_data.get('es_activo')
+        fecha_Registro = self.cleaned_data.get('fecha_Registro')
+
+        if not puntuacion and not activo and not fecha_Registro:
+            raise forms.ValidationError("Debes rellenar al menos un dato: visitas, valoración o usuario.")
+
 
         # Validación de puntuación (verifica si no es None)
         if puntuacion is not None:
@@ -411,4 +414,190 @@ class BusquedaAvanzadaUsuario(forms.Form):
             if fecha_Registro > now().date():
                 self.add_error('fecha_Registro', 'La fecha no puede estar en el futuro.')
 
-        return cleaned_data
+        return self.cleaned_data
+
+class BusquedaAvanzadaTutorial(forms.Form):
+    visitas = forms.IntegerField(
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ej: 1'
+        })
+    )
+    valoracion = forms.DecimalField(
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ej: 1'
+        })
+    )
+    usuario = forms.ModelChoiceField(
+    queryset=Usuario.objects.all(),
+    required=False,
+    widget=forms.Select(attrs={
+        'class': 'form-control'
+    })
+)
+
+    def clean(self):
+        super().clean()
+
+        visitas = self.cleaned_data.get('visitas')
+        valoracion = self.cleaned_data.get('valoracion')
+        usuario = self.cleaned_data.get('usuario')
+
+        if not visitas and not valoracion and not usuario:
+            self.add_error('visitas',"Debes rellenar al menos un dato: visitas, valoración o usuario.")
+            self.add_error('valoracion',"Debes rellenar al menos un dato: visitas, valoración o usuario.")
+            self.add_error('usuario',"Debes rellenar al menos un dato: visitas, valoración o usuario.")
+
+        # Validación de visitas
+        if visitas is not None and visitas < 0:
+            self.add_error('visitas', 'El número de visitas no puede ser negativo.')
+
+        # Validación de valoración
+        if valoracion is not None and valoracion < 0:
+            self.add_error('valoracion', 'El número de valoraciones no puede ser negativo.')
+
+        # Validación de usuario (no aplica error si está vacío porque es opcional)
+        # Si lo haces obligatorio, asegúrate de que esté seleccionado
+        if usuario is not None and not Usuario.objects.filter(id=usuario.id).exists():
+            self.add_error('usuario', 'Seleccione un usuario válido.')
+
+        return self.cleaned_data
+    
+from datetime import date, timedelta
+from django.core.exceptions import ValidationError
+from django import forms
+
+class BusquedaAvanzadaPerfil(forms.Form):
+    fecha_Nacimiento = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={
+            'class': 'form-control',
+            'type': 'date',
+        })
+    )
+    redes = forms.ChoiceField(
+        choices=Perfil.REDES,  
+        required=False,
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+        })
+    )
+    estudios = forms.CharField(
+        max_length=100, 
+        required=False, 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ej: Estudios superiores',
+        })
+    )
+
+    def clean(self):
+        super().clean()
+
+        fecha_Nacimiento = self.cleaned_data.get('fecha_Nacimiento')
+        redes = self.cleaned_data.get('redes')
+        estudios = self.cleaned_data.get('estudios')
+        hoy = date.today()
+        limite_inferior = hoy - timedelta(days=365 * 100)  # 100 años atrás
+        limite_superior = hoy + timedelta(days=365 * 100)  # 100 años adelante
+
+        # Validación global: al menos un campo debe estar relleno
+        if not fecha_Nacimiento and not redes and not estudios:
+                self.add_error('fecha_Nacimiento', 'Debes rellenar un campo minimo')
+                self.add_error('redes', 'Debes rellenar un campo minimo')
+                self.add_error('estudios', 'Debes rellenar un campo minimo')
+
+        # Validación de fecha de nacimiento
+        if fecha_Nacimiento:
+            if fecha_Nacimiento < limite_inferior or fecha_Nacimiento > limite_superior:
+                self.add_error('fecha_Nacimiento', 'La fecha de nacimiento debe estar entre 100 años atrás y adelante.')
+
+        return self.cleaned_data
+    
+class BusquedaAvanzadaSubcategorias(forms.Form):
+    nombre = forms.CharField(
+    required=False,
+    widget=forms.TextInput(attrs={
+        'class': 'form-control',
+    })
+    )
+    activa = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input',
+        })
+    )
+    categoria = forms.ModelChoiceField(
+        queryset=Categoria.objects.all(),
+        required=False,
+        widget=forms.Select(attrs={
+            'class': 'form-control'
+        })
+    )
+    def clean (self):
+        super().clean()
+
+        nombre = self.cleaned_data.get('nombre')
+        activa = self.cleaned_data.get('activa')
+        categoria = self.cleaned_data.get('categoria')
+
+        if not nombre and not activa and not categoria:
+            self.add_error('nombre', 'Debe haber al menos un campo relleno')
+            self.add_error('activa', 'Debe haber al menos un campo relleno')
+            self.add_error('categoria', 'Debe haber al menos un campo relleno')
+        
+        if activa is None:
+            self.add_error('activa', 'Debe especificar si el usuario está activo o no.')
+
+        return self.cleaned_data
+    
+from django import forms
+
+class BusquedaAvanzadaComentarios(forms.Form):
+    contenido = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Contenido...',
+        })
+    )
+    visible = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input',
+        })
+    )
+    puntuacion = forms.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ej: 5.0',
+        })
+    )
+
+    def clean(self):
+        super().clean()
+
+        contenido = self.cleaned_data.get('contenido')
+        visible = self.cleaned_data.get('visible')
+        puntuacion = self.cleaned_data.get('puntuacion')
+
+        # Validación: Al menos un campo debe estar rellenado
+        if not contenido and not visible and not puntuacion:
+            self.add_error('contenido', 'Se debe rellenar minimo un campo')
+            self.add_error('visible', 'Se debe rellenar minimo un campo')
+            self.add_error('puntuacion', 'Se debe rellenar minimo un campo')
+
+        # Validación de puntuación
+        if puntuacion is not None and puntuacion < 0:
+            self.add_error('puntuacion', 'La puntuación no puede ser menor que 0 o negativa.')
+
+        return self.cleaned_data
+
+    
+            

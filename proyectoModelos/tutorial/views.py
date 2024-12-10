@@ -4,7 +4,6 @@ from django.forms import modelform_factory
 from .models import *
 from django.db.models import Sum
 from .forms import *
-from django.contrib import messages
 
 
 # Create your views here.
@@ -206,7 +205,11 @@ def subcategoria_Form(request):
         
         #Devuelve el formulario con los datos ingresados o el formulario vacío en caso de GET
         return render (request, 'formulario/subcategoriaFormulario.html', {"formulario": formulario})
-        
+
+def pagina_de_enlaces(request):
+    return render(request, 'enlaces.html')
+
+
 def comentario_Form(request):
     if request.method == 'POST':
         formulario = ComentarioForm(request.POST)
@@ -268,7 +271,7 @@ def busqueda_avanzada(request):
     })
 
 def filtros_avanzados(request):
-    formulario = BusquedaAvanzadaUsuario(request.GET or None)
+    formulario = BusquedaAvanzadaUsuario(request.GET)
     usuarios = Usuario.objects.all()
 
     if request.GET:  # Si hay datos enviados por GET
@@ -300,40 +303,130 @@ def filtros_avanzados(request):
 
 
 def filtros_avanzados_tutoriales(request):
-    # Inicializamos el queryset
-    tutoriales = Tutorial.objects.all()
+    formulario = BusquedaAvanzadaTutorial(request.GET)  # Inicializa el formulario
+    tutoriales = Tutorial.objects.all().select_related('usuario')  # Inicializa los tutoriales
+    usuarios = Usuario.objects.all()  # Obtén todos los usuarios
 
-    # Capturamos los valores de los filtros
-    titulo = request.GET.get('titulo')
-    fecha_creacion = request.GET.get('fecha_Creacion')
-    valoracion = request.GET.get('valoracion')
+    if request.GET:  # Si hay parámetros en el GET
+        if formulario.is_valid():
+            # Obtén los datos del formulario
+            visitas = formulario.cleaned_data.get('visitas')
+            valoracion = formulario.cleaned_data.get('valoracion')
+            usuario = formulario.cleaned_data.get('usuario')
 
-    # Filtros avanzados
-    if titulo:
-        tutoriales = tutoriales.filter(titulo__icontains=titulo)  # Título contiene la palabra clave
-    if fecha_creacion:
-        tutoriales = tutoriales.filter(fecha_Creacion__gte=fecha_creacion)  # Fecha de creación mayor o igual
-    if valoracion:
-        tutoriales = tutoriales.filter(valoracion__gte=valoracion)  # Valoración mínima
+            # Aplica los filtros solo si los valores están presentes
+            if visitas:
+                tutoriales = tutoriales.filter(visitas=visitas)
+            if valoracion:
+                tutoriales = tutoriales.filter(valoracion=valoracion)
+            if usuario:
+                tutoriales = tutoriales.filter(usuario=usuario)
+        else:
+            # Si el formulario no es válido, se queda en la misma página
+            return render(request, 'formulario/filtros_avanzados_tutoriales.html', {
+                'formulario': formulario,
+                'tutoriales': [],
+                'usuarios': usuarios,
+            })
 
-    # Renderizamos la plantilla
-    return render(request, 'formulario/filtros_avanzados_tutoriales.html', {'tutoriales': tutoriales})
+    # Renderiza la plantilla con los resultados (o todos los tutoriales si no hay filtros)
+    return render(request, 'formulario/filtros_avanzados_tutoriales.html', {
+        'formulario': formulario,
+        'tutoriales': tutoriales,
+        'usuarios': usuarios,
+    })
+
 
 def filtros_avanzados_perfil(request):
+    formulario = BusquedaAvanzadaPerfil(request.GET)
     perfiles = Perfil.objects.all()
-    
-    fecha_nacimiento = request.GET.get('fecha_Nacimiento')
-    redes = request.GET.get('redes')
-    estudios = request.GET.get('estudios')
-    
-    if fecha_nacimiento:
-        perfiles = perfiles.filter(fecha_Nacimiento__gte=fecha_nacimiento)  # Fecha de nacimiento mayor o igual
-    if redes:
-        perfiles = perfiles.filter(redes = redes)
-    if estudios:
-        perfiles = perfiles.filter(estudios__icontains = estudios)
-        
-    return render(request, 'formulario/filtros_avanzados_perfiles.html', {'perfiles': perfiles})
 
-def pagina_de_enlaces(request):
-    return render(request, 'enlaces.html')
+    if request.GET:
+        if formulario.is_valid():
+            fecha_Nacimiento = formulario.cleaned_data.get('fecha_Nacimiento')
+            redes = formulario.cleaned_data.get('redes')
+            estudios = formulario.cleaned_data.get('estudios')
+
+            if fecha_Nacimiento:
+                perfiles = perfiles.filter(fecha_Nacimiento__gte=fecha_Nacimiento)
+
+            if redes:
+                perfiles = perfiles.filter(redes=redes)
+
+            if estudios:
+                perfiles = perfiles.filter(estudios__icontains=estudios)
+
+        else:
+            return render(request, 'formulario/filtros_avanzados_perfiles.html', {
+                'formulario': formulario,
+                'perfiles': []
+            })
+
+    return render(request, 'formulario/filtros_avanzados_perfiles.html', {
+        'formulario': formulario,
+        'perfiles': perfiles
+    })
+
+def filtrosAvanzadosSubcategorias(request):
+    formulario = BusquedaAvanzadaSubcategorias(request.GET)
+    subcategorias = SubCategoria.objects.all()
+    categoria = Categoria.objects.all()
+
+    if request.GET:
+        if formulario.is_valid():
+            nombre = formulario.cleaned_data.get('nombre')
+            activa = formulario.cleaned_data.get('activa')
+            categoria = formulario.cleaned_data.get('categoria')
+
+            # Aplicar filtros según los valores del formulario
+            if nombre:
+                subcategorias = subcategorias.filter(nombre__icontains=nombre)
+
+            if activa:
+                subcategorias = subcategorias.filter(activa=True)
+
+            if categoria:
+                subcategorias = subcategorias.filter(categoria=categoria)
+        else:
+            # Si el formulario no es válido, mostrar errores
+            return render(request, 'formulario/filtros_avanzados_subcategorias.html', {
+                'formulario': formulario,
+                'subcategorias': [],
+                'categoria':categoria
+            })
+
+    # Renderizar resultados filtrados o todos si no hay filtros
+    return render(request, 'formulario/filtros_avanzados_subcategorias.html', {
+        'formulario': formulario,
+        'subcategorias': subcategorias,
+        'categoria':categoria
+    })
+
+def filtrosAvanzadosComentarios(request):
+    formulario = BusquedaAvanzadaComentarios(request.GET)
+    comentarios = Comentario.objects.all()
+
+    if request.GET:
+        if formulario.is_valid():
+            contenido = formulario.cleaned_data.get('contenido')
+            visible = formulario.cleaned_data.get('visible')
+            puntuacion = formulario.cleaned_data.get('puntuacion')
+
+            if contenido:
+                comentarios = comentarios.filter(contenido__icontains=contenido)
+            
+            if visible:
+                comentarios = comentarios.filter(visible=True)
+
+            if puntuacion:
+                comentarios = comentarios.filter(puntuacion= puntuacion)
+        else:
+            return render (request, 'formulario/filtros_avanzados_comentarios.html', {
+                'formulario': formulario,
+                'comentarios': []
+            })
+    
+    return render (request, 'formulario/filtros_avanzados_comentarios.html', {
+        'formulario': formulario,
+        'comentarios': comentarios
+    })

@@ -1,7 +1,7 @@
 {% extends "Padre.html" %}
 
 {% block cabecera %}
-<h1 class="text-center text-primary my-4">Búsqueda Avanzada de Tutoriales</h1>
+<h1 class="text-center text-primary my-4">Búsqueda Avanzada de Subcategorias</h1>
 <p class="text-center text-secondary">Filtros de búsqueda</p>
 {% endblock %}
 
@@ -9,26 +9,27 @@
 <div class="card shadow p-4">
     <h2 class="text-secondary mb-4">Filtros de búsqueda</h2>
     <form method="GET" class="mb-4">
-        {{ formulario.visitas.label_tag }}
-        {{ formulario.visitas }}
-        {% for error in formulario.visitas.errors %}
+        {{ formulario.nombre.label_tag }}
+        {{ formulario.nombre }}
+        {% for error in formulario.nombre.errors %}
             <div class="text-danger"><small>{{ error }}</small></div>
         {% endfor %}
-
-        {{ formulario.valoracion.label_tag }}
-        {{ formulario.valoracion }}
-        {% for error in formulario.valoracion.errors %}
+    
+        {{ formulario.activa.label_tag }}
+        {{ formulario.activa }}
+        {% for error in formulario.activa.errors %}
             <div class="text-danger"><small>{{ error }}</small></div>
         {% endfor %}
-
-        {{ formulario.usuario.label_tag }}
-        {{ formulario.usuario }}
-        {% for error in formulario.usuario.errors %}
+    
+        {{ formulario.categoria.label_tag }}
+        {{ formulario.categoria }}
+        {% for error in formulario.categoria.errors %}
             <div class="text-danger"><small>{{ error }}</small></div>
         {% endfor %}
-
+    
         <button type="submit" class="btn btn-primary w-100">Buscar</button>
     </form>
+    
 </div>
 
 <hr>
@@ -36,17 +37,16 @@
 <h2 class="text-center text-secondary my-4">Resultados de búsqueda</h2>
 
 <div class="row">
-    {% if tutoriales %}
-        {% for tutorial in tutoriales %}
+    {% if subcategorias %}
+        {% for subcategoria in subcategorias %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">{{ tutorial.titulo }}</h5>
+                    <h5 class="card-title">{{ subcategoria.nombre }}</h5>
                     <p class="card-text">
-                        <strong>Contenido:</strong> {{ tutorial.contenido|truncatewords:10 }}<br>
-                        <strong>Fecha de creación:</strong> {{ tutorial.fecha_Creacion|date:"d \d\e F \d\e Y" }}<br>
-                        <strong>Valoración:</strong> {{ tutorial.valoracion }}<br>
-                        <strong>Visitas:</strong> {{ tutorial.visitas }}
+                        <strong>Descripcion:</strong> {{ subcategoria.descripcion|truncatewords:10 }}<br>
+                        <strong>Fecha de creacion:</strong> {{ subcategoria.fecha_Creacion|date:"d \d\e F \d\e Y" }}<br>
+                        <strong>Activo:</strong> {{ subcategoria.activa }}<br>
                     </p>
                 </div>
                 <div class="card-footer text-center">

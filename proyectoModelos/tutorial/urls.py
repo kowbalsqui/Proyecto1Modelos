@@ -24,5 +24,6 @@ urlpatterns = [
     path('formulario/filtros-avanzados/', views.filtros_avanzados, name='filtros_avanzados'),
     path('formulario/filtros-avanzados-tutoriales/', views.filtros_avanzados_tutoriales, name='filtros_avanzados_tutoriales'),
     path('formulario/filtros-avanzados-perfil/', views.filtros_avanzados_perfil, name = 'filtros_avanzados_perfil'),
-
+    path('formulario/filtros-avanzados-subcategorias/', views.filtrosAvanzadosSubcategorias, name = 'filtros_avanzados_subcategorias'),
+    path('formulario/filtros-avanzados-comentarios/', views.filtrosAvanzadosComentarios, name= 'filtros_avanzados_comentarios')
 ]

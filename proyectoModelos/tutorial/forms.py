@@ -4,6 +4,7 @@ from django.forms import ModelForm
 from .models import *
 from django.utils.timezone import now
 from datetime import date, timedelta
+from datetime import datetime
 
 
 class UsuarioForm(ModelForm):
@@ -103,7 +104,7 @@ class PerfilForm (ModelForm):
             
         #Validamos el campo estudios
         
-        if len(estudios) < 2:
+        if not estudios:
             self.add_error('estudios', 'El campo de estudios no puede esta vacio, requiere de minino un titulo')
 
         return self.cleaned_data
@@ -156,7 +157,7 @@ class TutorialForm(ModelForm):
         
         #Validamos el campo fecha de creacion
         
-        if fecha_Creacion > datetime.now().date():
+        if fecha_Creacion > datetime.now():
             self.add_error('fecha_Creacion', 'La fecha de creación no puede ser en un futuro')
         
         #Validamos el campo visitas
@@ -169,7 +170,7 @@ class TutorialForm(ModelForm):
         if valoracion < 0 or valoracion > 5:
             self.add_error('valoracion', 'La valoración debe estar entre 0 y 5')
             
-        return self.cleaned_da
+        return self.cleaned_data
 
 class SubcategoriaForm(forms.ModelForm):
     class Meta:
@@ -271,12 +272,12 @@ class ComentarioForm(ModelForm):
         
         #Validamos el campo fecha
         
-        if fecha > datetime.now().date():
+        if fecha > datetime.now():
             self.add_error('fecha', 'La fecha no puede ser en un futuro')
         
         #Validamos el campo visible
         
-        if visible is None:
+        if visible:
             self.add_error('visible', 'Debe seleccionar si está visible')
         
         #Validamos el campo puntuacion
@@ -466,9 +467,6 @@ class BusquedaAvanzadaTutorial(forms.Form):
 
         return self.cleaned_data
     
-from datetime import date, timedelta
-from django.core.exceptions import ValidationError
-from django import forms
 
 class BusquedaAvanzadaPerfil(forms.Form):
     fecha_Nacimiento = forms.DateField(
@@ -553,8 +551,6 @@ class BusquedaAvanzadaSubcategorias(forms.Form):
             self.add_error('activa', 'Debe especificar si el usuario está activo o no.')
 
         return self.cleaned_data
-    
-from django import forms
 
 class BusquedaAvanzadaComentarios(forms.Form):
     contenido = forms.CharField(
@@ -599,5 +595,39 @@ class BusquedaAvanzadaComentarios(forms.Form):
 
         return self.cleaned_data
 
-    
-            
+class BusquedaAvanzadaCertificados(forms.Form):
+    codigo_verificacion = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Codigo...',
+        })
+    )
+    nivel = forms.IntegerField(
+        required= False,
+        widget= forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Nivel...',
+        })
+    )
+    fecha_emision = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={
+            'class': 'form-control',
+            'type': 'date',
+        })
+    )
+
+    def clean(self):
+        super().clean()
+
+        codigo_verificacion = self.cleaned_data.get('codigo_verificacion')
+        nivel = self.cleaned_data.get('nivel')
+        fecha_emision = self.cleaned_data.get('fecha_emision')
+
+        if not codigo_verificacion and not nivel and not fecha_emision:
+            self.add_error('codigo_verificacion', 'Se debe rellenar minimo un campo')
+            self.add_error('nivel', 'Se debe rellenar minimo un campo')
+            self.add_error('fecha_emision', 'Se debe rellenar minimo un campo')
+        
+        return self.cleaned_data

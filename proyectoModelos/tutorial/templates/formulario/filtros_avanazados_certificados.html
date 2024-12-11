@@ -1,0 +1,64 @@
+{% extends "Padre.html" %}
+
+{% block cabecera %}
+<h1 class="text-center text-primary my-4">Búsqueda Avanzada de Certificados</h1>
+<p class="text-center text-secondary">Filtros de búsqueda</p>
+{% endblock %}
+
+{% block contenido %}
+<div class="card shadow p-4">
+    <h2 class="text-secondary mb-4">Filtros de búsqueda</h2>
+    <form method="GET" class="mb-4">
+        {{ formulario.codigo_verificacion.label_tag }}
+        {{ formulario.codigo_verificacion }}
+        {% for error in formulario.codigo_verificacion.errors %}
+            <div class="text-danger"><small>{{ error }}</small></div>
+        {% endfor %}
+    
+        {{ formulario.nivel.label_tag }}
+        {{ formulario.nivel }}
+        {% for error in formulario.nivel.errors %}
+            <div class="text-danger"><small>{{ error }}</small></div>
+        {% endfor %}
+    
+        {{ formulario.fecha_emision.label_tag }}
+        {{ formulario.fecha_emision }}
+        {% for error in formulario.fecha_emision.errors %}
+            <div class="text-danger"><small>{{ error }}</small></div>
+        {% endfor %}
+    
+        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+    </form>
+</div>
+
+<hr>
+
+<h2 class="text-center text-secondary my-4">Resultados de búsqueda</h2>
+
+<div class="row">
+    {% if certificados %}
+        {% for certificado in certificados %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ certificado.codigo_verificacion }}</h5>
+                    <p class="card-text">
+                        <strong>Nivel:</strong> {{ certificado.nivel }}<br>
+                        <strong>Fecha de emisión:</strong> {{ certificado.fecha_emision }}<br>
+                        <strong>URL Descarga:</strong> {{ certificado.url_descarga }}<br>
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <!-- Aquí usamos certificado.id -->
+                    <a href="{% url 'certificado_modificar' certificado.id %}" class="btn btn-sm btn-primary">Modificar</a>
+                    <a href="{% url 'eliminar_certificado' certificado.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center">No se encontraron certificados.</p>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

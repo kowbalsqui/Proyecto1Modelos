@@ -91,7 +91,7 @@ class Curso(models.Model):
 class Certificado(models.Model):
     fecha_emision = models.DateField()
     codigo_verificacion = models.CharField(max_length=50)
-    nivel = models.IntegerField(null= False, blank= False)
+    nivel = models.IntegerField()
     url_descarga = models.CharField(max_length=50)
     curso = models.OneToOneField(Curso, on_delete=models.CASCADE, related_name="certificado_Curso")
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="Certificado_Usuarios")

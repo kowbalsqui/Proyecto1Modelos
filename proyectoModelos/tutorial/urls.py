@@ -13,6 +13,7 @@ urlpatterns = [
     path('Tutorial/Total_visitas', views.total_visitas, name = 'total_visitas'),
     path('Tutorial/tutorial_no_tenga_categoria', views.tutorial_no_tenga_categoria, name = 'tutorial_no_tenga_categoria'),
     path('Subcategoria/Lista_subcategoria', views.lista_subcategoria, name = 'lista_subcategoria'),
+    #CREAR
     path('formulario/usuarioFormulario', views.usuario_Form, name = 'usuarioFormulario'),
     path('formulario/perfilFormulario', views.perfil_Form, name = 'perfilFormulario'),
     path('formulario/tutorialFormulario', views.tutorial_Form, name = "tutorialFormulario"),
@@ -21,9 +22,27 @@ urlpatterns = [
     path('formulario/certificadoFormulario', views.certificado_Form, name = "certificadoFomulario"),
     path('enlaces/', views.pagina_de_enlaces, name='pagina_de_enlaces'),
     path('buscar/', views.busqueda_avanzada, name='buscar'),
+    #BUSQUEDA
     path('formulario/filtros-avanzados/', views.filtros_avanzados, name='filtros_avanzados'),
     path('formulario/filtros-avanzados-tutoriales/', views.filtros_avanzados_tutoriales, name='filtros_avanzados_tutoriales'),
     path('formulario/filtros-avanzados-perfil/', views.filtros_avanzados_perfil, name = 'filtros_avanzados_perfil'),
     path('formulario/filtros-avanzados-subcategorias/', views.filtrosAvanzadosSubcategorias, name = 'filtros_avanzados_subcategorias'),
-    path('formulario/filtros-avanzados-comentarios/', views.filtrosAvanzadosComentarios, name= 'filtros_avanzados_comentarios')
+    path('formulario/filtros-avanzados-comentarios/', views.filtrosAvanzadosComentarios, name= 'filtros_avanzados_comentarios'),    
+    path('formulario/filtros-avanzados-certificados/', views.filtrosAvanzadosCertificados, name= 'filtros_avanzados_certificados'),
+    #URL DE MODIFICAR
+    path('formulario/usuario-modificar/<int:usuario_id>', views.usuario_modificar,name="usuario_modificar"),
+    path('formulario/tutorial-modificar/<int:tutorial_id>', views.tutorial_modificar,name="tutorial_modificar"),
+    path('formulario/perfil-modificar/<int:perfil_id>', views.perfil_modificar,name="perfil_modificar"),
+    path('formulario/subcategoria-modificar/<int:subcategoria_id>', views.subcategoria_modificar,name="subcategoria_modificar"),
+    path('formulario/comentario-modificar/<int:comentario_id>', views.comentario_modificar,name="comentario_modificar"),
+    path('formulario/certificado-modificar/<int:certificado_id>', views.certificado_modificar,name="certificado_modificar"),
+    #URL DE BORRAR
+    path('formulario/usuario-eliminar/<int:usuario_id>',views.eliminar_usuario,name='eliminar_usuario'),
+    path('formulario/tutorial-eliminar/<int:tutorial_id>',views.eliminar_tutorial,name='eliminar_tutorial'),
+    path('formulario/perfil-eliminar/<int:perfil_id>',views.eliminar_perfil,name='eliminar_perfil'),
+    path('formulario/subcategoria-eliminar/<int:subcategoria_id>',views.eliminar_subcategoria,name='eliminar_subcategoria'),
+    path('formulario/comentario-eliminar/<int:comentario_id>',views.eliminar_comentario,name='eliminar_comentario'),
+    path('formulario/certificado-eliminar/<int:certificado_id>',views.eliminar_certificado,name='eliminar_certificado'),
+    
+
 ]

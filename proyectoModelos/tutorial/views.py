@@ -4,6 +4,7 @@ from django.forms import modelform_factory
 from .models import *
 from django.db.models import Sum
 from .forms import *
+from django.contrib import messages
 
 
 # Create your views here.
@@ -142,6 +143,8 @@ def mi_error_500(request,exception=None):
 
 #VISTAS DE LOS FORMUALRIOS
 
+#CREAR
+
 def usuario_Form(request):
     if request.method == 'POST':
         formulario = UsuarioForm(request.POST)
@@ -242,6 +245,8 @@ def certificado_Form(request):
 
     # Devuelve el formulario con los datos ingresados o el formulario vacío
     return render(request, 'formulario/certificadoFormulario.html', {'formulario': formulario}) 
+
+#BUSQUEDA AVANZADA
 
 def busqueda_avanzada(request):
     query = request.GET.get('query', '')  # Recupera el término de búsqueda
@@ -430,3 +435,221 @@ def filtrosAvanzadosComentarios(request):
         'formulario': formulario,
         'comentarios': comentarios
     })
+
+def filtrosAvanzadosCertificados (request):
+    formulario = BusquedaAvanzadaCertificados(request.GET)
+    certificados = Certificado.objects.all()
+
+    if request.GET:
+        if formulario.is_valid():
+           codigo_verificacion = formulario.cleaned_data.get('codigo_verificacion') 
+           nivel = formulario.cleaned_data.get('nivel')
+           fecha_emision = formulario.cleaned_data.get('fecha_emision')
+
+           if codigo_verificacion:
+               certificados = certificados.filter(codigo_verificacion__icontains= codigo_verificacion)
+           
+           if nivel: 
+               certificados = certificados.filter(nivel= nivel)
+            
+           if fecha_emision:
+               certificados = certificados.filter(fecha_emision= fecha_emision)
+        else:
+            return render (request, 'formulario/filtros_avanazados_certificados.html', {
+                'formulario':formulario,
+                'certificados':[]
+            })
+    return render (request, 'formulario/filtros_avanazados_certificados.html', {
+        'formulario':formulario,
+        'certificados': certificados
+    })
+
+#MODIFICAR
+
+def usuario_modificar(request,usuario_id):
+    usuario = Usuario.objects.get(id=usuario_id)
+
+    datosFormulario = None
+
+    if request.method == "POST":
+        datosFormulario = request.POST
+
+
+    formulario = UsuarioForm(datosFormulario,instance = usuario)
+
+    if (request.method == "POST"):
+
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado el Usuario '+formulario.cleaned_data.get('nombre')+" correctamente")
+                return redirect('filtros_avanzados')
+            except Exception as error:
+                print(error)
+    return render(request, 'formulario/usuario_modificar.html',{"formulario":formulario,"usuario":usuario})
+
+def tutorial_modificar(request, tutorial_id):
+    tutorial = Tutorial.objects.get(id= tutorial_id)
+
+    datosFormulario = None
+
+    if request.method == 'POST':
+        datosFormulario = request.POST
+
+    formulario = TutorialForm(datosFormulario, instance= tutorial)
+
+    if (request.method == 'POST'):
+
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado el Tutorial correctamente')
+                return redirect('filtros_avanzados_tutoriales')
+            except Exception as error:
+                print(error)
+    return render(request, 'formulario/tutorial_modificar.html',{"formulario":formulario,"tutorial":tutorial})
+
+def perfil_modificar(request, perfil_id):
+    perfil = Perfil.objects.get(id= perfil_id)
+
+    datosFormulario = None
+
+    if request.method == 'POST':
+        datosFormulario = request.POST
+
+    formulario = PerfilForm(datosFormulario, instance= perfil)
+
+    if (request.method == 'POST'):
+
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado el Perfil correctamente')
+                return redirect('filtros_avanzados_perfil')
+            except Exception as error:
+                print(error)
+    return render(request, 'formulario/perfil_modificar.html',{"formulario":formulario,"perfil":perfil})
+
+def subcategoria_modificar(request, subcategoria_id):
+    subcategoria = SubCategoria.objects.get(id= subcategoria_id)
+
+    datosFormulario = None
+
+    if request.method == 'POST':
+        datosFormulario = request.POST
+
+    formulario = SubcategoriaForm(datosFormulario, instance= subcategoria)
+
+    if (request.method == 'POST'):
+
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado la subcategoria correctamente')
+                return redirect('filtros_avanzados_subcategorias')
+            except Exception as error:
+                print(error)
+    return render(request, 'formulario/subcategoria_modificar.html',{"formulario":formulario,"subcategoria":subcategoria})
+
+def comentario_modificar(request, comentario_id):
+    comentario = Comentario.objects.get(id= comentario_id)
+
+    datosFormulario = None
+
+    if request.method == 'POST':
+        datosFormulario = request.POST
+
+    formulario = ComentarioForm(datosFormulario, instance= comentario)
+
+    if (request.method == 'POST'):
+
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado el comentario correctamente')
+                return redirect('filtros_avanzados_comentarios')
+            except Exception as error:
+                print(error)
+    return render(request, 'formulario/comentario_modificar.html',{"formulario":formulario,"comentario":comentario})
+
+def certificado_modificar(request, certificado_id):
+    certificado = Certificado.objects.get(id= certificado_id)
+
+    datosFormulario = None
+
+    if request.method == 'POST':
+        datosFormulario = request.POST
+
+    formulario = CertificadoForm(datosFormulario, instance= certificado)
+
+    if (request.method == 'POST'):
+
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado el certificado correctamente')
+                return redirect('filtros_avanzados_certificados')
+            except Exception as error:
+                print(error)
+    return render(request, 'formulario/certificado_modificar.html',{"formulario":formulario,"certificado":certificado})
+
+#ELIMINAR
+
+def eliminar_usuario(request,usuario_id):
+    usuario = Usuario.objects.get(id=usuario_id)
+    try:
+        usuario.delete()
+        messages.success(request, "Se ha elimnado el usuario "+usuario.nombre+" correctamente")
+    except Exception as error:
+        print(error)
+    return redirect('filtros_avanzados')
+
+
+def eliminar_tutorial(request,tutorial_id):
+    tutorial = Tutorial.objects.get(id=tutorial_id)
+    try:
+        tutorial.delete()
+        messages.success(request, "Se ha elimnado el Tutorial correctamente")
+    except Exception as error:
+        print(error)
+    return redirect('filtros_avanzados_tutoriales')
+
+
+
+def eliminar_perfil(request,perfil_id):
+    perfil = Perfil.objects.get(id=perfil_id)
+    try:
+        perfil.delete()
+        messages.success(request, "Se ha elimnado el Perfil correctamente")
+    except Exception as error:
+        print(error)
+    return redirect('filtros_avanzados_perfil')
+
+
+def eliminar_subcategoria(request,subcategoria_id):
+    subcategoria = SubCategoria.objects.get(id=subcategoria_id)
+    try:
+        subcategoria.delete()
+        messages.success(request, "Se ha elimnado la SuubCategoria correctamente")
+    except Exception as error:
+        print(error)
+    return redirect('filtros_avanzados_subcategorias')
+
+def eliminar_comentario(request,comentario_id):
+    comentario = Comentario.objects.get(id=comentario_id)
+    try:
+        comentario.delete()
+        messages.success(request, "Se ha elimnado el Comentario correctamente")
+    except Exception as error:
+        print(error)
+    return redirect('filtros_avanzados_comentarios')
+
+
+def eliminar_certificado(request,certificado_id):
+    certificado = Certificado.objects.get(id=certificado_id)
+    try:
+        certificado.delete()
+        messages.success(request, "Se ha elimnado el Certificado correctamente")
+    except Exception as error:
+        print(error)
+    return redirect('filtros_avanzados_certificados')

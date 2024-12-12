@@ -195,3 +195,137 @@ OPERADORES DIFERENTES:
 3.-(<=) en total visitas.html
 4.-(<) en total visitas.html
 5.-(:) en total visitas.html
+
+-------------------------------------------------------------------------------------------------------------------------
+
+### Validaciones y Widgets en el Proyecto
+
+---
+
+#### **Introducción**
+Este proyecto incluye diversas funcionalidades implementadas mediante formularios. En este documento se detallan todas las validaciones aplicadas en los formularios y los widgets utilizados para personalizar la interfaz de usuario.
+
+---
+
+### **1. Validaciones por Formulario**
+
+#### **1.1. UsuarioForm**
+- **Campos Validados:**
+    - `nombre`: Debe tener al menos 3 caracteres.
+    - `email`: Debe terminar con `@gmail.com`.
+    - `fecha_Registro`: No puede ser una fecha futura.
+    - `es_activo`: Debe ser `True` o `False`.
+    - `puntuacion`: Debe estar entre 0 y 100.
+
+---
+
+#### **1.2. PerfilForm**
+- **Campos Validados:**
+    - `bio`: Debe tener al menos 2 caracteres.
+    - `redes`: Debe coincidir con las opciones disponibles (`Instagram`, `Facebook`, `Twitter`, `LinkedIn`).
+    - `fecha_Nacimiento`: No puede ser una fecha futura.
+    - `estudios`: No puede estar vacío.
+
+---
+
+#### **1.3. TutorialForm**
+- **Campos Validados:**
+    - `titulo`: Debe tener al menos 5 caracteres.
+    - `contenido`: Debe tener al menos 10 caracteres.
+    - `fecha_Creacion`: No puede ser una fecha futura.
+    - `visitas`: No puede ser un número negativo.
+    - `valoracion`: Debe estar entre 0 y 5.
+
+---
+
+#### **1.4. SubcategoriaForm**
+- **Campos Validados:**
+    - `nombre`: Debe tener al menos 3 caracteres.
+    - `descripcion`: Debe tener al menos 10 caracteres.
+    - `fecha_Creacion`: No puede ser una fecha futura.
+    - `categoria`: Debe estar seleccionada.
+    - `activa`: Debe estar definida como `True` o `False`.
+
+---
+
+#### **1.5. ComentarioForm**
+- **Campos Validados:**
+    - `contenido`: Debe tener al menos 10 caracteres.
+    - `fecha`: No puede ser una fecha futura.
+    - `puntuacion`: Debe estar entre 0 y 5.
+
+---
+
+#### **1.6. CertificadoForm**
+- **Campos Validados:**
+    - `fecha_emision`: No puede ser una fecha futura.
+    - `codigo_verificacion`: Debe tener exactamente 6 caracteres.
+    - `nivel`: Debe tener al menos 3 caracteres.
+    - `url_descarga`: Debe comenzar con `http://` o `https://`.
+
+---
+
+#### **1.7. Formularios de Búsqueda Avanzada**
+Estos formularios permiten aplicar filtros avanzados en las consultas.
+
+- **Usuario:**
+    - `puntuacion`: Entre 1 y 5.
+    - `es_activo`: Debe ser `True` o `False`.
+    - `fecha_Registro`: No puede ser futura.
+
+- **Tutorial:**
+    - `visitas`: No puede ser negativa.
+    - `valoracion`: Entre 0 y 5.
+    - `usuario`: Debe ser un usuario válido.
+
+- **Perfil:**
+    - `fecha_Nacimiento`: Debe estar dentro de un rango de 100 años.
+    - `redes`: Debe coincidir con las opciones válidas.
+    - `estudios`: No puede estar vacío.
+
+- **Comentarios:**
+    - `contenido`: No puede estar vacío.
+    - `puntuacion`: No puede ser negativa.
+
+- **Certificados:**
+    - `codigo_verificacion`: No puede estar vacío.
+    - `nivel`: No puede ser negativo.
+    - `fecha_emision`: No puede ser futura.
+
+---
+
+### **2. Widgets por Formulario**
+
+Cada formulario utiliza widgets de Django para mejorar la experiencia del usuario.
+
+#### **UsuarioForm**
+- `fecha_Registro`: `forms.DateInput` con tipo `date`.
+
+#### **PerfilForm**
+- `fecha_Nacimiento`: `forms.DateInput` con tipo `date`.
+
+#### **TutorialForm**
+- `titulo`: `forms.TextInput`.
+- `contenido`: `forms.Textarea`.
+- `fecha_Creacion`: `forms.DateInput` con tipo `date`.
+- `visitas`: `forms.NumberInput` con valor mínimo `0`.
+- `valoracion`: `forms.NumberInput` con rango de `0` a `5`.
+
+#### **SubcategoriaForm**
+- `descripcion`: `forms.Textarea`.
+- `fecha_Creacion`: `forms.DateInput` con tipo `date`.
+- `categoria`: `forms.Select`.
+- `activa`: `forms.CheckboxInput`.
+
+#### **ComentarioForm**
+- `contenido`: `forms.Textarea`.
+- `fecha`: `forms.DateInput` con tipo `date`.
+- `visible`: `forms.CheckboxInput`.
+- `puntuacion`: `forms.NumberInput`.
+
+#### **CertificadoForm**
+- `fecha_emision`: `forms.DateInput` con tipo `date`.
+- `codigo_verificacion`: `forms.TextInput`.
+- `nivel`: `forms.TextInput`.
+- `url_descarga`: `forms.URLInput`.
+

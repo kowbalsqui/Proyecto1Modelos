@@ -10,52 +10,47 @@ from datetime import datetime
 class UsuarioForm(ModelForm):
     class Meta:
         model = Usuario
-        fields = ['nombre', 'email', 'fecha_Registro', 'es_activo', 'puntuacion']
+        fields = ['nombre', 'email', 'fecha_Registro', 'es_activo', 'puntuacion', 'imagen']
         labels = {
             "Nombre": ("Nombre del usuario"),
             "Email": ("Correo electrónico"),
             "fecha_Registro": ("Fecha de registro"),
             "es_activo": ("¿Está activo?"),
             "puntuacion": ("Puntuación"),
+            "imagen": ("Imagen")
         }
         widgets = {
             "fecha_Registro":forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
     
-    def clean (self):
-        
+    def clean(self):
         super().clean()
-        
-        #Primero obtenemos los campos necesarios
-        
+    
+    # Primero obtenemos los campos necesarios
         nombre = self.cleaned_data.get('nombre')
         email = self.cleaned_data.get('email')
         fecha_Registro = self.cleaned_data.get('fecha_Registro')
         es_activo = self.cleaned_data.get('es_activo')
         puntuacion = self.cleaned_data.get('puntuacion')
-        
-        #Validamos el campo nombre
-
-        if len(nombre) < 3:
+    
+    # Validamos el campo nombre
+        if nombre and len(nombre) < 3:
             self.add_error('nombre', 'El nombre debe tener al menos 3 o más caracteres')
         
-        #Validamos el campo email
-        
-        if not email.endswith('@gmail.com'):
+        # Validamos el campo email
+        if email and not email.endswith('@gmail.com'):
             self.add_error('email', 'El email debe terminar con @gmail.com')
         
-        #Validamos el campo fecha de registro
-        
-        if fecha_Registro > datetime.now().date():
+        # Validamos el campo fecha de registro
+        if fecha_Registro and fecha_Registro > datetime.now().date():
             self.add_error('fecha_Registro', 'La fecha de registro no puede ser en el futuro')
         
-        #Validamos el campo es_activo
-        
+        # Validamos el campo es_activo
         if es_activo is not None and es_activo not in [True, False]:
             self.add_error('es_activo', 'El valor para es_activo debe ser True o False')
         
-        #Validamos el campo puntuación
-        
+        # Validamos el campo puntuación
         if puntuacion is not None and (puntuacion < 0 or puntuacion > 100):
             self.add_error('puntuacion', 'La puntuación debe estar entre 0 y 100')
         
@@ -351,6 +346,7 @@ class BusquedaAvanzadaForm(forms.Form):
     email = forms.EmailField(required=False, label="Email")
     fecha_inicio = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}), label="Fecha de Registro (Desde)")
     fecha_fin = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}), label="Fecha de Registro (Hasta)")
+    imagen = forms.ImageField(required=False)
     
     # Campos de búsqueda para otro modelo, por ejemplo, Curso
     curso_nombre = forms.CharField(max_length=100, required=False, label="Nombre del Curso")
@@ -398,8 +394,9 @@ class BusquedaAvanzadaUsuario(forms.Form):
         fecha_Registro = self.cleaned_data.get('fecha_Registro')
 
         if not puntuacion and not activo and not fecha_Registro:
-            raise forms.ValidationError("Debes rellenar al menos un dato: visitas, valoración o usuario.")
-
+            self.add_error('puntuacion', 'Debes rellenar un campo minimo')
+            self.add_error('es_activo', 'Debes rellenar un campo minimo')
+            self.add_error('fecha_Registro', 'Debes rellenar un campo minimo')
 
         # Validación de puntuación (verifica si no es None)
         if puntuacion is not None:

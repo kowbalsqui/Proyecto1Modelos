@@ -20,7 +20,7 @@
 
 <div class="card shadow p-4">
     <h2 class="text-secondary mb-4">Filtros de búsqueda</h2>
-    <form method="GET" action="{% url 'filtros_avanzados' %}" class="mb-4">
+    <form method="GET" action="{% url 'filtros_avanzados' %}" class="mb-4" enctype="multipart/form-data">
         <!-- Filtro de puntuación -->
         <div class="form-group mb-3">
             <label for="puntuacion" class="form-label">Puntuación mínima:</label>
@@ -71,6 +71,14 @@
                         <strong>Correo electrónico:</strong> {{ usuario.email }}<br>
                         <strong>Puntuación:</strong> {{ usuario.puntuacion }}<br>
                         <strong>Fecha de Registro:</strong> {{ usuario.fecha_Registro|date:"d \d\e F \d\e Y" }}<br>
+                        <p class="card-text">
+                            <strong>Imagen:</strong>
+                            {% if usuario.imagen %}
+                                <img src="{{ usuario.imagen.url }}" class="img-fluid" alt="Imagen de {{ usuario.nombre }}">
+                            {% else %}
+                                <p>No hay imagen disponible</p>
+                            {% endif %}
+                        </p>
                         <strong>Estado:</strong> {{ usuario.es_activo|yesno:"Activo,Inactivo" }}
                     </p>
                 </div>

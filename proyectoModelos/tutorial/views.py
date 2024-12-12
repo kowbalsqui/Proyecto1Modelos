@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,  get_object_or_404
 from django.db.models import Q,Prefetch
 from django.forms import modelform_factory
 from .models import *
@@ -147,7 +147,7 @@ def mi_error_500(request,exception=None):
 
 def usuario_Form(request):
     if request.method == 'POST':
-        formulario = UsuarioForm(request.POST)
+        formulario = UsuarioForm(request.POST, request.FILES)
         if formulario.is_valid():
             try:
                 # Guarda el usuario en la base de datos
@@ -168,7 +168,7 @@ def perfil_Form(request):
             try:
                 # Guarda el perfil del usuario en la base de datos
                 formulario.save()
-                return redirect('listar_ususario')
+                return redirect('filtros_avanzados_perfil')
             except Exception as error:
                 print(error)
     else:
@@ -466,27 +466,48 @@ def filtrosAvanzadosCertificados (request):
 
 #MODIFICAR
 
-def usuario_modificar(request,usuario_id):
-    usuario = Usuario.objects.get(id=usuario_id)
+def usuario_modificar(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)  # Obtenemos el usuario a modificar
 
-    datosFormulario = None
-
-    if request.method == "POST":
-        datosFormulario = request.POST
-
-
-    formulario = UsuarioForm(datosFormulario,instance = usuario)
-
-    if (request.method == "POST"):
-
+    if request.method == 'POST':
+        # Incluimos request.FILES para manejar archivos
+        formulario = UsuarioForm(request.POST, request.FILES, instance=usuario)
         if formulario.is_valid():
-            try:
-                formulario.save()
-                messages.success(request, 'Se ha editado el Usuario '+formulario.cleaned_data.get('nombre')+" correctamente")
-                return redirect('filtros_avanzados')
-            except Exception as error:
-                print(error)
-    return render(request, 'formulario/usuario_modificar.html',{"formulario":formulario,"usuario":usuario})
+            formulario.save()  # Guardamos el usuario con los datos modificados
+            messages.success(request, "Usuario modificado correctamente")
+            return redirect('filtros_avanzados')  # Redirige a una vista que muestre los usuarios
+        else:
+            messages.error(request, "Por favor corrige los errores en el formulario.")
+    else:
+        formulario = UsuarioForm(instance=usuario)  # Cargamos el formulario con datos existentes
+
+    return render(request, 'formulario/usuario_modificar.html', {
+        'formulario': formulario,
+        'usuario': usuario
+    })
+
+
+# def usuario_modificar(request,usuario_id):
+#     usuario = Usuario.objects.get(id=usuario_id)
+
+#     datosFormulario = None
+
+#     if request.method == "POST":
+#         datosFormulario = request.POST
+
+
+#     formulario = UsuarioForm(datosFormulario,instance = usuario)
+
+#     if (request.method == "POST"):
+
+#         if formulario.is_valid():
+#             try:
+#                 formulario.save()
+#                 messages.success(request, 'Se ha editado el Usuario '+formulario.cleaned_data.get('nombre')+" correctamente")
+#                 return redirect('filtros_avanzados')
+#             except Exception as error:
+#                 print(error)
+#     return render(request, 'formulario/usuario_modificar.html',{"formulario":formulario,"usuario":usuario})
 
 def tutorial_modificar(request, tutorial_id):
     tutorial = Tutorial.objects.get(id= tutorial_id)

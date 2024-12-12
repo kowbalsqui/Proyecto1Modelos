@@ -6,6 +6,8 @@ class Usuario(models.Model):
     fecha_Registro = models.DateField()
     es_activo = models.BooleanField(default=False)
     puntuacion = models.DecimalField(max_digits=3, decimal_places=1)
+    imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
+
     
     def __str__(self):
         return f"{self.nombre}"

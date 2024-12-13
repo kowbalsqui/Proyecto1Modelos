@@ -276,7 +276,7 @@ def busqueda_avanzada(request):
     })
 
 def filtros_avanzados(request):
-    formulario = BusquedaAvanzadaUsuario(request.GET)
+    formulario = BusquedaAvanzadaUsuario(request.GET, request.FILES)
     usuarios = Usuario.objects.all()
 
     if request.GET:  # Si hay datos enviados por GET

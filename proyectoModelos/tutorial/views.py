@@ -276,34 +276,39 @@ def busqueda_avanzada(request):
     })
 
 def filtros_avanzados(request):
-    formulario = BusquedaAvanzadaUsuario(request.GET)
-    usuarios = Usuario.objects.all()
+    formulario = BusquedaAvanzadaUsuario(request.GET, request.FILES)
 
-    if request.GET:  # Si hay datos enviados por GET
-        if formulario.is_valid():
-            puntuacion = formulario.cleaned_data.get('puntuacion')
-            activo = formulario.cleaned_data.get('es_activo')
-            fecha_Registro = formulario.cleaned_data.get('fecha_Registro')
+    if len(request.GET) > 0:
+        if request.GET:  # Si hay datos enviados por GET
+            if formulario.is_valid():
+                usuarios = Usuario.objects
+                
+                puntuacion = formulario.cleaned_data.get('puntuacion')
+                activo = formulario.cleaned_data.get('es_activo')
+                fecha_Registro = formulario.cleaned_data.get('fecha_Registro')
 
-            # Aplicamos los filtros
-            if puntuacion is not None:
-                usuarios = usuarios.filter(puntuacion=puntuacion)
-            if activo:
-                usuarios = usuarios.filter(es_activo = True)
-            if fecha_Registro:
-                usuarios = usuarios.filter(fecha_Registro__gte=fecha_Registro)
-        else:
-            # Si el formulario no es válido, mostramos los errores
-            return render(request, 'MenuNavegacion.html', {
-                'formulario': formulario,
-                'usuarios': [],
-            })
-
+                # Aplicamos los filtros
+                if puntuacion is not None:
+                    usuarios = usuarios.filter(puntuacion=puntuacion)
+                if activo:
+                    usuarios = usuarios.filter(es_activo = True)
+                if fecha_Registro:
+                    usuarios = usuarios.filter(fecha_Registro__gte=fecha_Registro)
+                
+                usuarios = usuarios.all()
+            else:
+                # Si el formulario no es válido, mostramos los errores
+                return render(request, 'MenuNavegacion.html', {
+                    'formulario': formulario,
+                    'usuarios': [],
+                })
+    else:
     # Siempre renderiza un HttpResponse
-    return render(request, 'formulario/busqueda_avanzada_user.html', {
-        'formulario': formulario,
-        'usuarios': usuarios,
-    })
+        usuarios = Usuario.objects.all()
+        return render(request, 'formulario/busqueda_avanzada_user.html', {
+            'formulario': formulario,
+            'usuarios': usuarios,
+        })
 
 
 
@@ -312,27 +317,28 @@ def filtros_avanzados_tutoriales(request):
     tutoriales = Tutorial.objects.all().select_related('usuario')  # Inicializa los tutoriales
     usuarios = Usuario.objects.all()  # Obtén todos los usuarios
 
-    if request.GET:  # Si hay parámetros en el GET
-        if formulario.is_valid():
-            # Obtén los datos del formulario
-            visitas = formulario.cleaned_data.get('visitas')
-            valoracion = formulario.cleaned_data.get('valoracion')
-            usuario = formulario.cleaned_data.get('usuario')
+    if len(request.GET) > 0:
+        if request.GET:  # Si hay parámetros en el GET
+            if formulario.is_valid():
+                # Obtén los datos del formulario
+                visitas = formulario.cleaned_data.get('visitas')
+                valoracion = formulario.cleaned_data.get('valoracion')
+                usuario = formulario.cleaned_data.get('usuario')
 
-            # Aplica los filtros solo si los valores están presentes
-            if visitas:
-                tutoriales = tutoriales.filter(visitas=visitas)
-            if valoracion:
-                tutoriales = tutoriales.filter(valoracion=valoracion)
-            if usuario:
-                tutoriales = tutoriales.filter(usuario=usuario)
-        else:
-            # Si el formulario no es válido, se queda en la misma página
-            return render(request, 'formulario/filtros_avanzados_tutoriales.html', {
-                'formulario': formulario,
-                'tutoriales': [],
-                'usuarios': usuarios,
-            })
+                # Aplica los filtros solo si los valores están presentes
+                if visitas:
+                    tutoriales = tutoriales.filter(visitas=visitas)
+                if valoracion:
+                    tutoriales = tutoriales.filter(valoracion=valoracion)
+                if usuario:
+                    tutoriales = tutoriales.filter(usuario=usuario)
+            else:
+                # Si el formulario no es válido, se queda en la misma página
+                return render(request, 'formulario/filtros_avanzados_tutoriales.html', {
+                    'formulario': formulario,
+                    'tutoriales': [],
+                    'usuarios': usuarios,
+                })
 
     # Renderiza la plantilla con los resultados (o todos los tutoriales si no hay filtros)
     return render(request, 'formulario/filtros_avanzados_tutoriales.html', {
@@ -344,125 +350,145 @@ def filtros_avanzados_tutoriales(request):
 
 def filtros_avanzados_perfil(request):
     formulario = BusquedaAvanzadaPerfil(request.GET)
-    perfiles = Perfil.objects.all()
 
-    if request.GET:
-        if formulario.is_valid():
-            fecha_Nacimiento = formulario.cleaned_data.get('fecha_Nacimiento')
-            redes = formulario.cleaned_data.get('redes')
-            estudios = formulario.cleaned_data.get('estudios')
+    if len(request.GET) > 0:
+        if request.GET:
+            perfiles = Perfil.objects
+            if formulario.is_valid():
+                fecha_Nacimiento = formulario.cleaned_data.get('fecha_Nacimiento')
+                redes = formulario.cleaned_data.get('redes')
+                estudios = formulario.cleaned_data.get('estudios')
 
-            if fecha_Nacimiento:
-                perfiles = perfiles.filter(fecha_Nacimiento__gte=fecha_Nacimiento)
+                if fecha_Nacimiento:
+                    perfiles = perfiles.filter(fecha_Nacimiento__gte=fecha_Nacimiento)
 
-            if redes:
-                perfiles = perfiles.filter(redes=redes)
+                if redes:
+                    perfiles = perfiles.filter(redes=redes)
 
-            if estudios:
-                perfiles = perfiles.filter(estudios__icontains=estudios)
+                if estudios:
+                    perfiles = perfiles.filter(estudios__icontains=estudios)
+                
+                perfiles = perfiles.all()
 
-        else:
-            return render(request, 'formulario/filtros_avanzados_perfiles.html', {
-                'formulario': formulario,
-                'perfiles': []
-            })
+            else:
+                return render(request, 'formulario/filtros_avanzados_perfiles.html', {
+                    'formulario': formulario,
+                    'perfiles': []
+                })
+    else:
+        perfiles = Perfil.objects.all()  # Obtener todos los perfiles si no hay filtros
 
-    return render(request, 'formulario/filtros_avanzados_perfiles.html', {
-        'formulario': formulario,
-        'perfiles': perfiles
-    })
+        return render(request, 'formulario/filtros_avanzados_perfiles.html', {
+            'formulario': formulario,
+            'perfiles': perfiles
+        })
 
 def filtrosAvanzadosSubcategorias(request):
     formulario = BusquedaAvanzadaSubcategorias(request.GET)
-    subcategorias = SubCategoria.objects.all()
-    categoria = Categoria.objects.all()
 
-    if request.GET:
-        if formulario.is_valid():
-            nombre = formulario.cleaned_data.get('nombre')
-            activa = formulario.cleaned_data.get('activa')
-            categoria = formulario.cleaned_data.get('categoria')
+    if len(request.GET) > 0:
+        if request.GET:
+            subcategorias = SubCategoria.objects
+            categoria = Categoria.objects
+            if formulario.is_valid():
+                nombre = formulario.cleaned_data.get('nombre')
+                activa = formulario.cleaned_data.get('activa')
+                categoria = formulario.cleaned_data.get('categoria')
 
-            # Aplicar filtros según los valores del formulario
-            if nombre:
-                subcategorias = subcategorias.filter(nombre__icontains=nombre)
+                # Aplicar filtros según los valores del formulario
+                if nombre:
+                    subcategorias = subcategorias.filter(nombre__icontains=nombre)
 
-            if activa:
-                subcategorias = subcategorias.filter(activa=True)
+                if activa:
+                    subcategorias = subcategorias.filter(activa=True)
 
-            if categoria:
-                subcategorias = subcategorias.filter(categoria=categoria)
-        else:
-            # Si el formulario no es válido, mostrar errores
-            return render(request, 'formulario/filtros_avanzados_subcategorias.html', {
-                'formulario': formulario,
-                'subcategorias': [],
-                'categoria':categoria
-            })
-
-    # Renderizar resultados filtrados o todos si no hay filtros
-    return render(request, 'formulario/filtros_avanzados_subcategorias.html', {
-        'formulario': formulario,
-        'subcategorias': subcategorias,
-        'categoria':categoria
-    })
+                if categoria:
+                    subcategorias = subcategorias.filter(categoria=categoria)
+                
+                subcategorias = subcategorias.all()
+                categoria = categoria.all()
+            else:
+                # Si el formulario no es válido, mostrar errores
+                return render(request, 'formulario/filtros_avanzados_subcategorias.html', {
+                    'formulario': formulario,
+                    'subcategorias': [],
+                    'categoria':categoria
+                })
+    else:
+        subcategorias = SubCategoria.objects.all()
+        categoria = Categoria.objects.all()
+        # Renderizar resultados filtrados o todos si no hay filtros
+        return render(request, 'formulario/filtros_avanzados_subcategorias.html', {
+            'formulario': formulario,
+            'subcategorias': subcategorias,
+            'categoria':categoria
+        })
 
 def filtrosAvanzadosComentarios(request):
     formulario = BusquedaAvanzadaComentarios(request.GET)
-    comentarios = Comentario.objects.all()
 
-    if request.GET:
-        if formulario.is_valid():
-            contenido = formulario.cleaned_data.get('contenido')
-            visible = formulario.cleaned_data.get('visible')
-            puntuacion = formulario.cleaned_data.get('puntuacion')
+    if len(request.GET) > 0:
+        if request.GET:
+            comentarios = Comentario.objects
+            if formulario.is_valid():
+                contenido = formulario.cleaned_data.get('contenido')
+                visible = formulario.cleaned_data.get('visible')
+                puntuacion = formulario.cleaned_data.get('puntuacion')
 
-            if contenido:
-                comentarios = comentarios.filter(contenido__icontains=contenido)
-            
-            if visible:
-                comentarios = comentarios.filter(visible=True)
+                if contenido:
+                    comentarios = comentarios.filter(contenido__icontains=contenido)
+                
+                if visible:
+                    comentarios = comentarios.filter(visible=True)
 
-            if puntuacion:
-                comentarios = comentarios.filter(puntuacion= puntuacion)
-        else:
-            return render (request, 'formulario/filtros_avanzados_comentarios.html', {
-                'formulario': formulario,
-                'comentarios': []
-            })
-    
-    return render (request, 'formulario/filtros_avanzados_comentarios.html', {
-        'formulario': formulario,
-        'comentarios': comentarios
-    })
+                if puntuacion:
+                    comentarios = comentarios.filter(puntuacion= puntuacion)
+                    
+                comentarios = comentarios.all()
+            else:
+                return render (request, 'formulario/filtros_avanzados_comentarios.html', {
+                    'formulario': formulario,
+                    'comentarios': []
+                })
+    else:
+        comentarios = Comentario.objects.all()
+        return render (request, 'formulario/filtros_avanzados_comentarios.html', {
+            'formulario': formulario,
+            'comentarios': comentarios
+        })
 
 def filtrosAvanzadosCertificados (request):
-    formulario = BusquedaAvanzadaCertificados(request.GET)
-    certificados = Certificado.objects.all()
+    formulario = BusquedaAvanzadaCertificados(request.GET)   
 
-    if request.GET:
-        if formulario.is_valid():
-           codigo_verificacion = formulario.cleaned_data.get('codigo_verificacion') 
-           nivel = formulario.cleaned_data.get('nivel')
-           fecha_emision = formulario.cleaned_data.get('fecha_emision')
+    if len(request.GET) > 0:
+        if request.GET:
+            certificados = Certificado.objects
+            if formulario.is_valid():
+                codigo_verificacion = formulario.cleaned_data.get('codigo_verificacion') 
+                nivel = formulario.cleaned_data.get('nivel')
+                fecha_emision = formulario.cleaned_data.get('fecha_emision')
 
-           if codigo_verificacion:
-               certificados = certificados.filter(codigo_verificacion__icontains= codigo_verificacion)
-           
-           if nivel: 
-               certificados = certificados.filter(nivel= nivel)
+            if codigo_verificacion:
+                certificados = certificados.filter(codigo_verificacion__icontains= codigo_verificacion)
             
-           if fecha_emision:
-               certificados = certificados.filter(fecha_emision= fecha_emision)
+            if nivel: 
+                certificados = certificados.filter(nivel= nivel)
+                
+            if fecha_emision:
+                certificados = certificados.filter(fecha_emision= fecha_emision)
+            
+            certificados = certificados.all() 
         else:
-            return render (request, 'formulario/filtros_avanazados_certificados.html', {
-                'formulario':formulario,
-                'certificados':[]
-            })
-    return render (request, 'formulario/filtros_avanazados_certificados.html', {
-        'formulario':formulario,
-        'certificados': certificados
-    })
+                return render (request, 'formulario/filtros_avanazados_certificados.html', {
+                    'formulario':formulario,
+                    'certificados':[]
+                })
+    else:
+        certificados = Certificado.objects.all()
+        return render (request, 'formulario/filtros_avanazados_certificados.html', {
+            'formulario':formulario,
+            'certificados': certificados
+        })
 
 #MODIFICAR
 

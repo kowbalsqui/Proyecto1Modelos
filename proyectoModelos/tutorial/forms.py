@@ -33,6 +33,8 @@ class UsuarioForm(ModelForm):
         fecha_Registro = self.cleaned_data.get('fecha_Registro')
         es_activo = self.cleaned_data.get('es_activo')
         puntuacion = self.cleaned_data.get('puntuacion')
+        
+        
     
     # Validamos el campo nombre
         if nombre and len(nombre) < 3:

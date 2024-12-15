@@ -7,7 +7,7 @@
 {% block contenido %}
 
 {% load django_bootstrap5 %}
-<form action = "{% url 'usuario_modificar' usuario.id %}" method = "post"> 
+<form action = "{% url 'usuario_modificar' usuario.id %}" method = "post" enctype="multipart/form-data"> 
     {% load django_bootstrap5 %} 
     {% csrf_token %} 
 

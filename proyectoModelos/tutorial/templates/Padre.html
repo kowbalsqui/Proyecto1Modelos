@@ -19,6 +19,7 @@
         <a class="navbar-brand" href="#">
           <img src="{% static 'imagenes/django.png' %}" alt="Logo de Django" class="logo" style="width: 50px;">
           DjangoProjects
+          <p>Fecha de inicio: {{ request.session.fecha_inicio }}</p>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

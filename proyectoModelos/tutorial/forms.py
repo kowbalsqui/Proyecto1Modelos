@@ -5,6 +5,7 @@ from .models import *
 from django.utils.timezone import now
 from datetime import date, timedelta
 from datetime import datetime
+from django.contrib.auth.forms import UserCreationForm
 
 
 class UsuarioForm(ModelForm):
@@ -595,6 +596,7 @@ class BusquedaAvanzadaComentarios(forms.Form):
         return self.cleaned_data
 
 class BusquedaAvanzadaCertificados(forms.Form):
+
     codigo_verificacion = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
@@ -630,3 +632,14 @@ class BusquedaAvanzadaCertificados(forms.Form):
             self.add_error('fecha_emision', 'Se debe rellenar minimo un campo')
         
         return self.cleaned_data
+    
+class RegistroForm(UserCreationForm):
+    roles = (
+        (Usuario.PROFESOR, 'Profesor'),
+        (Usuario.ESTUDIANTE, 'Estudiante')
+    )
+
+    rol = forms.ChoiceField(choices=roles)
+    class Meta:
+        model = Usuario
+        fields = ('nombre', 'email', 'password1', 'password2', 'rol')

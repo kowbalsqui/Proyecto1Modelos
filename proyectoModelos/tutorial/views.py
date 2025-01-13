@@ -17,8 +17,8 @@ from datetime import datetime
 def inicio (request):
     #SESION
     
-    if (not "fecha_inicio" in request.session):
-        request.session['fecha_inicio'] = datetime.now().strftime('%d/%m/%Y %H:%M')
+    if(not "fecha_inicio" in request.session):
+        request.session["fecha_inicio"] = datetime.now().strftime('%d/%m/%Y %H:%M')
     return render(request, 'Padre.html')
 
 #URL que muestra todos los Tutoriales
@@ -532,29 +532,6 @@ def usuario_modificar(request, usuario_id):
         'usuario': usuario
     })
 
-
-# def usuario_modificar(request,usuario_id):
-#     usuario = Usuario.objects.get(id=usuario_id)
-
-#     datosFormulario = None
-
-#     if request.method == "POST":
-#         datosFormulario = request.POST
-
-
-#     formulario = UsuarioForm(datosFormulario,instance = usuario)
-
-#     if (request.method == "POST"):
-
-#         if formulario.is_valid():
-#             try:
-#                 formulario.save()
-#                 messages.success(request, 'Se ha editado el Usuario '+formulario.cleaned_data.get('nombre')+" correctamente")
-#                 return redirect('filtros_avanzados')
-#             except Exception as error:
-#                 print(error)
-#     return render(request, 'formulario/usuario_modificar.html',{"formulario":formulario,"usuario":usuario})
-
 def tutorial_modificar(request, tutorial_id):
     tutorial = Tutorial.objects.get(id= tutorial_id)
 
@@ -722,3 +699,23 @@ def eliminar_certificado(request,certificado_id):
     return redirect('filtros_avanzados_certificados')
 
 #SESIONES
+
+def registrar_usuario(request):
+    if request.method == 'POST':
+        formulario = RegistroForm(request.POST)
+        if formulario.is_valid():
+            user = formulario.save()
+            rol = int(formulario.cleaned_data.get('rol'))
+            if rol == Usuario.PROFESOR:
+                profesor = Profesor.objects.create(usuario=user)
+                profesor.save()
+            elif rol == Usuario.ESTUDIANTE:
+                estudiante = Estudiante.objects.create(usuario=user)
+                estudiante.save()
+            return redirect('inicio')  # Redirige a la vista 'inicio' tras un registro exitoso
+    else:
+        formulario = RegistroForm()  # Formulario vacío para solicitudes GET
+
+    return render(request, 'registro/registro.html', {
+        'formulario': formulario,  # Corrige el diccionario del contexto
+    })

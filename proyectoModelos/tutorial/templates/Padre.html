@@ -19,7 +19,11 @@
         <a class="navbar-brand" href="#">
           <img src="{% static 'imagenes/django.png' %}" alt="Logo de Django" class="logo" style="width: 50px;">
           DjangoProjects
-          <p>Fecha de inicio: {{ request.session.fecha_inicio }}</p>
+          <p>
+            Fecha Inicio:
+            </br>
+            {{ request.session.fecha_inicio }}
+          </p>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -32,6 +36,27 @@
             <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" name="query">
             <button class="btn btn-outline-light" type="submit">Buscar</button>
           </form>
+        </div>
+        <div class="ml-2">
+          {% if user.is_authenticated %}
+            <!-- Mostrar información del usuario -->
+            <div class="text-light">
+              <p class="mb-0">Hola, {{ user.nombre }}!</p>
+              {% if user.profesor %}
+                <p>Tipo de usuario: Profesor</p>
+              {% elif user.estudiante %}
+                <p>Tipo de usuario: Estudiante</p>
+              {% endif %}
+              <p>Email: {{ user.email }}</p>
+              <p>Fecha de Registro: {{ user.fecha_Registro }}</p>
+              <a class="btn btn-outline-danger" href="{% url 'logout' %}">Logout</a>
+            </div>
+          {% else %}
+            <!-- Mostrar el botón de Login si el usuario no está autenticado -->
+            <a class="btn btn-outline-warning" href="{% url 'registrar_usuario' %}">
+              Login
+            </a>
+          {% endif %}
         </div>
       </div>
     </nav>

@@ -1,30 +1,44 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 
+from django.contrib.auth.models import AbstractBaseUser
+from django.db import models
+
 class Usuario(AbstractBaseUser):
-    
     ADMINISTRADOR = 1
     PROFESOR = 2
     ESTUDIANTE = 3
     ROLES = (
         (ADMINISTRADOR, 'administrador'),
         (PROFESOR, 'profesor'),
-        (ESTUDIANTE, 'estudiante')
+        (ESTUDIANTE, 'estudiante'),
     )
-    
-    rol = models.PositiveSmallIntegerField(
-        choices= ROLES, default=1
-    )
-    # nombre = models.CharField(max_length=30,)
-    # email = models.EmailField(max_length=50)
-    # fecha_Registro = models.DateField()
-    # es_activo = models.BooleanField(default=False)
-    # puntuacion = models.DecimalField(max_digits=3, decimal_places=1)
-    # imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
 
+    email = models.EmailField(unique=True)  # Identificador único
+    nombre = models.CharField(max_length=30)
+    fecha_Registro = models.DateField(null=True, blank=True)
+    puntuacion = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
+    es_activo = models.BooleanField(default=True)
+    es_staff = models.BooleanField(default=False)
+    es_superuser = models.BooleanField(default=False)
+    rol = models.PositiveSmallIntegerField(choices=ROLES, default=ADMINISTRADOR)
+    imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
+
+    USERNAME_FIELD = 'email'  # Campo único para autenticación
+    REQUIRED_FIELDS = ['nombre']  # Campos obligatorios para createsuperuser
+
+    def __str__(self):
+        return self.email
+
+class Profesor(models.Model):
     
-    # def __str__(self):
-    #     return f"{self.nombre}"
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    
+
+class Estudiante(models.Model):
+    
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    
 
 class Perfil(models.Model):
     bio = models.TextField()

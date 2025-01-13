@@ -43,4 +43,6 @@ urlpatterns = [
     path('formulario/subcategoria-eliminar/<int:subcategoria_id>',views.eliminar_subcategoria,name='eliminar_subcategoria'),
     path('formulario/comentario-eliminar/<int:comentario_id>',views.eliminar_comentario,name='eliminar_comentario'),
     path('formulario/certificado-eliminar/<int:certificado_id>',views.eliminar_certificado,name='eliminar_certificado'),
+    #URL RegistrarUser
+    path('registrar', views.registrar_usuario, name= 'registrar_usuario'),
 ]

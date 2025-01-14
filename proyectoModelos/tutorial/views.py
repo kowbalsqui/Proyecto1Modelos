@@ -2,10 +2,11 @@ from django.shortcuts import render,redirect,  get_object_or_404
 from django.db.models import Q,Prefetch
 from django.forms import modelform_factory
 from .models import *
+from django.utils import timezone
 from django.db.models import Sum
 from .forms import *
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import Group
 
@@ -700,6 +701,8 @@ def eliminar_certificado(request,certificado_id):
 
 #SESIONES
 
+#Registrar
+
 def registrar_usuario(request):
     if request.method == 'POST':
         formulario = RegistroForm(request.POST)
@@ -707,15 +710,48 @@ def registrar_usuario(request):
             user = formulario.save()
             rol = int(formulario.cleaned_data.get('rol'))
             if rol == Usuario.PROFESOR:
-                profesor = Profesor.objects.create(usuario=user)
-                profesor.save()
+                Profesor.objects.create(usuario=user)
             elif rol == Usuario.ESTUDIANTE:
-                estudiante = Estudiante.objects.create(usuario=user)
-                estudiante.save()
-            return redirect('inicio')  # Redirige a la vista 'inicio' tras un registro exitoso
+                Estudiante.objects.create(usuario=user)
+            # Login automático tras el registro
+            login(request, user)
+            user.fecha_Registro = timezone.now()
+            return redirect('inicio')  # Redirige tras el registro exitoso
     else:
-        formulario = RegistroForm()  # Formulario vacío para solicitudes GET
+        formulario = RegistroForm()
 
     return render(request, 'registro/registro.html', {
-        'formulario': formulario,  # Corrige el diccionario del contexto
+        'formulario': formulario,
     })
+    
+#Iiniciar Sesión
+
+def inicio_sesion(request):
+    if request.method == 'POST':
+        form = InicioSesionForm(request.POST)
+        if form.is_valid():
+            # Obtén el email y la contraseña desde el formulario
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            
+            # Autenticación utilizando 'email' como el campo para usuario
+            user = authenticate(request, username=email, password=password)
+            
+            if user is not None:
+                # Si el usuario es válido, iniciar sesión
+                login(request, user)
+                return redirect('inicio')  # Redirige tras el inicio de sesión exitoso
+            else:
+                return render(request, 'registro/inicioSesion.html', {'form': form, 'error': 'Credenciales incorrectas'})
+    else:
+        form = InicioSesionForm()
+
+    return render(request, 'registro/inicioSesion.html', {'form': form})
+
+
+#Cerrar Sesion
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Has cerrado sesión exitosamente.")  # Mensaje al usuario
+    return redirect('login')

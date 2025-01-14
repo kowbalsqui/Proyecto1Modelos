@@ -1,8 +1,30 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
-
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager
 from django.db import models
+
+class UsuarioManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        """
+        Crea y guarda un usuario con el email y contraseña.
+        """
+        if not email:
+            raise ValueError('El usuario debe tener un correo electrónico.')
+        email = self.normalize_email(email)  # Normaliza el correo electrónico
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)  # Establece la contraseña
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        """
+        Crea y guarda un superusuario con email y contraseña.
+        """
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        # Aquí nos aseguramos de que los campos `is_staff` y `is_superuser` se establezcan correctamente.
+        return self.create_user(email, password, **extra_fields)
 
 class Usuario(AbstractBaseUser):
     ADMINISTRADOR = 1
@@ -19,13 +41,15 @@ class Usuario(AbstractBaseUser):
     fecha_Registro = models.DateField(null=True, blank=True)
     puntuacion = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
     es_activo = models.BooleanField(default=True)
-    es_staff = models.BooleanField(default=False)
-    es_superuser = models.BooleanField(default=False)
+    es_staff = models.BooleanField(default=False)  # Este campo debe existir
+    es_superuser = models.BooleanField(default=False)  # Este campo debe existir
     rol = models.PositiveSmallIntegerField(choices=ROLES, default=ADMINISTRADOR)
     imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
 
     USERNAME_FIELD = 'email'  # Campo único para autenticación
     REQUIRED_FIELDS = ['nombre']  # Campos obligatorios para createsuperuser
+
+    objects = UsuarioManager()  # Asignamos el manager personalizado aquí
 
     def __str__(self):
         return self.email

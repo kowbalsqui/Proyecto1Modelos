@@ -45,4 +45,8 @@ urlpatterns = [
     path('formulario/certificado-eliminar/<int:certificado_id>',views.eliminar_certificado,name='eliminar_certificado'),
     #URL RegistrarUser
     path('registrar', views.registrar_usuario, name= 'registrar_usuario'),
+    #URL IniciarSesion
+    path('inicioSesion', views.inicio_sesion, name= 'inicio_sesion'),
+    #URL CerrarSesion
+    path('logout/', views.logout_view, name='logout'),
 ]

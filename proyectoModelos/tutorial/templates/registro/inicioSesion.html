@@ -1,0 +1,31 @@
+{% extends "Padre.html" %}
+{% block contenido %}
+<div class="container mt-4">
+    <h2>Iniciar Sesión</h2>
+    <form action="{% url 'inicio_sesion' %}" method="post">
+        {% csrf_token %}
+        
+        <!-- Renderizar el formulario -->
+        <div class="mb-3">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        <!-- Botón de envío -->
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+    </form>
+
+    <!-- Mostrar error general del formulario -->
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger mt-3">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

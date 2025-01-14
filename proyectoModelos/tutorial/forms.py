@@ -6,6 +6,7 @@ from django.utils.timezone import now
 from datetime import date, timedelta
 from datetime import datetime
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class UsuarioForm(ModelForm):
@@ -643,3 +644,11 @@ class RegistroForm(UserCreationForm):
     class Meta:
         model = Usuario
         fields = ('nombre', 'email', 'password1', 'password2', 'rol')
+    
+class InicioSesionForm(AuthenticationForm):
+    email = forms.EmailField(label='Correo electrónico')
+    password = forms.CharField(widget=forms.PasswordInput(), label='Contraseña')
+
+    class Meta:
+        model = Usuario  # Usa el modelo personalizado de Usuario
+        fields = ['email', 'password']

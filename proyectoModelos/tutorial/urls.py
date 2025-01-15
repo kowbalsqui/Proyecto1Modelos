@@ -1,5 +1,6 @@
 from django.urls import path, re_path
 from .import views
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('', views.inicio, name= 'inicio'),
@@ -46,7 +47,6 @@ urlpatterns = [
     #URL RegistrarUser
     path('registrar', views.registrar_usuario, name= 'registrar_usuario'),
     #URL IniciarSesion
-    path('inicioSesion', views.inicio_sesion, name= 'inicio_sesion'),
-    #URL CerrarSesion
-    path('logout/', views.logout_view, name='logout'),
+    path('login', LoginView.as_view(), name='login'),  # vista de inicio de sesión
+    path('logout', LogoutView.as_view(), name='logout'),  # vista de cierre de sesión
 ]

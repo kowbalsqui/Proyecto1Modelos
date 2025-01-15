@@ -720,38 +720,10 @@ def registrar_usuario(request):
     else:
         formulario = RegistroForm()
 
-    return render(request, 'registro/registro.html', {
+    return render(request, 'registration/registro.html', {
         'formulario': formulario,
     })
     
 #Iiniciar Sesión
 
-def inicio_sesion(request):
-    if request.method == 'POST':
-        form = InicioSesionForm(request.POST)
-        if form.is_valid():
-            # Obtén el email y la contraseña desde el formulario
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            
-            # Autenticación utilizando 'email' como el campo para usuario
-            user = authenticate(request, username=email, password=password)
-            
-            if user is not None:
-                # Si el usuario es válido, iniciar sesión
-                login(request, user)
-                return redirect('inicio')  # Redirige tras el inicio de sesión exitoso
-            else:
-                return render(request, 'registro/inicioSesion.html', {'form': form, 'error': 'Credenciales incorrectas'})
-    else:
-        form = InicioSesionForm()
 
-    return render(request, 'registro/inicioSesion.html', {'form': form})
-
-
-#Cerrar Sesion
-
-def logout_view(request):
-    logout(request)
-    messages.success(request, "Has cerrado sesión exitosamente.")  # Mensaje al usuario
-    return redirect('login')

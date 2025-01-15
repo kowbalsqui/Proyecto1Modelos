@@ -136,6 +136,5 @@ LOGIN_REDIRECT_URL = 'inicio'
 LOGOUT_REDIRECT_URL = 'inicio'
 
 AUTHENTICATION_BACKENDS = [
-    'tutorial.backends.EmailBackend',  # Backend personalizado
-    'django.contrib.auth.backends.ModelBackend',  # Backend predeterminado
+    'django.contrib.auth.backends.ModelBackend',  # Backend personalizado
 ]

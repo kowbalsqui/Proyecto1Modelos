@@ -65,24 +65,13 @@
               </form>
             {% else %}
               <!-- Botones de login y registro -->
-              <a class="btn btn-outline-warning me-2" href="{% url 'inicio_sesion' %}">Iniciar sesión</a>
+              <a class="btn btn-outline-warning me-2" href="{% url 'login' %}">Iniciar sesión</a>
               <a class="btn btn-outline-primary" href="{% url 'registrar_usuario' %}">Registrarse</a>
             {% endif %}
           </div>
         </div>
       </div>
     </nav>
-
-    <!-- Mostrar mensajes -->
-    <div class="container mt-4">
-      {% if messages %}
-        <div class="alert alert-success" role="alert">
-          {% for message in messages %}
-            <p>{{ message }}</p>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
 
     <!-- Contenido principal -->
     <div class="container mt-4">

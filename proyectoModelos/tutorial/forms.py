@@ -645,10 +645,3 @@ class RegistroForm(UserCreationForm):
         model = Usuario
         fields = ('nombre', 'email', 'password1', 'password2', 'rol')
     
-class InicioSesionForm(AuthenticationForm):
-    email = forms.EmailField(label='Correo electrónico')
-    password = forms.CharField(widget=forms.PasswordInput(), label='Contraseña')
-
-    class Meta:
-        model = Usuario  # Usa el modelo personalizado de Usuario
-        fields = ['email', 'password']

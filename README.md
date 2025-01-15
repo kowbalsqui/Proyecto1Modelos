@@ -329,5 +329,11 @@ Cada formulario utiliza widgets de Django para mejorar la experiencia del usuari
 - `nivel`: `forms.TextInput`.
 - `url_descarga`: `forms.URLInput`.
 
-hay imagenes que me ha dejado editarlas y eso pero derrepente se me ha corrompido el codigo y ahora no añade imagenes :(
+_________________________________________________________________________________
+
+Sesiones y Permisos
+
+_________________________________________________________________________________
+
+
 

@@ -8,8 +8,8 @@
             "fecha_Registro": "2016-01-28",
             "es_activo": false,
             "puntuacion": "0.8",
-            "es_staff": false,
-            "es_superuser": false,
+            "is_staff": false,
+            "is_superuser": false,
             "imagen": null
         }
     },
@@ -22,8 +22,8 @@
             "fecha_Registro": "1985-03-15",
             "es_activo": true,
             "puntuacion": "0.0",
-            "es_staff": false,
-            "es_superuser": false,
+            "is_staff": false,
+            "is_superuser": false,
             "imagen": null
         }
     },
@@ -36,8 +36,8 @@
             "fecha_Registro": "2003-04-17",
             "es_activo": false,
             "puntuacion": "0.1",
-            "es_staff": false,
-            "es_superuser": false,
+            "is_staff": false,
+            "is_superuser": false,
             "imagen": null
         }
     },
@@ -50,8 +50,8 @@
             "fecha_Registro": "1975-07-31",
             "es_activo": true,
             "puntuacion": "0.1",
-            "es_staff": false,
-            "es_superuser": false,
+            "is_staff": false,
+            "is_superuser": false,
             "imagen": null
         }
     },
@@ -64,8 +64,8 @@
             "fecha_Registro": "1977-04-19",
             "es_activo": false,
             "puntuacion": "0.1",
-            "es_staff": false,
-            "es_superuser": false,
+            "is_staff": false,
+            "is_superuser": false,
             "imagen": null
         }
     },

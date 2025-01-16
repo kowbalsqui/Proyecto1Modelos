@@ -96,6 +96,7 @@ class Profesor(models.Model):
 class Estudiante(models.Model):
     
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    #edad = models.IntegerField()
     
 
 class Perfil(models.Model):

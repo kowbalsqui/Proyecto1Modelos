@@ -154,7 +154,7 @@ def mi_error_500(request,exception=None):
 #VISTAS DE LOS FORMUALRIOS
 
 #CREAR
-
+@permission_required('tutorial.add_usuario')
 def usuario_Form(request):
     if request.method == 'POST':
         formulario = UsuarioForm(request.POST, request.FILES)
@@ -170,7 +170,7 @@ def usuario_Form(request):
         
     return render(request, 'formulario/usuarioFormulario.html', {"formulario": formulario})
 
-
+@permission_required('tutorial.add_perfil')
 def perfil_Form(request):
     if request.method == 'POST':
         formulario = PerfilForm(request.POST)
@@ -187,6 +187,7 @@ def perfil_Form(request):
     # Devuelve el formulario con los datos ingresados o el formulario vacío en caso de GET
     return render(request, 'formulario/perfilFormulario.html', {"formulario": formulario})
 
+@permission_required('tutorial.add_tutorial')
 def tutorial_Form(request):
     if request.method == 'POST':
         formulario = TutorialForm(request.POST)
@@ -203,6 +204,7 @@ def tutorial_Form(request):
     #Devuele el formulario con los datos ingresados o el formulario vacio en caso de GET
     return render(request, 'formulario/tutorialFormulario.html', {"formulario":formulario})
 
+@permission_required('tutorial.add_subcategoria')
 def subcategoria_Form(request):
     if request.method == 'POST':
         formulario = SubcategoriaForm(request.POST)
@@ -222,7 +224,7 @@ def subcategoria_Form(request):
 def pagina_de_enlaces(request):
     return render(request, 'enlaces.html')
 
-
+@permission_required('tutorial.add_comentario')
 def comentario_Form(request):
     if request.method == 'POST':
         formulario = ComentarioForm(request.POST)
@@ -239,6 +241,7 @@ def comentario_Form(request):
         #Devuelve el formulario con los datos ingresados o el formulario vacio en caso de GET
         return render(request, 'formulario/comentarioFomulario.html', {"formulario":formulario})   
     
+@permission_required('tutorial.add_certificado')
 def certificado_Form(request):
     if request.method == 'POST':
         formulario = CertificadoForm(request.POST)
@@ -285,6 +288,7 @@ def busqueda_avanzada(request):
         'comentario':comentario,
     })
 
+@permission_required('tutorial.view_usuario')
 def filtros_avanzados(request):
     formulario = BusquedaAvanzadaUsuario(request.GET, request.FILES)
 
@@ -322,9 +326,7 @@ def filtros_avanzados(request):
             'formulario': formulario,
         })
 
-
-
-
+@permission_required('tutorial.view_tutorial')
 def filtros_avanzados_tutoriales(request):
     formulario = BusquedaAvanzadaTutorial(request.GET)  # Inicializa el formulario
  
@@ -367,7 +369,7 @@ def filtros_avanzados_tutoriales(request):
             'formulario': formulario,
         })
 
-
+@permission_required('tutorial.view_perfil')
 def filtros_avanzados_perfil(request):
     formulario = BusquedaAvanzadaPerfil(request.GET)
     if len(request.GET) > 0:
@@ -402,6 +404,7 @@ def filtros_avanzados_perfil(request):
             'formulario': formulario,
         })
 
+@permission_required('tutorial.view_subcategoria')
 def filtrosAvanzadosSubcategorias(request):
     formulario = BusquedaAvanzadaSubcategorias(request.GET)
 
@@ -442,6 +445,7 @@ def filtrosAvanzadosSubcategorias(request):
             'formulario': formulario,
         })
 
+@permission_required('tutorial.view_comentario')
 def filtrosAvanzadosComentarios(request):
     formulario = BusquedaAvanzadaComentarios(request.GET)
 
@@ -476,6 +480,7 @@ def filtrosAvanzadosComentarios(request):
             'formulario': formulario,
         })
 
+@permission_required('tutorial.view_certificado')
 def filtrosAvanzadosCertificados (request):
     formulario = BusquedaAvanzadaCertificados(request.GET)   
 
@@ -513,6 +518,7 @@ def filtrosAvanzadosCertificados (request):
 
 #MODIFICAR
 
+@permission_required('tutorial.change_usuario')
 def usuario_modificar(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)  # Obtenemos el usuario a modificar
 
@@ -533,6 +539,7 @@ def usuario_modificar(request, usuario_id):
         'usuario': usuario
     })
 
+@permission_required('tutorial.change_tutorial')
 def tutorial_modificar(request, tutorial_id):
     tutorial = Tutorial.objects.get(id= tutorial_id)
 
@@ -554,6 +561,7 @@ def tutorial_modificar(request, tutorial_id):
                 print(error)
     return render(request, 'formulario/tutorial_modificar.html',{"formulario":formulario,"tutorial":tutorial})
 
+@permission_required('tutorial.change_perfil')
 def perfil_modificar(request, perfil_id):
     perfil = Perfil.objects.get(id= perfil_id)
 
@@ -575,6 +583,7 @@ def perfil_modificar(request, perfil_id):
                 print(error)
     return render(request, 'formulario/perfil_modificar.html',{"formulario":formulario,"perfil":perfil})
 
+@permission_required('tutorial.change_subcategoria')
 def subcategoria_modificar(request, subcategoria_id):
     subcategoria = SubCategoria.objects.get(id= subcategoria_id)
 
@@ -596,6 +605,7 @@ def subcategoria_modificar(request, subcategoria_id):
                 print(error)
     return render(request, 'formulario/subcategoria_modificar.html',{"formulario":formulario,"subcategoria":subcategoria})
 
+@permission_required('tutorial.change_comentario')
 def comentario_modificar(request, comentario_id):
     comentario = Comentario.objects.get(id= comentario_id)
 
@@ -617,6 +627,7 @@ def comentario_modificar(request, comentario_id):
                 print(error)
     return render(request, 'formulario/comentario_modificar.html',{"formulario":formulario,"comentario":comentario})
 
+@permission_required('tutorial.change_certificado')
 def certificado_modificar(request, certificado_id):
     certificado = Certificado.objects.get(id= certificado_id)
 
@@ -639,7 +650,7 @@ def certificado_modificar(request, certificado_id):
     return render(request, 'formulario/certificado_modificar.html',{"formulario":formulario,"certificado":certificado})
 
 #ELIMINAR
-
+@permission_required('tutorial.delete_usuario')
 def eliminar_usuario(request,usuario_id):
     usuario = Usuario.objects.get(id=usuario_id)
     try:
@@ -649,7 +660,7 @@ def eliminar_usuario(request,usuario_id):
         print(error)
     return redirect('filtros_avanzados')
 
-
+@permission_required('tutorial.delete_tutorial')
 def eliminar_tutorial(request,tutorial_id):
     tutorial = Tutorial.objects.get(id=tutorial_id)
     try:
@@ -659,8 +670,7 @@ def eliminar_tutorial(request,tutorial_id):
         print(error)
     return redirect('filtros_avanzados_tutoriales')
 
-
-
+@permission_required('tutorial.delete_perfil')
 def eliminar_perfil(request,perfil_id):
     perfil = Perfil.objects.get(id=perfil_id)
     try:
@@ -670,7 +680,7 @@ def eliminar_perfil(request,perfil_id):
         print(error)
     return redirect('filtros_avanzados_perfil')
 
-
+@permission_required('tutorial.delete_subcategoria')
 def eliminar_subcategoria(request,subcategoria_id):
     subcategoria = SubCategoria.objects.get(id=subcategoria_id)
     try:
@@ -680,6 +690,7 @@ def eliminar_subcategoria(request,subcategoria_id):
         print(error)
     return redirect('filtros_avanzados_subcategorias')
 
+@permission_required('tutorial.delete_comentario')
 def eliminar_comentario(request,comentario_id):
     comentario = Comentario.objects.get(id=comentario_id)
     try:
@@ -689,7 +700,7 @@ def eliminar_comentario(request,comentario_id):
         print(error)
     return redirect('filtros_avanzados_comentarios')
 
-
+@permission_required('tutorial.delete_certificado')
 def eliminar_certificado(request,certificado_id):
     certificado = Certificado.objects.get(id=certificado_id)
     try:
@@ -709,9 +720,13 @@ def registrar_usuario(request):
         if formulario.is_valid():
             user = formulario.save()
             rol = int(formulario.cleaned_data.get('rol'))
-            if rol == Usuario.PROFESOR:
+            if (rol == Usuario.PROFESOR):
+                grupo = Group.objects.get(name="Profesores")
+                grupo.user_set.add(user)
                 Profesor.objects.create(usuario=user)
-            elif rol == Usuario.ESTUDIANTE:
+            elif (rol == Usuario.ESTUDIANTE):
+                grupo = Group.objects.get(name="Estudiantes")
+                grupo.user_set.add(user)
                 Estudiante.objects.create(usuario=user)
             # Login automático tras el registro
             login(request, user)
@@ -723,7 +738,3 @@ def registrar_usuario(request):
     return render(request, 'registration/registro.html', {
         'formulario': formulario,
     })
-    
-#Iiniciar Sesión
-
-

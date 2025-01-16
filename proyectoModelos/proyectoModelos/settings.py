@@ -142,3 +142,4 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # Backend personalizado
 ]
 
+STATIC_ROOT = BASE_DIR / 'static'

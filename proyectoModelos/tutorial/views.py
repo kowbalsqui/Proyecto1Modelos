@@ -7,7 +7,7 @@ from django.db.models import Sum
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.models import Group
 
 from datetime import datetime
@@ -714,6 +714,7 @@ def eliminar_certificado(request,certificado_id):
 
 #Registrar
 
+
 def registrar_usuario(request):
     if request.method == 'POST':
         formulario = RegistroForm(request.POST)
@@ -722,7 +723,7 @@ def registrar_usuario(request):
             rol = int(formulario.cleaned_data.get('rol'))
             if (rol == Usuario.PROFESOR):
                 grupo = Group.objects.get(name="Profesores")
-                grupo.user_set.add(user)
+                user.groups.add(grupo)
                 Profesor.objects.create(usuario=user)
             elif (rol == Usuario.ESTUDIANTE):
                 grupo = Group.objects.get(name="Estudiantes")
@@ -731,6 +732,7 @@ def registrar_usuario(request):
             # Login automático tras el registro
             login(request, user)
             user.fecha_Registro = timezone.now()
+            user.save()
             return redirect('inicio')  # Redirige tras el registro exitoso
     else:
         formulario = RegistroForm()

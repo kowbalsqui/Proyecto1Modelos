@@ -28,27 +28,31 @@
     <hr class="my-4">
 
     <!-- Sección de Formularios -->
-    <h2 class="text-center text-success mt-4 mb-3">Formularios</h2>
-    <ul class="list-group">
-      {% if perms.tutorial.add_user %}
-        <li class="list-group-item"><a href="{% url 'usuarioFormulario' %}" class="text-decoration-none">Formulario de usuarios</a></li>
+    {% if user.is_authenticated  %}
+      <h2 class="text-center text-success mt-4 mb-3">Formularios</h2>
+      <ul class="list-group">
+        {% if perms.tutorial.add_user %}
+          <li class="list-group-item"><a href="{% url 'usuarioFormulario' %}" class="text-decoration-none">Formulario de usuarios</a></li>
+        {% endif %}
+        {% if perms.tutorial.add_perfil %}
+          <li class="list-group-item"><a href="{% url 'perfilFormulario' %}" class="text-decoration-none">Formulario de perfiles</a></li>
+        {% endif %}
+        {% if perms.tutorial.add_tutorial %}
+          <li class="list-group-item"><a href="{% url 'tutorialFormulario' %}" class="text-decoration-none">Formulario de tutoriales</a></li>
+        {% endif %}
+        {% if perms.tutorial.add_subcategoria %}
+          <li class="list-group-item"><a href="{% url 'subcategoriaFormulario' %}" class="text-decoration-none">Formulario de subcategorías</a></li>
+        {% endif %}
+        {% if perms.tutorial.add_comentario %}
+          <li class="list-group-item"><a href="{% url 'comentarioFomulario' %}" class="text-decoration-none">Formulario de comentarios</a></li>
+        {% endif %}
+        {% if perms.tutorial.add_certificado %}
+          <li class="list-group-item"><a href="{% url 'certificadoFomulario' %}" class="text-decoration-none">Formulario de certificados</a></li>
+        {% endif %}
+      </ul>
+      {% else %} 
+        <p>Debes iniciar sesión para ver este contenido.</p> 
       {% endif %}
-      {% if perms.tutorial.add_perfil %}
-        <li class="list-group-item"><a href="{% url 'perfilFormulario' %}" class="text-decoration-none">Formulario de perfiles</a></li>
-      {% endif %}
-      {% if perms.tutorial.add_tutorial %}
-        <li class="list-group-item"><a href="{% url 'tutorialFormulario' %}" class="text-decoration-none">Formulario de tutoriales</a></li>
-      {% endif %}
-      {% if perms.tutorial.add_subcategoria %}
-        <li class="list-group-item"><a href="{% url 'subcategoriaFormulario' %}" class="text-decoration-none">Formulario de subcategorías</a></li>
-      {% endif %}
-      {% if perms.tutorial.add_comentario %}
-        <li class="list-group-item"><a href="{% url 'comentarioFomulario' %}" class="text-decoration-none">Formulario de comentarios</a></li>
-      {% endif %}
-      {% if perms.tutorial.add_certificado %}
-        <li class="list-group-item"><a href="{% url 'certificadoFomulario' %}" class="text-decoration-none">Formulario de certificados</a></li>
-      {% endif %}
-    </ul>
 
     <!-- Separador -->
     <hr class="my-4">
@@ -56,8 +60,8 @@
     <!-- Sección de Formularios -->
     <h2 class="text-center text-success mt-4 mb-3">Busqueda Avanzadas</h2>
     <ul class="list-group">
-      {% if perms.tutorial.view_user %}
-        <li class="list-group-item"><a href="{% url 'filtros_avanzados' %}" class="text-decoration-none">Busqueda de Usuaios con filtros avanazdos</a></li>
+      {% if perms.tutorial.view_usuario %}
+        <li class="list-group-item"><a href="{% url 'filtros_avanzados' %}" class="text-decoration-none">Busqueda de Usuarios con filtros avanzados</a></li>
       {% endif %}
       {% if perms.tutorial.view_tutorial %}
         <li class="list-group-item"><a href="{% url 'filtros_avanzados_tutoriales' %}" class="text-decoration-none">Busqueda de Tutoriales con filtros avanazdos</a></li>

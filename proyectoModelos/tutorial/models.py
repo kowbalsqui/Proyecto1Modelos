@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
 
@@ -23,7 +23,7 @@ class UsuarioManager(BaseUserManager):
         # Los campos is_staff y is_superuser se asignan aquí
         return self.create_user(email, password, **extra_fields)
 
-class Usuario(AbstractBaseUser):
+class Usuario(AbstractBaseUser, PermissionsMixin):
     ADMINISTRADOR = 1
     PROFESOR = 2
     ESTUDIANTE = 3

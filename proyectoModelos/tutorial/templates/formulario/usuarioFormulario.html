@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block contenido %}
+{% if user.is_authenticated %}
 <form action= "" method= "post" enctype="multipart/form-data">
 
     {% load django_bootstrap5 %}
@@ -24,6 +25,9 @@
             {% endfor %}
         </ul>
     </div>
+{% endif %}
+{% else %}
+ <p>Debes iniciar sesión para ver este contenido.</p> 
 {% endif %}
 
 {% endblock %}

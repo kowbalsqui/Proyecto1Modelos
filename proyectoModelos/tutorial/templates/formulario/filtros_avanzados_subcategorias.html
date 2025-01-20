@@ -61,7 +61,7 @@
                             {% endif %}
                         </div>
                         <div class="mb-2">
-                            {% if perms.tutorial.delete_ %}
+                            {% if perms.tutorial.delete_subcategoria %}
                                 <form action = "{% url 'eliminar_subcategoria' subcategoria.id %}" method = "post"> 
                                     {% csrf_token %}
                                     <button class="btn btn-danger" onclick="return eliminar();" type="submit">

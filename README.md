@@ -336,4 +336,23 @@ Sesiones y Permisos
 _________________________________________________________________________________
 
 
+Tengo tutorial que basicamente tiene el filtro de busqueda por usuario de la sesion que solo busca por el usuario que este ahoramismo logueado en la sesion actual.
 
+En la cabecera estaban los 4 parametros del usuario pero he dejado 3 a la derecha y la fecha de inicio de sesiona  la izquierda(He tocado algo y tengo arreglarlo, mirar antes de entregar)
+
+Hay mucho lio debido a que he querido que el usuario y los superusuario se quedaran con la clave primaria de email y no de username y ya a la desesperada me decian por una parte crear un backend personalizado y aplicarlo en setting, 
+por otra añadir cosas en admin.py porque he sido muy cabezon y despues de muchos intentos ya he cojido el email como la primery key.
+
+El tema de los permisos llevo ya demasiado intentando y ya esque ni la inteligencia artificial ve como seguir el camino: 
+
+Los usuarios son los siguiente:
+-Estudiante
+-Profesor
+
+las funcionalidad que deberian desempeñar son las siguiente:
+
+un profesor puede crear tutoriales y modirficarlos y eliminarlos al igual que usuarios, comentarios, certificados, categorias y subcategorias
+
+un estudiante puede crer modificar, eliminar perfiles, y ver tutorials, usuario, profesores, categorias, subcategorias.
+
+NO se que esta pasando que no me coje el tema permisos.

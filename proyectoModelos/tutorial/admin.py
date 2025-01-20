@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import Usuario
+from .models import *
 
 class UsuarioAdmin(BaseUserAdmin):
     list_display = ('email', 'nombre', 'rol', 'is_staff', 'is_superuser', 'es_activo')
@@ -17,4 +17,15 @@ class UsuarioAdmin(BaseUserAdmin):
     )
 
 admin.site.register(Usuario, UsuarioAdmin)
+admin.site.register(Profesor)
+admin.site.register(Estudiante)
+admin.site.register(Perfil)
+admin.site.register(Tutorial)
+admin.site.register(Categoria)
+admin.site.register(SubCategoria)
+admin.site.register(Etiqueta)
+admin.site.register(Favorito)
+admin.site.register(Curso)
+admin.site.register(Certificado)
+admin.site.register(Comentario)
 

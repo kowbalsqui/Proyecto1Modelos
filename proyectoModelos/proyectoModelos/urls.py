@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tutorial.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('api/v1/', include("tutorial.api_urls"))
+    path('api/v1/', include("tutorial.api_urls")),
+    path('oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

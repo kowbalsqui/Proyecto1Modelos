@@ -7,7 +7,7 @@ from django.db.models import Sum
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.models import Group
 
 from datetime import datetime
@@ -154,7 +154,8 @@ def mi_error_500(request,exception=None):
 #VISTAS DE LOS FORMUALRIOS
 
 #CREAR
-@permission_required('tutorial.add_usuario')
+@login_required
+@permission_required('tutorial.add_usuario', raise_exception=True)
 def usuario_Form(request):
     if request.method == 'POST':
         formulario = UsuarioForm(request.POST, request.FILES)
@@ -162,7 +163,7 @@ def usuario_Form(request):
             try:
                 # Guarda el usuario en la base de datos
                 formulario.save()
-                return redirect('listar_ususario')
+                return redirect('listar_usuario')
             except Exception as error:
                 print(error)
     else:
@@ -328,15 +329,15 @@ def filtros_avanzados(request):
 
 @permission_required('tutorial.view_tutorial')
 def filtros_avanzados_tutoriales(request):
-    formulario = BusquedaAvanzadaTutorial(request.GET)  # Inicializa el formulario
- 
+    formulario = BusquedaAvanzadaTutorial(request.GET)  # Inicializa el formulario con los datos GET
 
+    # Si el formulario ha sido enviado
     if len(request.GET) > 0:
         if formulario.is_valid():
-            tutoriales = Tutorial.objects.all().select_related('usuario')  # Inicializa los tutoriales
-            usuarios = Usuario.objects.all()  # Obtén todos los usuarios
-            # Obtén los datos del formulario
-            
+            # Filtramos los tutoriales por el usuario logueado primero
+            tutoriales = Tutorial.objects.filter(usuario=request.user)
+
+            # Obtener los datos del formulario
             visitas = formulario.cleaned_data.get('visitas')
             valoracion = formulario.cleaned_data.get('valoracion')
             usuario = formulario.cleaned_data.get('usuario')
@@ -348,27 +349,25 @@ def filtros_avanzados_tutoriales(request):
                 tutoriales = tutoriales.filter(valoracion=valoracion)
             if usuario:
                 tutoriales = tutoriales.filter(usuario=usuario)
-                
+
+            # Renderiza la página con los tutoriales filtrados
             return render(request, 'formulario/filtros_avanzados_tutoriales.html', {
                 'formulario': formulario,
                 'tutoriales': tutoriales,
-                'usuarios': usuarios,
             })
-            
         else:
-            # Si el formulario no es válido, se queda en la misma página
+            # Si el formulario no es válido, se renderiza la página con el formulario
             return render(request, 'formulario/filtros_avanzados_tutoriales.html', {
                 'formulario': formulario,
                 'tutoriales': None,
-                'usuarios': None,
             })
     else:
-        # Si el formulario no es válido, se queda en la misma página
+        # Si no hay parámetros GET, se muestra el formulario vacío
         formulario = BusquedaAvanzadaTutorial(None)
         return render(request, 'formulario/filtros_avanzados_tutoriales.html', {
             'formulario': formulario,
         })
-
+    
 @permission_required('tutorial.view_perfil')
 def filtros_avanzados_perfil(request):
     formulario = BusquedaAvanzadaPerfil(request.GET)
@@ -711,30 +710,49 @@ def eliminar_certificado(request,certificado_id):
     return redirect('filtros_avanzados_certificados')
 
 #SESIONES
-
 #Registrar
 
 def registrar_usuario(request):
     if request.method == 'POST':
         formulario = RegistroForm(request.POST)
         if formulario.is_valid():
-            user = formulario.save()
-            rol = int(formulario.cleaned_data.get('rol'))
-            if (rol == Usuario.PROFESOR):
-                grupo = Group.objects.get(name="Profesores")
-                grupo.user_set.add(user)
-                Profesor.objects.create(usuario=user)
-            elif (rol == Usuario.ESTUDIANTE):
-                grupo = Group.objects.get(name="Estudiantes")
-                grupo.user_set.add(user)
-                Estudiante.objects.create(usuario=user)
-            # Login automático tras el registro
-            login(request, user)
+            user = formulario.save(commit=False)
+            rol = formulario.cleaned_data.get('rol')
+            
+            # Asignar fecha de registro antes de guardar
             user.fecha_Registro = timezone.now()
-            return redirect('inicio')  # Redirige tras el registro exitoso
+            user.save()
+            
+            try:
+                if rol == Usuario.PROFESOR:
+                    grupo = Group.objects.get(name="Profesores")
+                    user.groups.add(grupo)
+                    Profesor.objects.get_or_create(usuario=user)
+                elif rol == Usuario.ESTUDIANTE:
+                    grupo = Group.objects.get(name="Estudiantes")
+                    user.groups.add(grupo)
+                    Estudiante.objects.get_or_create(usuario=user)
+                
+                # Guardar cambios después de asignar grupos y roles
+                user.save()
+                
+                # Imprimir permisos del usuario para diagnóstico
+                print(user.get_all_permissions())
+                
+            except Group.DoesNotExist:
+                messages.error(request, "El grupo especificado no existe.")
+                return redirect('registro')
+
+            # Login automático
+            login(request, user)
+            messages.success(request, "Registro exitoso. ¡Bienvenido!")
+            return redirect('inicio')
+        else:
+            messages.error(request, "Por favor, corrige los errores en el formulario.")
     else:
         formulario = RegistroForm()
 
     return render(request, 'registration/registro.html', {
         'formulario': formulario,
     })
+

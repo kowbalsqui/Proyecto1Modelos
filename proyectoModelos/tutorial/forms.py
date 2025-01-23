@@ -108,7 +108,7 @@ class PerfilForm (ModelForm):
 
         return self.cleaned_data
 
-class TutorialForm(ModelForm):
+class TutorialForm(forms.ModelForm):
     class Meta:
         model = Tutorial
         fields = ['titulo', 'contenido', 'fecha_Creacion', 'visitas', 'valoracion', 'usuario']
@@ -123,52 +123,25 @@ class TutorialForm(ModelForm):
         widgets = {
             "titulo": forms.TextInput(attrs={"class": "form-control", "placeholder": "Introduce el título"}),
             "contenido": forms.Textarea(attrs={"class": "form-control", "placeholder": "Escribe el contenido", "rows": 5}),
-            "fecha_Creacion": forms.DateInput(
-                format="%Y-%m-%d", 
-                attrs={"type": "date", "class": "form-control"}
-            ),
+            "fecha_Creacion": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date", "class": "form-control"}),
             "visitas": forms.NumberInput(attrs={"class": "form-control", "min": 0}),
             "valoracion": forms.NumberInput(attrs={"class": "form-control", "min": 0, "max": 5, "step": 0.1}),
             "usuario": forms.Select(attrs={"class": "form-control"}),
         }
-        
-    def clean (self):
-        
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Hacer los campos de filtro opcionales
+        self.fields['titulo'].required = False
+        self.fields['contenido'].required = False
+        self.fields['fecha_Creacion'].required = False
+        self.fields['visitas'].required = False
+        self.fields['valoracion'].required = False
+        self.fields['usuario'].required = False
+
+    def clean(self):
         super().clean()
-        
-        #Primero obtenemos los campos necesarios
-        
-        titulo = self.cleaned_data.get('titulo')
-        contenido = self.cleaned_data.get('contenido')
-        fecha_Creacion = self.cleaned_data.get('fecha_Creacion')
-        visitas = self.cleaned_data.get('visitas')
-        valoracion = self.cleaned_data.get('valoracion')
-        
-        #Validamos el campo titulo
-        
-        if len(titulo) < 5:
-            self.add_error('titulo', 'El título debe tener como minimo 5 caracteres')
-        
-        #Validamos el campo contenido
-        
-        if len(contenido) < 10:
-            self.add_error('contenido', 'El contenido debe tener como minimo 10 caracteres')
-        
-        #Validamos el campo fecha de creacion
-        
-        if fecha_Creacion > datetime.now():
-            self.add_error('fecha_Creacion', 'La fecha de creación no puede ser en un futuro')
-        
-        #Validamos el campo visitas
-        
-        if visitas < 0:
-            self.add_error('visitas', 'El número de visitas no puede ser negativo')
-        
-        #Validamos el campo valoracion
-        
-        if valoracion < 0 or valoracion > 5:
-            self.add_error('valoracion', 'La valoración debe estar entre 0 y 5')
-            
+        # Validaciones personalizadas si es necesario
         return self.cleaned_data
 
 class SubcategoriaForm(forms.ModelForm):

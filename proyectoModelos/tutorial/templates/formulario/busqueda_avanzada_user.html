@@ -86,12 +86,12 @@
                     {% load bootstrap_icons %}
         <div class="row btn-group">
             <div class="mb-2">
+                {% if perms.tutorial.change_usuario %}
                 <button type="button" 
                         class="btn btn-outline-primary"> 
-                        {% if perms.tutorial.change_usuario %}
                             <a href="{% url 'usuario_modificar' usuario.id %}" ><span>{% bs_icon 'pencil' %}</span></a>
-                        {% endif %}
                 </button>
+                {% endif %}
             </div>
             <div class="mb-2">
                 {% if perms.tutorial.delete_usuario %}

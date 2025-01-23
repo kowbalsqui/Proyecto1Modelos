@@ -50,8 +50,12 @@
                 </div>
                 <div class="card-footer text-center">
                     <!-- Aquí usamos certificado.id -->
-                    <a href="{% url 'certificado_modificar' certificado.id %}" class="btn btn-sm btn-primary">Modificar</a>
-                    <a href="{% url 'eliminar_certificado' certificado.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    {% if perms.tutorial.change_certificado %}
+                        <a href="{% url 'certificado_modificar' certificado.id %}" class="btn btn-sm btn-primary">Modificar</a>
+                    {% endif %}
+                    {% if perms.tutorial.delete_certificado %}
+                        <a href="{% url 'eliminar_certificado' certificado.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

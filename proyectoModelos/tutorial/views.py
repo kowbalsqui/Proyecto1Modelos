@@ -155,7 +155,7 @@ def mi_error_500(request,exception=None):
 
 #CREAR
 @login_required
-@permission_required('tutorial.add_usuario', raise_exception=True)
+@permission_required('tutorial.add_usuario')
 def usuario_Form(request):
     if request.method == 'POST':
         formulario = UsuarioForm(request.POST, request.FILES)
@@ -717,18 +717,19 @@ def registrar_usuario(request):
         formulario = RegistroForm(request.POST)
         if formulario.is_valid():
             user = formulario.save(commit=False)
-            rol = formulario.cleaned_data.get('rol')
+            roles = formulario.cleaned_data.get('rol')
             
             # Asignar fecha de registro antes de guardar
             user.fecha_Registro = timezone.now()
             user.save()
             
             try:
-                if rol == Usuario.PROFESOR:
+                rol = int(roles)
+                if rol == 2:
                     grupo = Group.objects.get(name="Profesores")
                     user.groups.add(grupo)
                     Profesor.objects.get_or_create(usuario=user)
-                elif rol == Usuario.ESTUDIANTE:
+                elif rol == 3:
                     grupo = Group.objects.get(name="Estudiantes")
                     user.groups.add(grupo)
                     Estudiante.objects.get_or_create(usuario=user)

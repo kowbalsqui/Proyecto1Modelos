@@ -30,7 +30,7 @@
     <!-- Sección de Formularios -->
     <h2 class="text-center text-success mt-4 mb-3">Formularios</h2>
     <ul class="list-group">
-      {% if perms.tutorial.add_user %}
+      {% if perms.add_usuario %}
         <li class="list-group-item"><a href="{% url 'usuarioFormulario' %}" class="text-decoration-none">Formulario de usuarios</a></li>
       {% endif %}
       {% if perms.tutorial.add_perfil %}

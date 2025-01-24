@@ -63,29 +63,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
             self.is_staff = False
             self.is_superuser = False
         super().save(*args, **kwargs)
-
-    def has_perm(self, perm, obj=None):
-        """
-        Devuelve True si el usuario tiene el permiso indicado.
-        """
-        return self.is_staff or self.is_superuser
-
-    def has_module_perms(self, app_label):
-        """
-        Devuelve True si el usuario tiene permisos para cualquier modelo de la app dado.
-        """
-        return self.is_staff or self.is_superuser
-
-    def get_full_name(self):
-        """
-        Devuelve el nombre completo del usuario.
-        """
-        return self.nombre
-
-    def get_short_name(self):
-        """
-        Devuelve el nombre corto del usuario.
-        """
+        
         return self.nombre
 
 class Profesor(models.Model):

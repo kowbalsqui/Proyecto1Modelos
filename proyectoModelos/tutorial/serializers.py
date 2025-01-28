@@ -22,9 +22,16 @@ class TutorialSerializer(serializers.ModelSerializer):
 
 class CursosSerializer(serializers.ModelSerializer):
     #Paras las relaciones One y Many to One
-    usuario = UsuarioSerializer()
     tutorial = TutorialSerializer()
-    
     class Meta:
         model = Curso
-        fields = ('nombre', 'descripcion', 'horas', 'precio', 'usuario', 'tutorial')
+        fields = ('nombre', 'descripcion', 'horas', 'precio', 'tutorial')
+
+#clase categoria serializers
+
+class CategoriaSerializer(serializers.ModelSerializer):
+    #Para las relaciones One y Many to One
+    tutorial = TutorialSerializer()
+    class Meta:
+        model = Categoria
+        fields = ('nombre', 'es_activa', 'popularidad', 'descripcion', 'tutorial')

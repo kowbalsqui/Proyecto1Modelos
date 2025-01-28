@@ -25,3 +25,9 @@ def cursos_list(request):
     cursos = Curso.objects.all()
     serializers = CursosSerializer(cursos, many = True)
     return Response(serializers.data)
+
+@api_view (['GET'])
+def categoria_list(request):
+    categoria = Categoria.objects.all()
+    serializers = CategoriaSerializer(categoria, many = True)
+    return Response(serializers.data)

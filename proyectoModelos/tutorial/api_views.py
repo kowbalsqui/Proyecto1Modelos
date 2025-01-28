@@ -19,3 +19,9 @@ def usuario_list(request):
     usuario = Usuario.objects.all()
     serializer = UsuarioSerializer(usuario, many = True)
     return Response(serializer.data)
+
+@api_view (['GET'])
+def cursos_list(request):
+    cursos = Curso.objects.all()
+    serializers = CursosSerializer(cursos, many = True)
+    return Response(serializers.data)

@@ -35,3 +35,12 @@ class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
         fields = ('nombre', 'es_activa', 'popularidad', 'descripcion', 'tutorial')
+
+#clase etiqueta serializers
+
+class EtiquetaSerializer(serializers.ModelSerializer):
+    #Para las relaciones ManyToMany
+    tutorial = TutorialSerializer(many=True)
+    class Meta:
+        model = Etiqueta
+        fields = ('nombre', 'color', 'publica', 'descripcion', 'tutorial')

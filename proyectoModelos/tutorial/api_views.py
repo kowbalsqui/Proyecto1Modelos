@@ -31,3 +31,9 @@ def categoria_list(request):
     categoria = Categoria.objects.all()
     serializers = CategoriaSerializer(categoria, many = True)
     return Response(serializers.data)
+
+@api_view (['GET'])
+def etiqueta_list(request):
+    etiqueta = Etiqueta.objects.all()
+    serializers = EtiquetaSerializer(etiqueta, many = True)
+    return Response(serializers.data)

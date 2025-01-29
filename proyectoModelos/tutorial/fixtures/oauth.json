@@ -1,0 +1,142 @@
+[
+{
+    "model": "oauth2_provider.application",
+    "pk": 1,
+    "fields": {
+        "client_id": "mi_aplicacion",
+        "user": 12,
+        "redirect_uris": "",
+        "post_logout_redirect_uris": "",
+        "client_type": "confidential",
+        "authorization_grant_type": "password",
+        "client_secret": "mi_clave_secreta",
+        "hash_client_secret": false,
+        "name": "API Tutorial",
+        "skip_authorization": false,
+        "created": "2025-01-23T08:58:09.906",
+        "updated": "2025-01-23T09:13:37.148",
+        "algorithm": "",
+        "allowed_origins": ""
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 1,
+    "fields": {
+        "user": 12,
+        "source_refresh_token": null,
+        "token": "G8S54YVURkTo8oS9fp7VF9fVnYQpnU",
+        "token_checksum": "d822130f19cb4146eb6874a4135e87f9a36aa3873455efab964677c63a56f69e",
+        "id_token": null,
+        "application": 1,
+        "expires": "2025-01-23T19:15:36.294",
+        "scope": "read write groups",
+        "created": "2025-01-23T09:15:36.294",
+        "updated": "2025-01-23T09:15:36.294"
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 2,
+    "fields": {
+        "user": 12,
+        "source_refresh_token": null,
+        "token": "GDmgyI96c3jyFPpMOR4CzXft7PWeMf",
+        "token_checksum": "bd7ca3ce9ffb06673926701171a71eb40bd1e3aca9f42a5bb626b2d366f4415c",
+        "id_token": null,
+        "application": 1,
+        "expires": "2025-01-29T05:48:34.440",
+        "scope": "read write groups",
+        "created": "2025-01-28T19:48:34.440",
+        "updated": "2025-01-28T19:48:34.440"
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 3,
+    "fields": {
+        "user": 18,
+        "source_refresh_token": null,
+        "token": "TK9uaXW4fbOQ4lKDoI9o1IHDSKkPiU",
+        "token_checksum": "d5dfe68d2a1612d4dd1afa999254ccd7def2a3a63db6b538345a3c3268484e39",
+        "id_token": null,
+        "application": 1,
+        "expires": "2025-01-29T05:50:35.349",
+        "scope": "read write groups",
+        "created": "2025-01-28T19:50:35.349",
+        "updated": "2025-01-28T19:50:35.349"
+    }
+},
+{
+    "model": "oauth2_provider.accesstoken",
+    "pk": 4,
+    "fields": {
+        "user": 17,
+        "source_refresh_token": null,
+        "token": "QuMV37mUqur3NbYHhsB67OHA0nlMZP",
+        "token_checksum": "7ff3c8e6c1904d6c8b84e666baee3d9ce3de34f8a0993f9fc3be780e5e257ef2",
+        "id_token": null,
+        "application": 1,
+        "expires": "2025-01-29T05:51:07.314",
+        "scope": "read write groups",
+        "created": "2025-01-28T19:51:07.314",
+        "updated": "2025-01-28T19:51:07.314"
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 1,
+    "fields": {
+        "user": 12,
+        "token": "eWyZwB96JkTWezWKtiMme5jqrQHM0o",
+        "application": 1,
+        "access_token": 1,
+        "token_family": "e4275fac-6057-4ba7-bc17-277abab6204b",
+        "created": "2025-01-23T09:15:36.295",
+        "updated": "2025-01-23T09:15:36.295",
+        "revoked": null
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 2,
+    "fields": {
+        "user": 12,
+        "token": "DuWTWv1uUzwttgC1MhWsQxBje7o70d",
+        "application": 1,
+        "access_token": 2,
+        "token_family": "8820e3dc-5d72-4bd4-8888-7e78c772d267",
+        "created": "2025-01-28T19:48:34.443",
+        "updated": "2025-01-28T19:48:34.443",
+        "revoked": null
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 3,
+    "fields": {
+        "user": 18,
+        "token": "9k1ZBwvrPUIjxsHS3xUY0n7ZUgEuAY",
+        "application": 1,
+        "access_token": 3,
+        "token_family": "a734e4af-570a-4f7c-b1b9-61399d0d478b",
+        "created": "2025-01-28T19:50:35.352",
+        "updated": "2025-01-28T19:50:35.352",
+        "revoked": null
+    }
+},
+{
+    "model": "oauth2_provider.refreshtoken",
+    "pk": 4,
+    "fields": {
+        "user": 17,
+        "token": "IueWGDOhNUTRWQhvtnaoV07LyjgMRF",
+        "application": 1,
+        "access_token": 4,
+        "token_family": "3b51bb80-8e3a-4947-863c-9517ea9b91f6",
+        "created": "2025-01-28T19:51:07.317",
+        "updated": "2025-01-28T19:51:07.317",
+        "revoked": null
+    }
+}
+]

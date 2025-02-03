@@ -618,3 +618,7 @@ class RegistroForm(UserCreationForm):
         model = Usuario
         fields = ('nombre', 'email', 'password1', 'password2', 'rol')
     
+#Formulario busqueda simple para la api de Usuario
+
+class BusquedaSimpleUsuario(forms.Form):
+    email = forms.EmailField(max_length=100)

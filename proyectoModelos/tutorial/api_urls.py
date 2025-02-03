@@ -7,4 +7,5 @@ urlpatterns = [
     path('cursos', cursos_list),
     path('categoria', categoria_list),
     path('etiqueta', etiqueta_list),
+    path('usuario/busqueda_simple', usuario_busqueda_simple),
 ]

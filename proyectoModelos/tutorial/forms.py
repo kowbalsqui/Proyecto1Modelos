@@ -621,4 +621,4 @@ class RegistroForm(UserCreationForm):
 #Formulario busqueda simple para la api de Usuario
 
 class BusquedaSimpleUsuario(forms.Form):
-    email = forms.EmailField(max_length=100)
+    email = forms.EmailField(label='Correo electrónico', max_length=100, required=True)

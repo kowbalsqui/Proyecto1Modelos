@@ -8,4 +8,5 @@ urlpatterns = [
     path('categoria', categoria_list),
     path('etiqueta', etiqueta_list),
     path('usuario/busqueda_simple', usuario_busqueda_simple),
+    path('usuario/busqueda_avanzada_usuario', usuario_busqueda_avanzada),
 ]

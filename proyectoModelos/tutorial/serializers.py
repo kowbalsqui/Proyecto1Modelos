@@ -17,6 +17,11 @@ class TutorialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tutorial
         fields = ('titulo', 'contenido', 'fecha_Creacion', 'visitas', 'valoracion', 'usuario')
+
+class TutorialSerializerSimple(serializers.ModelSerializer):
+    class Meta:
+        model = Tutorial
+        fields = ('titulo', 'contenido', 'fecha_Creacion', 'visitas', 'valoracion')
         
 #clase cursos serializers
 
@@ -44,3 +49,28 @@ class EtiquetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Etiqueta
         fields = ('nombre', 'color', 'publica', 'descripcion', 'tutorial')
+
+class PerfilSerializers(serializers.ModelSerializer):
+    usuario = UsuarioSerializer(many=True)
+
+    class Meta:
+        model = Perfil
+        fields = ('bio', 'fecha_Nacimiento', 'redes', 'estudios', 'usuario')
+    
+class PerfilSerializersSimple(serializers.ModelSerializer):
+    class Meta:
+        model = Perfil
+        fields = ('bio', 'fecha_Nacimiento', 'redes', 'estudios')
+
+
+class ComentarioSerializers(serializers.ModelSerializer):
+    usuario = UsuarioSerializer(many=True)
+
+    class Meta:
+        model = Comentario
+        fields = ('contenido', 'fecha', 'visible', 'puntuacion', 'usuario')
+
+class ComentarioSerializersSimple(serializers.ModelSerializer):
+    class Meta:
+        model = Comentario
+        fields = ('contenido', 'fecha', 'visible', 'puntuacion')

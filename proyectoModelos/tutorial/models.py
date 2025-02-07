@@ -102,7 +102,7 @@ class Tutorial(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="usuario_del_tutorial")
     
     def __str__(self):
-        return f"{self.usuario.nombre}"
+        return f"{self.titulo}"
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50)

@@ -150,7 +150,12 @@ SESSION_COOKIE_AGE = 1209600
 STATIC_ROOT = BASE_DIR / 'static'
 
 OAUTH2_PROVIDER = {
+
+   'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Acceso a los grupos'},
+   
+
   'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Acceso a los grupos'}
+
 }
 
 REST_FRAMEWORK = {

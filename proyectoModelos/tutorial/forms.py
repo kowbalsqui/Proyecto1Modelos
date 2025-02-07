@@ -441,6 +441,49 @@ class BusquedaAvanzadaTutorial(forms.Form):
 
         return self.cleaned_data
     
+class BusquedaAvanzadaTutorialApi(forms.Form):
+    visitas = forms.IntegerField(
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ej: 1'
+        }),
+        initial=0  # Valor por defecto 0
+    )
+    valoracion = forms.DecimalField(
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ej: 1'
+        }),
+        initial=0.0  # Valor por defecto 0.0
+    )
+    titulo = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ej: Python'
+        }),
+        initial=''  # Cadena vacía por defecto
+    )
+
+    def clean(self):
+        super().clean()
+
+        visitas = self.cleaned_data.get('visitas', 0)
+        valoracion = self.cleaned_data.get('valoracion', 0.0)
+        titulo = self.cleaned_data.get('titulo', '').strip()
+
+        if not visitas and not valoracion and not titulo:
+            self.add_error('visitas', "Debes rellenar al menos un dato: visitas, valoración o titulo.")
+            self.add_error('valoracion', "Debes rellenar al menos un dato: visitas, valoración o titulo.")
+            self.add_error('titulo', "Debes rellenar al menos un dato: visitas, valoración o titulo.")
+
+        
+
+        return self.cleaned_data
+
+    
 
 class BusquedaAvanzadaPerfil(forms.Form):
     fecha_Nacimiento = forms.DateField(
@@ -618,3 +661,7 @@ class RegistroForm(UserCreationForm):
         model = Usuario
         fields = ('nombre', 'email', 'password1', 'password2', 'rol')
     
+#Formulario busqueda simple para la api de Usuario
+
+class BusquedaSimpleUsuario(forms.Form):
+    email = forms.EmailField(label='Correo electrónico', max_length=100, required=True)

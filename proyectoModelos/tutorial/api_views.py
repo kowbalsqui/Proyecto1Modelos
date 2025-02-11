@@ -210,3 +210,19 @@ def comentario_busqueda_avanzada(request):
             return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({"error": "No se recibieron parámetros"}, status=status.HTTP_400_BAD_REQUEST)
+
+#POST de la API
+
+@api_view(['POST'])
+def usuario_create_api(request):
+    serializer = UsuarioCreateSerializers(data= request.data)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response ("Usuario Creado")
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response (error, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else: 
+        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)

@@ -17,4 +17,7 @@ urlpatterns = [
     path('comentario', comentario_list),
     path('comentario_simple', comentario_list_simple),
     path('comentario/busqueda_avanzada_comentario', comentario_busqueda_avanzada),
+    path('usuario/crear_usuario_api',usuario_create_api),
+    path('usuario/<int:usuario_id>',usuario_obtener),
+    path('usuario/editar/<int:usuario_id>',usuario_editar_api),
 ]

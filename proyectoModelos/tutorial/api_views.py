@@ -226,3 +226,27 @@ def usuario_create_api(request):
             return Response (error, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
     else: 
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
+#PUT de la API
+
+@api_view(['GET'])
+def usuario_obtener(request,usuario_id):
+    usuario = Usuario.objects
+    usuario = usuario.get(id=usuario_id)
+    serializer = UsuarioSerializersObtener(usuario)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def usuario_editar_api(request, usuario_id):
+    usuario = Usuario.objects.filter(id = usuario_id).first()
+    serializer = UsuarioCreateSerializers(data= request.data, instance= usuario)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Usuario editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)

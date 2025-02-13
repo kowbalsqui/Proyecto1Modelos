@@ -76,9 +76,14 @@ class ComentarioSerializersSimple(serializers.ModelSerializer):
         model = Comentario
         fields = ('contenido', 'fecha', 'visible', 'puntuacion')
 
+class UsuarioSerializersObtener(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ('nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo')
+
 class UsuarioCreateSerializers(serializers.ModelSerializer):
     class Meta:
-        model: Usuario
+        model = Usuario
         fields= ('nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo')
     
     def validate_nombre (self, nombre):

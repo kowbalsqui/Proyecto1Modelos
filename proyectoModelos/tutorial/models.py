@@ -149,7 +149,8 @@ class Curso(models.Model):
     horas = models.IntegerField(null = False, blank= False)
     precio = models.DecimalField(max_digits=5, decimal_places=2)
     usuario = models.ManyToManyField(Usuario, related_name="usuarios_del_curso")
-    tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="Tutoriales_cursos")
+    tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="Tutoriales_cursos",
+                                 null=True, blank=True )
     
     def __str__(self):
         return f"{self.nombre}"

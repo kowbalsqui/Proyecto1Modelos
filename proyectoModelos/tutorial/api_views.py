@@ -342,6 +342,31 @@ def etiqueta_editar_api(request, etiqueta_id):
             return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def curso_obtener(request, curso_id):
+    curso = Curso.objects.prefetch_related('usuario').filter(id=curso_id).first()
+    
+    if not curso:
+        return Response({'error': 'Curso no encontrada'}, status=404)
+
+    serializer = CursoSerializersObtener(curso)
+    return Response(serializer.data)
+    
+@api_view(['PUT'])
+def cursos_editar_api(request, curso_id):
+    curso = Curso.objects.filter(id = curso_id).first()
+    serializer = CursosCreateSerializer(data= request.data, instance= curso)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Curso editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
 #PATCH de la API
 
@@ -390,6 +415,21 @@ def etiqueta_editar_nombre(request, etiqueta_id):
     else:
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
+@api_view(['PATCH'])
+def cursos_editar_nombre(request, curso_id):
+    curso = Curso.objects.filter(id = curso_id).first()
+    serializer= EtiquetaSerializerActualizaNombre(data = request.data, instance= curso)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Curso editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    
 #DELETE de la API
 
 @api_view(['DELETE'])
@@ -418,3 +458,12 @@ def etiqueta_eliminar_api (request, etiqueta_id):
         return Response('Etiqueta eliminado')
     else:
         return Response('Etiqueta no encontrado', status = status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['DELETE'])
+def curso_eliminar_api (request, curso_id):
+    curso= Curso.objects.filter (id = curso_id).first()
+    if curso:
+        curso.delete()
+        return Response('Curso eliminado')
+    else:
+        return Response('Curso no encontrado', status = status.HTTP_400_BAD_REQUEST)

@@ -26,6 +26,7 @@ urlpatterns = [
     path('usuario/<int:usuario_id>',usuario_obtener),
     path('tutorial/<int:tutorial_id>',tutorial_obtener),
     path('etiqueta/<int:etiqueta_id>', etiqueta_obtener), 
+    path('curso/<int:curso_id>', curso_obtener),
     #editar modelo api
     path('usuario/editar/<int:usuario_id>',usuario_editar_api),
     path('usuario/actualizar/nombre/<int:usuario_id>',usuario_editar_nombre),
@@ -33,8 +34,11 @@ urlpatterns = [
     path('tutorial/actualizar/titulo/<int:tutorial_id>', tutorial_editar_titulo),
     path('etiqueta/editar/<int:etiqueta_id>',etiqueta_editar_api),
     path('etiqueta/actualizar/nombre/<int:etiqueta_id>', etiqueta_editar_nombre),
+    path('curso/editar/<int:curso_id>',cursos_editar_api),
+    path('curso/actualizar/nombre/<int:curso_id>', cursos_editar_nombre),
     #eliminar modelo api
     path('usuario/eliminar/<int:usuario_id>',usuario_eliminar_api),
     path('tutorial/eliminar/<int:tutorial_id>', tutorial_eliminar_api),
     path('etiqueta/eliminar/<int:etiqueta_id>', etiqueta_eliminar_api),
+    path('curso/eliminar/<int:curso_id>', curso_eliminar_api),
 ]

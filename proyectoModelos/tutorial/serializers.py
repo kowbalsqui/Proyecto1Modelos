@@ -239,6 +239,69 @@ class EtiquetaCreateSerializers(serializers.ModelSerializer):
 
         return instance
 
+class CursosCreateSerializer (serializers.ModelSerializer):
+    usuario = UsuarioSerializer(many=True)  # ⬅️ Asegura que se serialicen los usuarios
+    
+    class Meta:
+        model = Curso
+        fields = ('nombre', 'descripcion', 'horas', 'precio', 'usuario')
+        
+        def validate_nombre(self, nombre):
+            if len(nombre) < 3:
+                raise serializers.ValidationError('El nombre debe tener al menos 3 caracteres')
+            return nombre
+
+        def validate_descripcion(self, descripcion):
+            if len(descripcion) > 200:
+                raise serializers.ValidationError('La descripción no puede tener más de 200 caracteres')
+            return descripcion
+
+        def validate_horas(self, horas):
+            if horas <= 0:
+                raise serializers.ValidationError('Las horas deben ser un número positivo')
+            return horas
+
+        def validate_precio(self, precio):
+            if precio < 0:
+                raise serializers.ValidationError('El precio no puede ser negativo')
+            return precio
+        
+        
+        def create(self, validated_data):
+            usuarios = self.initial_data.get('usuarios', [])
+
+            if not usuarios:  # Verifica que al menos hay un usuario
+                raise serializers.ValidationError({'usuario': ['Debe seleccionar al menos un usuario']})
+
+            curso = Curso.objects.create(
+                nombre=validated_data["nombre"],
+                descripcion=validated_data["descripcion"],
+                horas=validated_data["horas"],
+                precio=validated_data["precio"],
+            )
+
+            # 🔹 Asigna tutoriales a la etiqueta correctamente
+            curso.usuario.set(usuarios)
+
+            return curso
+    
+    def update(self, instance, validated_data):
+        usuarios = self.initial_data.get('usuarios', [])
+
+        if not usuarios:
+            raise serializers.ValidationError({'usuario': ['Debe seleccionar al menos un usuario']})
+
+        instance.nombre = validated_data["nombre"]
+        instance.descripcion = validated_data["descripcion"]
+        instance.horas = validated_data["horas"]
+        instance.precio = validated_data["precio"]
+        instance.save()
+
+        # 🔹 Limpia y asigna tutoriales correctamente
+        instance.usuario.set(usuarios)
+
+        return instance
+
 
 
 #Serializer editar modelo

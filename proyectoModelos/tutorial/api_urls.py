@@ -21,6 +21,7 @@ urlpatterns = [
     path('usuario/crear_usuario_api',usuario_create_api),
     path('tutorial/crear_tutorial_api', tutorial_create_api),
     path('etiqueta/crear_etiqueta_api', etiqueta_create_api),
+    path('curso/crear_cursos_api', cursos_create_api),
     #obtener modelo api
     path('usuario/<int:usuario_id>',usuario_obtener),
     path('tutorial/<int:tutorial_id>',tutorial_obtener),

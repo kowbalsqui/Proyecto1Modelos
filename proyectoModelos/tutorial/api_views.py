@@ -30,7 +30,7 @@ def usuario_list(request):
 
 @api_view (['GET'])
 def cursos_list(request):
-    cursos = Curso.objects.all()
+    cursos = Curso.objects.all().prefetch_related('usuario')
     serializers = CursosSerializer(cursos, many = True)
     return Response(serializers.data)
 
@@ -240,8 +240,6 @@ def tutorial_create_api(request):
             return Response (error, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
     else: 
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
-    
-from rest_framework import serializers  # 🔹 Importar serializers
 
 @api_view(['POST'])
 def etiqueta_create_api(request):
@@ -251,6 +249,21 @@ def etiqueta_create_api(request):
         try:
             serializer.save()
             return Response({"message": "Etiqueta creada correctamente"}, status=status.HTTP_201_CREATED)
+        except serializers.ValidationError as error:  # ✅ Corrección
+            return Response({"error": error.detail}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response({"error": repr(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else: 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+def cursos_create_api(request):
+    serializer = CursosCreateSerializer(data=request.data)
+
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response({"message": "Curso creado correctamente"}, status=status.HTTP_201_CREATED)
         except serializers.ValidationError as error:  # ✅ Corrección
             return Response({"error": error.detail}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as error:

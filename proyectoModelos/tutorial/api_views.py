@@ -210,3 +210,198 @@ def comentario_busqueda_avanzada(request):
             return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({"error": "No se recibieron parámetros"}, status=status.HTTP_400_BAD_REQUEST)
+
+#POST de la API
+
+@api_view(['POST'])
+def usuario_create_api(request):
+    serializer = UsuarioCreateSerializers(data= request.data)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response ("Usuario Creado")
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response (error, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else: 
+        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+def tutorial_create_api(request):
+    serializer = TutorialCreateSerializers(data= request.data)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response ("Tutorial Creado")
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response (error, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else: 
+        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    
+from rest_framework import serializers  # 🔹 Importar serializers
+
+@api_view(['POST'])
+def etiqueta_create_api(request):
+    serializer = EtiquetaCreateSerializers(data=request.data)
+
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response({"message": "Etiqueta creada correctamente"}, status=status.HTTP_201_CREATED)
+        except serializers.ValidationError as error:  # ✅ Corrección
+            return Response({"error": error.detail}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response({"error": repr(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else: 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#PUT de la API
+
+@api_view(['GET'])
+def usuario_obtener(request,usuario_id):
+    usuario = Usuario.objects
+    usuario = usuario.get(id=usuario_id)
+    serializer = UsuarioSerializersObtener(usuario)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def usuario_editar_api(request, usuario_id):
+    usuario = Usuario.objects.filter(id = usuario_id).first()
+    serializer = UsuarioCreateSerializers(data= request.data, instance= usuario)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Usuario editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])
+def tutorial_obtener(request,tutorial_id):
+    tutorial = Tutorial.objects
+    tutorial = tutorial.get(id=tutorial_id)
+    serializer = TutorialSerializersObtener(tutorial)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def tutorial_editar_api(request, tutorial_id):
+    tutorial = Tutorial.objects.filter(id = tutorial_id).first()
+    serializer = TutorialCreateSerializers(data= request.data, instance= tutorial)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Usuario editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def etiqueta_obtener(request, etiqueta_id):
+    etiqueta = Etiqueta.objects.prefetch_related('tutorial').filter(id=etiqueta_id).first()
+    
+    if not etiqueta:
+        return Response({'error': 'Etiqueta no encontrada'}, status=404)
+
+    serializer = EtiquetaSerializersObtener(etiqueta)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def etiqueta_editar_api(request, etiqueta_id):
+    etiqueta = Etiqueta.objects.filter(id = etiqueta_id).first()
+    serializer = EtiquetaCreateSerializers(data= request.data, instance= etiqueta)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Etiqueta editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    
+#PATCH de la API
+
+@api_view(['PATCH'])
+def usuario_editar_nombre(request, usuario_id):
+    usuario = Usuario.objects.filter(id = usuario_id).first()
+    serializer = UsuarioSerializerActualizaNombre(data= request.data, instance= usuario)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Usuario editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
+def tutorial_editar_titulo(request, tutorial_id):
+    tutorial = Tutorial.objects.filter(id = tutorial_id).first()
+    serializer= TutorialSerializerActualizaTitulo(data = request.data, instance= tutorial)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Tutorial editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
+def etiqueta_editar_nombre(request, etiqueta_id):
+    etiqueta = Etiqueta.objects.filter(id = etiqueta_id).first()
+    serializer= EtiquetaSerializerActualizaNombre(data = request.data, instance= etiqueta)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response('Tutorial editado')
+        except serializer.ValidationError as error:
+            return Response(error.detail, status = status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    
+#DELETE de la API
+
+@api_view(['DELETE'])
+def usuario_eliminar_api (request, usuario_id):
+    usuario = Usuario.objects.filter (id = usuario_id).first()
+    if usuario:
+        usuario.delete()
+        return Response('Usuario eliminado')
+    else:
+        return Response('Usuario no encontrado', status = status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['DELETE'])
+def tutorial_eliminar_api (request, tutorial_id):
+    tutorial= Tutorial.objects.filter (id = tutorial_id).first()
+    if tutorial:
+        tutorial.delete()
+        return Response('Tutorial eliminado')
+    else:
+        return Response('Tutorial no encontrado', status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def etiqueta_eliminar_api (request, etiqueta_id):
+    etiqueta= Etiqueta.objects.filter (id = etiqueta_id).first()
+    if etiqueta:
+        etiqueta.delete()
+        return Response('Etiqueta eliminado')
+    else:
+        return Response('Etiqueta no encontrado', status = status.HTTP_400_BAD_REQUEST)

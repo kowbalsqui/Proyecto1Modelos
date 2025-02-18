@@ -17,4 +17,23 @@ urlpatterns = [
     path('comentario', comentario_list),
     path('comentario_simple', comentario_list_simple),
     path('comentario/busqueda_avanzada_comentario', comentario_busqueda_avanzada),
+    #crear modelo api
+    path('usuario/crear_usuario_api',usuario_create_api),
+    path('tutorial/crear_tutorial_api', tutorial_create_api),
+    path('etiqueta/crear_etiqueta_api', etiqueta_create_api),
+    #obtener modelo api
+    path('usuario/<int:usuario_id>',usuario_obtener),
+    path('tutorial/<int:tutorial_id>',tutorial_obtener),
+    path('etiqueta/<int:etiqueta_id>', etiqueta_obtener), 
+    #editar modelo api
+    path('usuario/editar/<int:usuario_id>',usuario_editar_api),
+    path('usuario/actualizar/nombre/<int:usuario_id>',usuario_editar_nombre),
+    path('tutorial/editar/<int:tutorial_id>',tutorial_editar_api),
+    path('tutorial/actualizar/titulo/<int:tutorial_id>', tutorial_editar_titulo),
+    path('etiqueta/editar/<int:etiqueta_id>',etiqueta_editar_api),
+    path('etiqueta/actualizar/nombre/<int:etiqueta_id>', etiqueta_editar_nombre),
+    #eliminar modelo api
+    path('usuario/eliminar/<int:usuario_id>',usuario_eliminar_api),
+    path('tutorial/eliminar/<int:tutorial_id>', tutorial_eliminar_api),
+    path('etiqueta/eliminar/<int:etiqueta_id>', etiqueta_eliminar_api),
 ]

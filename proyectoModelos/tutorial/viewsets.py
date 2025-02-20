@@ -8,3 +8,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     """
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+
+    def create(self, request, *args, **kwargs):
+        if 'password' in request.data:  # 🔹 Verifica si 'password' está en la solicitud
+            request.data.pop('password')  # 🔹 Lo elimina si está presente
+        return super().create(request, *args, **kwargs)

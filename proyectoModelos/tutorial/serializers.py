@@ -7,7 +7,7 @@ from .forms import *
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = '__all__'
+        fields = ('id', 'nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo')
 
 #clase Tutorial serializers
 
@@ -339,4 +339,5 @@ class CursoSerializerActualizaNombre(serializers.ModelSerializer):
             else:
                 raise serializers.ValidationError('Ya existe un Curso con ese titulo')
         return nombre
-    
+
+#

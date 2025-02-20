@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from .forms import *
 from django.db.models import Q,Prefetch
 from rest_framework import status
+from rest_framework import viewsets
 
 #Lista de tutoriales api
 
@@ -467,3 +468,4 @@ def curso_eliminar_api (request, curso_id):
         return Response('Curso eliminado')
     else:
         return Response('Curso no encontrado', status = status.HTTP_400_BAD_REQUEST)
+    

@@ -1,8 +1,16 @@
-from django.urls import path
+from django.urls import path, include
 from .api_views import *
-from .viewset import UsuarioViewSet
+from rest_framework.routers import DefaultRouter
+from tutorial.viewsets import UsuarioViewSet  # ✅ IMPORTACIÓN CORRECTA
+
+
+router = DefaultRouter()
+router.register(r'usuarios', UsuarioViewSet, basename="usuario")
 
 urlpatterns = [
+    #VIEWSETS
+    path('api/v1/', include(router.urls)),
+    #URLS GENERALES
     path('tutorial', tutorial_list),
     path('tutorial_simple', tutorial_list_simple),
     path('usuario', usuario_list),

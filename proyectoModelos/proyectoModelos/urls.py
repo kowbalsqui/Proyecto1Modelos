@@ -18,12 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+from .viewsets import UsuarioViewSet
 
 #añadir este import
 #from rest_framework_simplejwt.views import (
 #    TokenObtainPairView,
 #    TokenRefreshView,
 #)
+
+router = DefaultRouter()
+router.register(r'usuarios', UsuarioViewSet)  # ⬅️ Registra el ViewSet en la API
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +38,8 @@ urlpatterns = [
     path('oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     #path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     #path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/', include(router.urls)),  # ⬅️ Incluye todas las rutas generadas automáticamente
+    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

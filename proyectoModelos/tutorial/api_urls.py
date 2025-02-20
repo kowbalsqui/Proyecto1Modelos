@@ -1,5 +1,6 @@
 from django.urls import path
 from .api_views import *
+from .viewset import UsuarioViewSet
 
 urlpatterns = [
     path('tutorial', tutorial_list),

@@ -2,14 +2,17 @@ from rest_framework import viewsets
 from .models import Usuario
 from .serializers import UsuarioSerializer
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 class UsuarioViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet para manejar usuarios con CRUD completo.
-    """
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+    permission_classes = [IsAuthenticated]
 
-    def create(self, request, *args, **kwargs):
-        if 'password' in request.data:  # 🔹 Verifica si 'password' está en la solicitud
-            request.data.pop('password')  # 🔹 Lo elimina si está presente
-        return super().create(request, *args, **kwargs)
+    @action(detail=False, methods=['get'])
+    def me(self, request):
+        """ Devuelve los datos del usuario autenticado """
+        return Response(UsuarioSerializer(request.user, context={'request': request}).data)
+

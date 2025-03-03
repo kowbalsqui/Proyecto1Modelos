@@ -1,15 +1,25 @@
 from .models import *
 from .serializers import *
+from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .forms import *
 from django.db.models import Q,Prefetch
 from rest_framework import status
 from rest_framework import viewsets
+from django.core.exceptions import PermissionDenied
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
+from django.core.exceptions import PermissionDenied
+from rest_framework.permissions import AllowAny
+from oauth2_provider.models import AccessToken 
+from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 
 #Lista de tutoriales api
 
 @api_view (['GET'])
+
 def tutorial_list(request):
     tutorial = Tutorial.objects.all()
     serializer = TutorialSerializer(tutorial, many= True)
@@ -43,36 +53,48 @@ def comentario_list(request):
 
 @api_view (['GET'])
 def comentario_list_simple(request):
+    if not request.user.has_perm("tutorial.view_comentario"):
+        raise PermissionDenied("❌ No tienes permiso para editar usuarios.")
     comentario = Comentario.objects.all()
     serializers = ComentarioSerializers(comentario, many = True)
     return Response(serializers.data)
 
 @api_view (['GET'])
 def perfil_list(request):
+    if not request.user.has_perm("tutorial.view_perfil"):
+        raise PermissionDenied("❌ No tienes permiso para editar usuarios.")
     perfil = Perfil.objects.all()
     serializers = PerfilSerializers(perfil, many = True)
     return Response(serializers.data)
 
 @api_view (['GET'])
 def perfil_list_simple(request):
+    if not request.user.has_perm("tutorial.view_perfil"):
+        raise PermissionDenied("❌ No tienes permiso para editar usuarios.")
     perfil = Perfil.objects.all()
     serializers = PerfilSerializersSimple(perfil, many = True)
     return Response(serializers.data)
 
 @api_view (['GET'])
 def categoria_list(request):
+    if not request.user.has_perm("tutorial.view_categroia"):
+        raise PermissionDenied("❌ No tienes permiso para editar usuarios.")
     categoria = Categoria.objects.all()
     serializers = CategoriaSerializer(categoria, many = True)
     return Response(serializers.data)
 
 @api_view (['GET'])
 def etiqueta_list(request):
+    if not request.user.has_perm("tutorial.view_etiqueta"):
+        raise PermissionDenied("❌ No tienes permiso para editar usuarios.")
     etiqueta = Etiqueta.objects.all()
     serializers = EtiquetaSerializer(etiqueta, many = True)
     return Response(serializers.data)
 
 @api_view(['GET'])
 def usuario_busqueda_simple(request):
+    if not request.user.has_perm("tutorial.view_usuario"):
+        raise PermissionDenied("❌ No tienes permiso para editar usuarios.")
     print("hello")
     form = BusquedaSimpleUsuario(request.query_params)
     if form.is_valid():
@@ -82,9 +104,25 @@ def usuario_busqueda_simple(request):
         return Response(serializer.data)
     else:
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])
+def listar_tutoriales_usuario(request):
+    # Usa el filtro basado en la relación ForeignKey
+    tutoriales = Tutorial.objects.filter(usuario=request.user)
+    serializer = TutorialSerializer(tutoriales, many=True)
+    return Response(serializer.data)
+    
+@api_view(['GET'])
+def obtenDatosUsuario (request):
+    serializer = UsuarioSerializer(request.user)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def usuario_busqueda_avanzada(request):
+    if not request.user.has_perm("tutorial.view_usuario"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
+
     print("Datos recibidos en query_params:", request.query_params)  # Depuración
     
     if len(request.query_params) > 0:
@@ -118,6 +156,10 @@ def usuario_busqueda_avanzada(request):
     
 @api_view(['GET'])
 def tutorial_busqueda_avanzado(request):
+
+    if not request.user.has_perm("tutorial.view_tutorial"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     print("Datos recibidos en query_params:", request.query_params)  # Depuración
     
     if len(request.query_params) > 0:
@@ -150,6 +192,10 @@ def tutorial_busqueda_avanzado(request):
 
 @api_view(['GET'])
 def perfil_busqueda_avanzada(request):
+
+    if not request.user.has_perm("tutorial.view_perfil"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     print("Datos recibidos en query_params:", request.query_params)  # Depuración
     
     if len(request.query_params) > 0:
@@ -182,6 +228,10 @@ def perfil_busqueda_avanzada(request):
 
 @api_view(['GET'])
 def comentario_busqueda_avanzada(request):
+
+    if not request.user.has_perm("tutorial.view_comentario"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     print("Datos recibidos en query_params:", request.query_params)  # Depuración
     
     if len(request.query_params) > 0:
@@ -216,6 +266,10 @@ def comentario_busqueda_avanzada(request):
 
 @api_view(['POST'])
 def usuario_create_api(request):
+
+    if not request.user.has_perm("tutorial.add_usuario"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     serializer = UsuarioCreateSerializers(data= request.data)
     if serializer.is_valid():
         try:
@@ -230,6 +284,10 @@ def usuario_create_api(request):
     
 @api_view(['POST'])
 def tutorial_create_api(request):
+
+    if not request.user.has_perm("tutorial.add_tutorial"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     serializer = TutorialCreateSerializers(data= request.data)
     if serializer.is_valid():
         try:
@@ -244,6 +302,10 @@ def tutorial_create_api(request):
 
 @api_view(['POST'])
 def etiqueta_create_api(request):
+
+    if not request.user.has_perm("tutorial.add_etiqueta"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     serializer = EtiquetaCreateSerializers(data=request.data)
 
     if serializer.is_valid():
@@ -259,6 +321,10 @@ def etiqueta_create_api(request):
     
 @api_view(['POST'])
 def cursos_create_api(request):
+
+    if not request.user.has_perm("tutorial.add_curso"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     serializer = CursosCreateSerializer(data=request.data)
 
     if serializer.is_valid():
@@ -271,6 +337,58 @@ def cursos_create_api(request):
             return Response({"error": repr(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else: 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def crear_tutorial_api(request):
+    # Copiamos los datos que vienen en request.data
+    data = request.data.copy()
+    # Removemos "usuario" si el cliente lo mandó, para forzar que se use request.user
+    if 'usuario' in data:
+        data.pop('usuario')
+
+    serializer = TutorialSerializerAPI(data=data, context={'user': request.user})
+    if serializer.is_valid():
+        try:
+            # Guardamos el tutorial asignando el usuario autenticado
+            serializer = TutorialSerializerAPI(data=data, context={'user': request.user})
+            if serializer.is_valid():
+                tutorial = serializer.save()
+                return Response(
+                    {"message": "Tutorial creado", "id": tutorial.id},
+                    status=status.HTTP_201_CREATED
+                )
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def crear_curso_api(request):
+    data = request.data.copy()
+    data.pop('usuario', None)
+
+    serializer = CursosSerializerApi(data=data, context={'user': request.user})
+    if serializer.is_valid():
+        try:
+            curso = serializer.save()
+            return Response(
+                {"message": "Curso creado correctamente", "id": curso.id},
+                status=status.HTTP_201_CREATED
+            )
+        except Exception as e:
+            # Si aquí no hay return, se produce el None
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        # Si no hay return aquí, la vista no retorna nada
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
 
 #PUT de la API
 
@@ -283,6 +401,10 @@ def usuario_obtener(request,usuario_id):
 
 @api_view(['PUT'])
 def usuario_editar_api(request, usuario_id):
+
+    if not request.user.has_perm("tutorial.change_usuario"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     usuario = Usuario.objects.filter(id = usuario_id).first()
     serializer = UsuarioCreateSerializers(data= request.data, instance= usuario)
     if serializer.is_valid():
@@ -305,6 +427,14 @@ def tutorial_obtener(request,tutorial_id):
 
 @api_view(['PUT'])
 def tutorial_editar_api(request, tutorial_id):
+
+    request.user.refresh_from_db()
+    print("Permisos del usuario:", request.user.get_all_permissions())
+
+
+    if not request.user.has_perm("tutorial.change_tutorial"):
+        return Response({"error": "No tienes permisos para ver los Tutoriales."}, status=status.HTTP_403_FORBIDDEN)
+
     tutorial = Tutorial.objects.filter(id = tutorial_id).first()
     serializer = TutorialCreateSerializers(data= request.data, instance= tutorial)
     if serializer.is_valid():
@@ -331,6 +461,10 @@ def etiqueta_obtener(request, etiqueta_id):
 
 @api_view(['PUT'])
 def etiqueta_editar_api(request, etiqueta_id):
+
+    if not request.user.has_perm("tutorial.change_etiqueta"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     etiqueta = Etiqueta.objects.filter(id = etiqueta_id).first()
     serializer = EtiquetaCreateSerializers(data= request.data, instance= etiqueta)
     if serializer.is_valid():
@@ -356,6 +490,10 @@ def curso_obtener(request, curso_id):
     
 @api_view(['PUT'])
 def cursos_editar_api(request, curso_id):
+
+    if not request.user.has_perm("tutorial.change_curso"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     curso = Curso.objects.filter(id = curso_id).first()
     serializer = CursosCreateSerializer(data= request.data, instance= curso)
     if serializer.is_valid():
@@ -373,6 +511,10 @@ def cursos_editar_api(request, curso_id):
 
 @api_view(['PATCH'])
 def usuario_editar_nombre(request, usuario_id):
+
+    if not request.user.has_perm("tutorial.change_usuario"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     usuario = Usuario.objects.filter(id = usuario_id).first()
     serializer = UsuarioSerializerActualizaNombre(data= request.data, instance= usuario)
     if serializer.is_valid():
@@ -388,6 +530,10 @@ def usuario_editar_nombre(request, usuario_id):
 
 @api_view(['PATCH'])
 def tutorial_editar_titulo(request, tutorial_id):
+
+    if not request.user.has_perm("tutorial.change_tutorial"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     tutorial = Tutorial.objects.filter(id = tutorial_id).first()
     serializer= TutorialSerializerActualizaTitulo(data = request.data, instance= tutorial)
     if serializer.is_valid():
@@ -403,6 +549,10 @@ def tutorial_editar_titulo(request, tutorial_id):
 
 @api_view(['PATCH'])
 def etiqueta_editar_nombre(request, etiqueta_id):
+
+    if not request.user.has_perm("tutorial.change_etiqueta"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     etiqueta = Etiqueta.objects.filter(id = etiqueta_id).first()
     serializer= EtiquetaSerializerActualizaNombre(data = request.data, instance= etiqueta)
     if serializer.is_valid():
@@ -418,6 +568,10 @@ def etiqueta_editar_nombre(request, etiqueta_id):
     
 @api_view(['PATCH'])
 def cursos_editar_nombre(request, curso_id):
+
+    if not request.user.has_perm("tutorial.change_curso"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     curso = Curso.objects.filter(id = curso_id).first()
     serializer= EtiquetaSerializerActualizaNombre(data = request.data, instance= curso)
     if serializer.is_valid():
@@ -435,6 +589,10 @@ def cursos_editar_nombre(request, curso_id):
 
 @api_view(['DELETE'])
 def usuario_eliminar_api (request, usuario_id):
+
+    if not request.user.has_perm("tutorial.delete_usuario"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     usuario = Usuario.objects.filter (id = usuario_id).first()
     if usuario:
         usuario.delete()
@@ -444,6 +602,10 @@ def usuario_eliminar_api (request, usuario_id):
     
 @api_view(['DELETE'])
 def tutorial_eliminar_api (request, tutorial_id):
+
+    if not request.user.has_perm("tutorial.delete_tutorial"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     tutorial= Tutorial.objects.filter (id = tutorial_id).first()
     if tutorial:
         tutorial.delete()
@@ -453,6 +615,10 @@ def tutorial_eliminar_api (request, tutorial_id):
 
 @api_view(['DELETE'])
 def etiqueta_eliminar_api (request, etiqueta_id):
+
+    if not request.user.has_perm("tutorial.delete_etiqueta"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+
     etiqueta= Etiqueta.objects.filter (id = etiqueta_id).first()
     if etiqueta:
         etiqueta.delete()
@@ -462,6 +628,10 @@ def etiqueta_eliminar_api (request, etiqueta_id):
     
 @api_view(['DELETE'])
 def curso_eliminar_api (request, curso_id):
+
+    if not request.user.has_perm("tutorial.delete_usuario"):
+        return Response({"error": "No tienes permisos para ver los Usuarios."}, status=status.HTTP_403_FORBIDDEN)
+        
     curso= Curso.objects.filter (id = curso_id).first()
     if curso:
         curso.delete()
@@ -469,3 +639,59 @@ def curso_eliminar_api (request, curso_id):
     else:
         return Response('Curso no encontrado', status = status.HTTP_400_BAD_REQUEST)
     
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from django.contrib.auth.models import Group
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+
+class registrar_usuario(generics.CreateAPIView):
+    serializer_class = UsuarioSerializerRegistro
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializer = UsuarioSerializerRegistro(data=request.data)
+        if serializer.is_valid():
+            try:
+                # Convertir el rol a entero para que coincida con las constantes del modelo
+                rol_str = request.data.get('rol')
+                rol = int(rol_str) if rol_str else None
+
+                # Crear el usuario usando tu modelo personalizado
+                user = Usuario.objects.create_user(
+                    nombre=request.data.get('nombre'),
+                    email=request.data.get('email'),
+                    password=request.data.get('password1'),  # password1 viene del serializer
+                    rol=rol
+                )
+
+                # Asignar grupo y crear registro en la tabla correspondiente (Profesor o Estudiante)
+                if rol == Usuario.PROFESOR:
+                    grupo = Group.objects.get(name='Profesores')
+                    user.groups.add(grupo)
+                    profesor, creado = Profesor.objects.get_or_create(usuario=user)
+                elif rol == Usuario.ESTUDIANTE:
+                    grupo = Group.objects.get(name='Estudiantes')
+                    user.groups.add(grupo)
+                    estudiante, creado = Estudiante.objects.get_or_create(usuario=user)
+                # Si deseas manejar el rol ADMINISTRADOR, podrías añadir un elif más aquí
+
+                usuarioSerializado = UsuarioSerializer(user)
+                return Response(usuarioSerializado.data, status=status.HTTP_201_CREATED)
+
+            except Exception as error:
+                print(repr(error))
+                return Response(
+                    {"detail": f"Ocurrió un error al crear el usuario: {repr(error)}"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+from oauth2_provider.models import AccessToken     
+@api_view(['GET'])
+def obtener_usuario_token(request,token):
+    ModeloToken = AccessToken.objects.get(token=token)
+    usuario = Usuario.objects.get(id=ModeloToken.user_id)
+    serializer = UsuarioSerializer(usuario)
+    return Response(serializer.data)

@@ -7,7 +7,7 @@ from .forms import *
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ('id', 'nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo')
+        fields = ('id', 'nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo', 'rol')
 
 #clase Tutorial serializers
 
@@ -23,6 +23,21 @@ class TutorialSerializerSimple(serializers.ModelSerializer):
     class Meta:
         model = Tutorial
         fields = ('id', 'titulo', 'contenido', 'fecha_Creacion', 'visitas', 'valoracion')
+    
+
+class TutorialSerializerAPI(serializers.ModelSerializer):
+    class Meta:
+        model = Tutorial
+        fields = ('titulo', 'contenido', 'fecha_Creacion', 'visitas', 'valoracion', 'usuario')
+        extra_kwargs = {
+            'usuario': {'read_only': True},
+        }
+    
+    def create(self, validated_data):
+        # Si por algún motivo quedara 'usuario' en validated_data, lo quitamos
+        validated_data.pop('usuario', None)
+        user = self.context.get('user')
+        return Tutorial.objects.create(usuario=user, **validated_data)
         
 #clase cursos serializers
 
@@ -33,6 +48,20 @@ class CursosSerializer(serializers.ModelSerializer):
         model = Curso
         fields = ('id', 'nombre', 'descripcion', 'horas', 'precio', 'usuario')
 
+class CursosSerializerApi(serializers.ModelSerializer):
+    class Meta:
+        model = Curso
+        fields = ('nombre', 'descripcion', 'horas', 'precio', 'usuario')
+        extra_kwargs = {
+            'usuario': {'read_only': True},
+        }
+
+    def create(self, validated_data):
+        user = self.context.get('user')
+        curso = Curso.objects.create(**validated_data)
+        curso.usuario.add(user)
+        return curso
+
 #clase categoria serializers
 
 class CategoriaSerializer(serializers.ModelSerializer):
@@ -40,7 +69,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
     tutorial = TutorialSerializer()
     class Meta:
         model = Categoria
-        fields = ('nombre', 'es_activa', 'popularidad', 'descripcion', 'tutorial')
+        fields = ('id', 'nombre', 'es_activa', 'popularidad', 'descripcion', 'tutorial')
 
 #clase etiqueta serializers
 
@@ -56,12 +85,12 @@ class PerfilSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Perfil
-        fields = ('bio', 'fecha_Nacimiento', 'redes', 'estudios', 'usuario')
+        fields = ('id', 'bio', 'fecha_Nacimiento', 'redes', 'estudios', 'usuario')
     
 class PerfilSerializersSimple(serializers.ModelSerializer):
     class Meta:
         model = Perfil
-        fields = ('bio', 'fecha_Nacimiento', 'redes', 'estudios')
+        fields = ('id', 'bio', 'fecha_Nacimiento', 'redes', 'estudios')
 
 
 class ComentarioSerializers(serializers.ModelSerializer):
@@ -69,30 +98,30 @@ class ComentarioSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Comentario
-        fields = ('contenido', 'fecha', 'visible', 'puntuacion', 'usuario')
+        fields = ('id', 'contenido', 'fecha', 'visible', 'puntuacion', 'usuario')
 
 class ComentarioSerializersSimple(serializers.ModelSerializer):
     class Meta:
         model = Comentario
-        fields = ('contenido', 'fecha', 'visible', 'puntuacion')
+        fields = ('id','contenido', 'fecha', 'visible', 'puntuacion')
     
 #Serializer obtener modelo
 
 class UsuarioSerializersObtener(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ('nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo')
+        fields = ('id','nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo')
     
 class TutorialSerializersObtener(serializers.ModelSerializer):
     class Meta:
         model = Tutorial
-        fields = ('titulo', 'contenido', 'fecha_Creacion', 'visitas', 'valoracion', 'usuario')
+        fields = ('id','titulo', 'contenido', 'fecha_Creacion', 'visitas', 'valoracion', 'usuario')
     
 class EtiquetaSerializersObtener(serializers.ModelSerializer):
     tutorial = TutorialSerializer(many=True)  # Asegura que traiga varios tutoriales
     class Meta:
         model = Etiqueta
-        fields = ('nombre', 'color', 'publica', 'descripcion', 'tutorial')
+        fields = ('id','nombre', 'color', 'publica', 'descripcion', 'tutorial')
 
 class CursoSerializersObtener(serializers.ModelSerializer):
     usuario = UsuarioSerializer(many=True)  # Asegura que traiga varios tutoriales
@@ -105,7 +134,7 @@ class CursoSerializersObtener(serializers.ModelSerializer):
 class UsuarioCreateSerializers(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields= ('nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo')
+        fields= ('id','nombre', 'email', 'fecha_Registro', 'puntuacion', 'es_activo')
     
     def validate_nombre (self, nombre):
         usuario_nombre = Usuario.objects.filter(nombre= nombre).first()
@@ -340,4 +369,33 @@ class CursoSerializerActualizaNombre(serializers.ModelSerializer):
                 raise serializers.ValidationError('Ya existe un Curso con ese titulo')
         return nombre
 
-#
+class UsuarioSerializerRegistro(serializers.Serializer):
+    nombre = serializers.CharField(max_length=100)
+    email = serializers.EmailField()
+    password1 = serializers.CharField(max_length=100)
+    password2 = serializers.CharField(max_length=100)
+    rol = serializers.IntegerField()
+
+    def validate_email(self, email):
+        usuario = Usuario.objects.filter(email=email).first()
+        if usuario is not None:
+            raise serializers.ValidationError('Ya existe un usuario con ese email')
+        return email
+
+    def validate_password2(self, password2):
+        password1 = self.initial_data.get('password1') 
+        if password1 != password2:
+            raise serializers.ValidationError('Las contraseñas no coinciden')
+        return password2
+
+    def validate_password1(self, password1):
+        if len(password1) < 8:
+            raise serializers.ValidationError('La contraseña debe tener al menos 8 caracteres')
+        return password1
+
+    def validate_nombre(self, nombre):
+        usuario = Usuario.objects.filter(nombre=nombre).first()
+        if usuario is not None:
+            raise serializers.ValidationError('Ya existe un usuario con ese nombre de usuario')
+        return nombre
+

@@ -1,3 +1,8 @@
+COMANDO DOKCER: 
+
+docker run -p 8092:8092 --name mi_api_container carlospereafiguera/mi_api_image:1.0
+
+
 Los usuarios que hay dentro de este proyecto son:
 
 1.- Administrador 

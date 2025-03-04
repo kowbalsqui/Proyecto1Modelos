@@ -1,5 +1,6 @@
 from django.urls import path, include
 from .api_views import *
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
 from tutorial.viewsets import UsuarioViewSet  # ✅ IMPORTACIÓN CORRECTA
 
@@ -50,4 +51,12 @@ urlpatterns = [
     path('tutorial/eliminar/<int:tutorial_id>', tutorial_eliminar_api),
     path('etiqueta/eliminar/<int:etiqueta_id>', etiqueta_eliminar_api),
     path('curso/eliminar/<int:curso_id>', curso_eliminar_api),
-]
+    #Registrar usuario
+    path('usuario/registro', registrar_usuario.as_view()),
+    #GETS
+    path('api/v1/usuarios/me/', obtenDatosUsuario),
+    path('api/v1/tutoriales/', listar_tutoriales_usuario),
+    #POSTS
+    path('tutorial/crear_tutorial_api_user/', crear_tutorial_api, name='crear_tutorial_api_user'),
+    path('curso/crear_cursos_api_user/', crear_curso_api, name='crear_curso_api_user'),
+    ]
